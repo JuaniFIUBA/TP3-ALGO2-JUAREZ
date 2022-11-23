@@ -40,6 +40,9 @@ class Nodo_AB
         
         T obtener_clave(int pos);
 
+        // DESTRUCTOR
+        ~Nodo_AB();
+
     private:
         void dividir_nodo();
 
@@ -58,10 +61,10 @@ Nodo_AB<T, E>::Nodo_AB(int vias, T clave, E dato)
     this -> vias = vias;
     //datos
     this -> claves = new Vector<T>(vias);
-    this -> claves -> en(0) = clave;
-    this -> claves_usadas = 1;
     this -> datos = new Vector<E>(vias);
+    this -> claves -> en(0) = clave;
     this -> datos -> en(0) = dato;
+    this -> claves_usadas = 1;
     //relaciones
     this -> padre = nullptr;
     this -> hijos = new Vector<Nodo_AB<T, E>*>(vias + 1);
@@ -140,6 +143,14 @@ T Nodo_AB<T, E>::obtener_clave(int pos)
 }
 
 
+template <class T, class E>
+Nodo_AB<T, E>::~Nodo_AB()
+{
+    delete claves;
+    delete datos;
+}
+
+
 //-------------PRIVATE----------------
 
 
@@ -155,17 +166,17 @@ void Nodo_AB<T, E>::dividir_nodo()
         Nodo_AB<T, E>* aux_izquierdo = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(0), this -> datos -> en(0));
         aux_izquierdo -> asignar_hijo(this -> hijos -> en(0), 0);
         aux_izquierdo -> asignar_hijo(this -> hijos -> en(1), 1);
-        if(hijos -> en(0) != nullptr)
-        {
-            for(int i = 0; i < vias - 1; i++)
-            {
-                aux_derecho -> obtener_hijo(i) -> asignar_padre(aux_derecho);
-                aux_izquierdo -> obtener_hijo(i) -> asignar_padre(aux_izquierdo);
 
+        if(hijos -> en(0) != nullptr && hijos -> en(1) != nullptr)
+        {
+            for(int i = 0; i < this -> vias - 1; i++)
+            {
+                aux_izquierdo -> obtener_hijo(i) -> asignar_padre(aux_izquierdo);
+                aux_derecho -> obtener_hijo(i) -> asignar_padre(aux_derecho);
             }
         }
-        hijos->en(2) = nullptr;
-        hijos->en(3) = nullptr;
+        hijos -> en(2) = nullptr;
+        hijos -> en(3) = nullptr;
             
         reordenar(claves -> en(1));
         this -> hijos -> en(0) = aux_izquierdo;
@@ -199,7 +210,7 @@ void Nodo_AB<T, E>::dividir_nodo()
 template <class T, class E>
 void Nodo_AB<T, E>::insertar_en_orden(T clave, E dato)
 {
-    for(int i = 0; i < claves_usadas; i++)
+    for(int i = 0; i < this -> claves_usadas; i++)
     {
         if(clave < claves->en(i))
         {
@@ -209,8 +220,8 @@ void Nodo_AB<T, E>::insertar_en_orden(T clave, E dato)
             return;
         }
     }
-    claves -> en(claves_usadas) = clave;
-    datos -> en(claves_usadas) = dato;
+    claves -> en(this -> claves_usadas) = clave;
+    datos -> en(this -> claves_usadas) = dato;
     this -> claves_usadas++;
 }
 
@@ -235,15 +246,14 @@ void Nodo_AB<T, E>::reordenar(T clave)
         claves -> borrar(0);
         datos -> borrar(0);   
     }
-
     while(claves -> en(claves -> tamanio() - 1) != clave)
     {
         claves -> borrar_atras();
         datos -> borrar_atras();
     }
     this -> claves_usadas = 1;
-    claves->redimensionar(vias);
-    datos -> redimensionar(vias);
+    this -> claves -> redimensionar(vias);
+    this -> datos -> redimensionar(vias);
 }
 
 
