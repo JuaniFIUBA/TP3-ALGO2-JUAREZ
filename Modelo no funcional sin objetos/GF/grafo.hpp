@@ -46,13 +46,17 @@ class Grafo
         void eliminar_vertice(int posicion);
 
         //Pre:-
-        //Post 
-        void eliminar_arista(int posicion_uno, int posicion_dos);
+        //Post Elimina las aristas del vertice.
+        void eliminar_arista(Vertice* vertice);
+
+        //Pre:-
+        //Post Elimina las aristas que tienen como destino el vertice especificado.
+        void eliminar_aristas_vertice(int posicion);
 
         //Pre:-
         //Post: Elimina todos los vertices y aristas del Grafo
-};
         void EliminarTodo();
+};
 
 #endif
 

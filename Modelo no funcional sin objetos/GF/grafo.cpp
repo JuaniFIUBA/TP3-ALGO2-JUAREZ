@@ -113,7 +113,106 @@ void Grafo::mostrar_lista_adyacencia()
     }
 }
 
+void Grafo::eliminar_arista(Vertice* vertice)
+{
+    if(vertice != nullptr)
+    {
+        Arista* i = vertice->ady;
+
+        while (vertice->ady != NULL)
+        {
+            i = vertice->ady;
+            vertice->ady = vertice->ady->sig;
+            std::cout<<"La arista ["<<vertice->posicion<<"] ha sido borrada"<<std::endl;
+            delete(i);
+        }
+    }
+}
+
 void Grafo::eliminar_vertice(int posicion)
 {
-    std::cout<<"asdf"<<std::endl;
+    if(raiz->posicion == posicion)
+    {
+        Vertice *auxiliar = raiz;
+        raiz = raiz->sig;
+        eliminar_arista(auxiliar);
+        eliminar_aristas_vertice(auxiliar->posicion);
+        std::cout<<"El vertice ["<<auxiliar->posicion<<"] ha sido borrada"<<std::endl;
+        delete(auxiliar);
+        capacidad--;
+    
+    } else{
+        
+        Vertice* anterior = raiz;
+        Vertice* actual = anterior->sig;
+        bool encontrado = false;
+
+        while (actual != NULL && encontrado == false)
+        {
+            if (actual->posicion == posicion)
+            {
+                eliminar_arista(actual);
+                eliminar_aristas_vertice(actual->posicion);
+                anterior->sig = actual->sig;
+                std::cout<<"El vertice ["<<actual->posicion<<"] ha sido borrada"<<std::endl;
+                capacidad--;
+                encontrado = true;
+            }
+
+            if(encontrado == false){
+                anterior = actual;
+                actual = actual->sig; 
+            }
+        }
+        if (encontrado == true)
+        {
+            std::cout<<"El vertice no fue encontrado"<<std::endl;
+        }
+
+    }
+
+}
+
+void Grafo::eliminar_aristas_vertice(int posicion)
+{
+    Vertice* puntero = raiz;
+
+    while (puntero != nullptr)
+    {
+        if (puntero->posicion == posicion)
+        {
+            continue;
+        }
+
+        if (puntero->sig->posicion == posicion)
+        {
+            Arista* auxiliar = puntero->ady;
+            puntero->ady = puntero->ady->sig;
+            std::cout<<"La arista "<<puntero->posicion<<" "<<auxiliar->dest->posicion<<" fue eliminada "<<std::endl;
+            delete(auxiliar);
+
+        }
+        else{
+
+            Arista* puntero_siguiente = puntero->ady;
+            Arista* siguiente_siguiente = puntero_siguiente->sig;
+
+            while (siguiente_siguiente != nullptr)
+            {
+                if (siguiente_siguiente->dest->posicion == posicion)
+                {
+                    puntero_siguiente->sig = siguiente_siguiente->sig;
+                    std::cout<<"La arista "<<puntero->posicion<<" "<<posicion<<" fue eliminada "<<std::endl;
+                    delete(puntero_siguiente);
+                }
+            }
+
+        }
+
+    }
+}
+
+void Grafo::eliminar_arista(Vertice* vertice)
+{
+    
 }
