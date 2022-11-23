@@ -113,7 +113,7 @@ void Grafo::mostrar_lista_adyacencia()
     }
 }
 
-void Grafo::eliminar_arista(Vertice* vertice)
+void Grafo::eliminar_aristas(Vertice* vertice)
 {
     if(vertice != nullptr)
     {
@@ -135,7 +135,7 @@ void Grafo::eliminar_vertice(int posicion)
     {
         Vertice *auxiliar = raiz;
         raiz = raiz->sig;
-        eliminar_arista(auxiliar);
+        eliminar_aristas(auxiliar);
         eliminar_aristas_vertice(auxiliar->posicion);
         std::cout<<"El vertice ["<<auxiliar->posicion<<"] ha sido borrada"<<std::endl;
         delete(auxiliar);
@@ -151,7 +151,7 @@ void Grafo::eliminar_vertice(int posicion)
         {
             if (actual->posicion == posicion)
             {
-                eliminar_arista(actual);
+                eliminar_aristas(actual);
                 eliminar_aristas_vertice(actual->posicion);
                 anterior->sig = actual->sig;
                 std::cout<<"El vertice ["<<actual->posicion<<"] ha sido borrada"<<std::endl;
@@ -159,12 +159,10 @@ void Grafo::eliminar_vertice(int posicion)
                 encontrado = true;
             }
 
-            if(encontrado == false){
-                anterior = actual;
-                actual = actual->sig; 
-            }
+            anterior = actual;
+            actual = actual->sig; 
         }
-        if (encontrado == true)
+        if (encontrado == false)
         {
             std::cout<<"El vertice no fue encontrado"<<std::endl;
         }
@@ -212,7 +210,66 @@ void Grafo::eliminar_aristas_vertice(int posicion)
     }
 }
 
-void Grafo::eliminar_arista(Vertice* vertice)
+void Grafo::eliminar_arista(int posicion_uno, int posicion_dos)
 {
+    Vertice* vertice_uno = obtener_vertice(posicion_uno);
+    Vertice* vertice_dos = obtener_vertice(posicion_dos);
+
+    if (vertice_uno == nullptr)
+    {
+        std::cout<<"El vertice uno, no existe"<<std::endl;
+    }
     
+    if (vertice_dos == nullptr)
+    {
+        std::cout<<"El vertice dos, no existe"<<std::endl;
+    }
+
+    if(vertice_uno != nullptr && vertice_dos != nullptr)
+    {
+        if(vertice_uno->ady->dest == vertice_dos)
+        {
+            Arista* puntero = vertice_uno->ady;
+            vertice_uno->ady = vertice_uno->ady->sig;
+            std::cout<<"Arista"<<posicion_uno<<" -> "<<posicion_dos<<" "<<std::endl; 
+            delete(puntero);
+        }else{
+
+            Arista* puntero = vertice_uno->ady;
+            Arista* siguiente = puntero->sig;
+            bool encontrado = false;
+
+            while (siguiente != nullptr && encontrado == false)
+            {
+                if (siguiente->dest == vertice_dos){
+                    puntero->sig =siguiente->sig;
+                    std::cout<<"Arista"<<posicion_uno<<" -> "<<posicion_dos<<" "<<std::endl;                     
+                    delete(siguiente);
+                    encontrado == true;
+                }
+
+                puntero = siguiente;
+                siguiente = siguiente->sig;
+
+            }
+        }
+    }    
+}
+
+void Grafo::eliminar_todo()
+{
+    Vertice* puntero = raiz;
+
+    while (puntero != nullptr)
+    {
+
+        puntero = raiz;
+        raiz = raiz->sig;
+        eliminar_aristas(puntero);
+        std::cout<<"Vertice"<<puntero->posicion<<" eliminado"<<std::endl;
+        delete(puntero);
+        capacidad--;
+
+    }
+
 }
