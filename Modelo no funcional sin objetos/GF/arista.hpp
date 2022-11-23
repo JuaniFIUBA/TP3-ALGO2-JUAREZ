@@ -11,8 +11,10 @@ class Arista
         Arista *sig; //Siguiente arista
         Vertice *dest; //Vertice al que muevo
 
+    friend class Grafo;
+
     public:
-        Arista(int costo);
+        Arista(Vertice* destino, int costo); //Esto se puede mejorar, sobrecargando la funcion, logrando instanciar sin paraemtros, y con parametros creando una arista 
 };
 
 #endif

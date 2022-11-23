@@ -1,16 +1,19 @@
 #ifndef GRAFO_HPP
 #define GRAFO_HPP
 
+#include <iostream>
 #include "vertice.hpp"
 #include "arista.hpp"
 
 class Grafo
 {
     private:
-        Vertice *primero; //Arranque del mapa
+        Vertice *raiz; //Arranque del mapa
         int capacidad; //Capacidad del mapa
 
     public:
+        //Pre:-
+        //Post: Construye un grafo
         Grafo();
 
         //Pre:-
@@ -26,7 +29,8 @@ class Grafo
         Vertice* obtener_vertice(int posicion);
 
         //Pre:-
-        //Post: Inserta un vertice al grafo
+        //Post: Inserta un vertice al grafo 
+        //Esto se puede mejorar - Lean
         void insertar_vertice(int posicion);
 
         //Pre:-
@@ -44,6 +48,12 @@ class Grafo
         //Pre:-
         //Post 
         void EliminarArista(int posicion_uno, int posicion_dos);
+
+        //Pre:-
+        //Post: Elimina todos los vertices y aristas del Grafo
 };
+        void EliminarTodo();
 
 #endif
+
+//Cuidado con la linea 85 de cpp

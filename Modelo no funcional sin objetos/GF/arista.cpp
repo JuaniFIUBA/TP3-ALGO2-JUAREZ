@@ -1,6 +1,6 @@
 #include "arista.hpp"
 
-Arista::Arista(int costo)
+Arista::Arista(Vertice* destino, int costo)
 {
     this->costo = costo;
     sig = nullptr;

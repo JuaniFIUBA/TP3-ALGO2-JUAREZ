@@ -15,8 +15,6 @@ class Vertice
 
     public:
         Vertice(int posicion);
-
-
 };
 
 #endif
