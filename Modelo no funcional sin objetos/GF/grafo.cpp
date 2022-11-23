@@ -94,3 +94,26 @@ void Grafo::insertar_arista(int posicion_uno, int posicion_dos, int costo)
 
 }
 
+void Grafo::mostrar_lista_adyacencia()
+{
+    Vertice* i = raiz;
+
+    while (i != nullptr)
+    {
+        Arista* j =i->ady;
+
+        while (j != nullptr)
+        {
+            std::cout<<"["<<i->posicion<<" -> "<<j->costo<<" -> "<<j->dest->posicion<<"]"<<std::endl;
+            j = j->sig;
+        }
+
+        std::cout<<std::endl;
+        i = i->sig;
+    }
+}
+
+void Grafo::eliminar_vertice(int posicion)
+{
+    std::cout<<"asdf"<<std::endl;
+}

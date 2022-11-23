@@ -43,11 +43,11 @@ class Grafo
 
         //Pre:-
         //Post: Elimina el vertice:
-        void EliminarVertice(int);
+        void eliminar_vertice(int posicion);
 
         //Pre:-
         //Post 
-        void EliminarArista(int posicion_uno, int posicion_dos);
+        void eliminar_arista(int posicion_uno, int posicion_dos);
 
         //Pre:-
         //Post: Elimina todos los vertices y aristas del Grafo
