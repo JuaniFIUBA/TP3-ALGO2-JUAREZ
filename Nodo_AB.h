@@ -245,8 +245,6 @@ void Nodo_AB<T, E>::dividir_nodo()
         reordenar(claves -> en(1));
         asignar_hijo(aux_izquierdo, 0);
         asignar_hijo(aux_derecho, 1);
-        // this -> hijos -> en(0) = aux_izquierdo;
-        // this -> hijos -> en(1) = aux_derecho;
     }
 
     else
