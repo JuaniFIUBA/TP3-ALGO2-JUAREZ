@@ -89,10 +89,8 @@ Nodo_AB<T, E>::Nodo_AB(int vias, T clave, E dato)
 }
 
 template <class T, class E>
-void Nodo_AB<T, E>::insertar_clave(T clave, E dato)
-{
+void Nodo_AB<T, E>::insertar_clave(T clave, E dato){
     insertar_en_orden(clave, dato);
-
     if(claves_usadas == vias)
         dividir_nodo();
 }
@@ -201,13 +199,18 @@ int Nodo_AB<T,E>::menor_a(T clave){
         if(claves -> en(i) > clave)
             return i;
     }
-    return claves_usadas - 1;
+    return claves_usadas;
 }
 
 template <class T, class E>
-bool Nodo_AB<T,E>::_es_hoja()
-{
-    return this -> es_hoja;
+bool Nodo_AB<T,E>::_es_hoja(){
+    bool hoja = true;
+    for(int i = 0;i < (vias + 1);i++){
+        if(hijos -> en(i) != nullptr){
+            hoja = false;
+        }
+    }
+    return hoja;
 }
 
 template <class T, class E>
@@ -272,10 +275,25 @@ void Nodo_AB<T, E>::dividir_nodo()
     }
 }
 
-
 template <class T, class E>
-void Nodo_AB<T, E>::insertar_en_orden(T clave, E dato)
-{
+void Nodo_AB<T, E>::insertar_en_orden(T clave, E dato){
+    cout<< "algoo" <<endl;
+    int i = 0;
+    bool posicion_encontrada = false;
+        
+    while((!posicion_encontrada)&&(i < obtener_claves_usadas())){
+        if(claves->en(i) > clave){
+            claves -> insertar(i, clave);
+            datos -> insertar(i, dato);
+            posicion_encontrada = true;
+        }
+        i++;
+    }
+        
+    claves_usadas++;
+    cout<< this->claves_usadas <<endl;
+    
+/*
     for(int i = 0; i < this -> claves_usadas; i++)
     {
         if(clave < claves->en(i))
@@ -286,9 +304,10 @@ void Nodo_AB<T, E>::insertar_en_orden(T clave, E dato)
             return;
         }
     }
-    claves -> en(this -> claves_usadas) = clave;
-    datos -> en(this -> claves_usadas) = dato;
+    
+
     this -> claves_usadas++;
+*/
 }
 
 

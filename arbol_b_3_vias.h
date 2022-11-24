@@ -52,11 +52,17 @@ class AB3
         void agregar(T clave, E dato);
 
         void print_in_order();
+
+        Nodo_AB<T, E>* obtener_raiz();
+
+        void buscar(T clave);
+
     private:
         Nodo_AB<T, E>* agregar(Nodo_AB<T, E>* nodo, T clave, E dato);
 
-        Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
         void print_in_order(Nodo_AB<T, E>* nodo);
+
+        Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
 };  
 
 template <class T, class E>
@@ -66,27 +72,34 @@ AB3<T, E>::AB3(int vias)
     this -> raiz =  nullptr;
 }
 
-
+template <class T, class E>
+Nodo_AB<T, E>* AB3<T,E>::obtener_raiz(){
+    return this->raiz;
+}
 
 template <class T, class E>
 void AB3<T, E>::agregar(T clave, E dato)
 {
     if(raiz == nullptr)
         raiz = new Nodo_AB<T, E>(this -> vias, clave, dato);
-    else
-        buscar(this -> raiz) -> insertar_clave(clave, dato);
+    else{
+        Nodo_AB<T, E>* nodo1 = buscar(this -> raiz, clave);
+        nodo1 ->insertar_clave(clave,dato);
+        cout<<"hosgayhdf"<<endl;
+    }
 }
-
 
 template <class T, class E>
-Nodo_AB<T, E>* Nodo_AB<T,E>::buscar(Nodo_AB<T,E>*nodo, T clave){
-    if(nodo -> _es_hoja())
+Nodo_AB<T, E>* AB3<T,E>::buscar(Nodo_AB<T,E>*nodo, T clave){
+    if((nodo->contiene_clave(clave))){
         return nodo;
-    else    
-        return buscar(nodo -> obtener_hijo(es_menor(clave)), clave);
+    }else if(nodo->_es_hoja()){
+        return nullptr;
+    }
+    else{
+        return buscar(nodo -> obtener_hijo(nodo->menor_a(clave)), clave);
+    }
 }
-
-
 
 // template <class T, class E>
 // Nodo_AB<T, E>* AB3<T, E>::agregar(Nodo_AB<T, E>* nodo, T clave, E dato)

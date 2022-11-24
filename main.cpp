@@ -3,6 +3,7 @@ using namespace std;
 #include "Nodo_AB.h"
 #include "arbol_b_3_vias.h"
 #include "vector.h"
+
 int main(void)
 {
 
@@ -46,11 +47,13 @@ int main(void)
     // nodo1.obtener_hijo(0)->insertar_clave(2, true);
 
     AB3<int, bool>ab(3);
-    ab.agregar(1, true);    
+    ab.agregar(1, true);
+    cout<< "hola" <<endl;
     ab.agregar(2, true);
     ab.agregar(3, true);
     ab.agregar(4, true);
     ab.agregar(5, true);
+    //ab.buscar(ab.obtener_raiz(),3);
 
     return 0;
 }
