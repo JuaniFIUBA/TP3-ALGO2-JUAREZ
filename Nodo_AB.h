@@ -70,6 +70,8 @@ class Nodo_AB
 
         int index_clave(T clave);
 
+        void intercambiar_hijos(Nodo_AB<T,E>*intercambio, int pos1, int pos2);
+
 };
 
 template <class T, class E>
@@ -261,8 +263,11 @@ void Nodo_AB<T, E>::dividir_nodo()
         asignar_hijo(aux_derecho, 1);
     }
 
+
+
     else
     {
+        // mostrar_claves();
         Nodo_AB<T, E>* aux_derecho = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(2), this -> datos -> en(2));
         T clave_aux = this -> claves -> en(1); 
         E dato_aux = this -> datos -> en(1);
@@ -277,8 +282,10 @@ void Nodo_AB<T, E>::dividir_nodo()
 
         else
             padre -> asignar_hijo(aux_derecho, 1);
+        
         reordenar(this -> claves -> en(0));
-    
+        intercambiar_hijos(aux_derecho, 2, 0);
+        intercambiar_hijos(aux_derecho, 3, 1);
         aux_derecho -> asignar_padre(this -> padre);
         this -> padre -> insertar_clave(clave_aux, dato_aux); 
     }
@@ -301,25 +308,6 @@ void Nodo_AB<T, E>::insertar_en_orden(T clave, E dato){
     claves -> en(claves_usadas) = clave;
     datos -> en(claves_usadas) = dato;
     this -> claves_usadas++;
-
-
-    // cout<< "algoo" <<endl;
-    // int i = 0;
-    // bool posicion_encontrada = false;
-        
-    // while((!posicion_encontrada)&&(i < obtener_claves_usadas())){
-    //     if(claves->en(i) > clave){
-    //         claves -> insertar(i, clave);
-    //         datos -> insertar(i, dato);
-    //         posicion_encontrada = true;
-    //     }
-    //     i++;
-    // }
-        
-    // claves_usadas++;
-    // cout<< this->claves_usadas <<endl;
-    
-
 }
 
 
@@ -364,6 +352,14 @@ int Nodo_AB<T,E>::index_clave(T clave)
             return i;
     }
     return -1;
+}
+
+template <class T, class E>
+void Nodo_AB<T,E>::intercambiar_hijos(Nodo_AB<T,E>* intercambio, int pos1, int pos2)
+{
+    Nodo_AB<T,E>* aux = this -> hijos -> en(pos1);
+    this -> hijos -> en(pos1) = intercambio -> obtener_hijo(pos2);
+    intercambio -> asignar_hijo(aux, pos2);
 }
 
 #endif
