@@ -1,7 +1,7 @@
 #ifndef ARBOL_B_3_VIAS
 #define ARBOL_B_3_VIAS  
-#include "AB_Nodo.h"
-#include <vector>       //cambiar luego-----------------------------------------------
+#include "Nodo_AB.h"
+#include "vector.h"  
 #include <iostream>
 using namespace std;
 
@@ -40,20 +40,20 @@ en el caso de llegar al limite del vector, lo divido y subo la mitad al padre, c
 */
 
 
-template <class T>
+template <class T, class E>
 class AB3 
 {
     private:    
         int vias;
-        Nodo_AB<T>* raiz;
+        Nodo_AB<T, E>* raiz;
     public:
         AB3(int vias);
 
-        void agregar(T clave);
+        void agregar(T clave, E dato);
 
         void print_in_order();
     private:
-        Nodo_AB<T>* agregar(Nodo_AB<T>* nodo, T clave);
+        Nodo_AB<T, E>* agregar(Nodo_AB<T>* nodo, T clave, E dato);
 
         void print_in_order(Nodo_AB<T>* nodo);
 };  
@@ -68,61 +68,20 @@ AB3<T>::AB3(int vias)
 
 
 template <class T>
-void AB3<T>::agregar(T clave)
+void AB3<T>::agregar(T clave, E dato)
 {
-    this -> raiz = agregar(this -> raiz, clave);
+    this -> raiz = agregar(this -> raiz, clave, dato);
 }
 
 template <class T>
-Nodo_AB<T>* AB3<T>::agregar(Nodo_AB<T>* nodo, T clave)
+Nodo_AB<T>* AB3<T>::agregar(Nodo_AB<T>* nodo, T clave, E dato)
 {
     if(nodo == nullptr)
-    {
-        nodo = new Nodo_AB<T>(this -> vias, clave);
-        return nodo;
-    }
+        nodo = new Nodo_AB<T>(this -> vias, clave, dato);
 
     else if(nodo -> es_hoja())
         nodo -> insertar_clave(clave);
-    
 
-    // else if(nodo -> obtener_cantidad_hijos() == vias)
-    // {
-    //     cout << "cantidad hijos" <<endl;
-    //     nodo -> insertar_clave(clave);
-    // }
-
-    if(nodo -> obtener_usados() == vias)
-    {
-        T aux_derecha = nodo -> obtener_dato(2);
-        T aux_izquierda = nodo -> obtener_dato(0);
-
-        if(nodo -> obtener_padre() == nullptr)
-        {
-            nodo -> dividir(1);
-            nodo -> asignar_hijo(agregar(nodo -> obtener_hijo(0), aux_izquierda), 0, nodo);
-            nodo -> asignar_hijo(agregar(nodo -> obtener_hijo(1), aux_derecha), 1, nodo);
-        }
-        else
-        { 
-            Nodo_AB<T>* padre = nodo -> obtener_padre();
-            if(nodo -> obtener_dato(1) > padre -> obtener_mayor())
-                padre -> asignar_hijo(agregar(padre-> obtener_hijo(2), nodo -> obtener_dato(2)), 2, padre);
-            else
-            {
-                padre -> asignar_hijo(agregar(padre -> obtener_hijo(2), padre -> obtener_hijo(1) -> obtener_dato(0)), 2, padre); // swapeo 
-                cout << "claves 2" <<endl;
-                padre -> obtener_hijo(2) -> mostrar_claves();
-                delete padre ->obtener_hijo(1);
-                padre -> asignar_hijo(agregar(padre -> obtener_hijo(1), aux_derecha), 1, padre);
-                padre -> obtener_hijo(0) -> dividir(1);
-            }
-            cout << "padres clave: "<< endl;
-            padre -> mostrar_claves();
-            // delete nodo;
-            return padre;
-        } 
-    }
     else if (!(nodo -> es_hoja())) 
         nodo -> asignar_hijo(agregar(nodo ->obtener_hijo(nodo -> es_menor(clave)), clave), nodo -> es_menor(clave), nodo);
     

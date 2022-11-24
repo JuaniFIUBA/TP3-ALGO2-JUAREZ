@@ -24,8 +24,9 @@ int main(void)
     nodo1.obtener_hijo(2)->asignar_padre(&nodo1);
     nodo1.obtener_hijo(2)->insertar_clave(6, true);
     nodo1.obtener_hijo(2)->insertar_clave(7, true);
-    nodo1.obtener_hijo(0)->asignar_padre(&nodo1);
-    nodo1.obtener_hijo(1)->asignar_padre(&nodo1);
+    nodo1.obtener_hijo(1)->mostrar_claves();
+    // nodo1.obtener_hijo(0)->asignar_padre(&nodo1);
+    // nodo1.obtener_hijo(1)->asignar_padre(&nodo1);
     // nodo1.obtener_hijo(1)->obtener_hijo(1)->insertar_clave(8, true);
     // nodo1.obtener_hijo(1)->obtener_hijo(1)->insertar_clave(9, true);
     // nodo1.obtener_hijo(1)->obtener_hijo(2)->mostrar_claves();
