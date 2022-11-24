@@ -53,13 +53,13 @@ class AB3
 
         void print_in_order();
     private:
-        Nodo_AB<T, E>* agregar(Nodo_AB<T>* nodo, T clave, E dato);
+        Nodo_AB<T, E>* agregar(Nodo_AB<T, E>* nodo, T clave, E dato);
 
-        void print_in_order(Nodo_AB<T>* nodo);
+        void print_in_order(Nodo_AB<T, E>* nodo);
 };  
 
-template <class T>
-AB3<T>::AB3(int vias)
+template <class T, class E>
+AB3<T, E>::AB3(int vias)
 {
     this -> vias = vias;
     this -> raiz =  nullptr;
@@ -67,29 +67,33 @@ AB3<T>::AB3(int vias)
 
 
 
-template <class T>
-void AB3<T>::agregar(T clave, E dato)
+template <class T, class E>
+void AB3<T, E>::agregar(T clave, E dato)
 {
     this -> raiz = agregar(this -> raiz, clave, dato);
 }
 
-template <class T>
-Nodo_AB<T>* AB3<T>::agregar(Nodo_AB<T>* nodo, T clave, E dato)
+template <class T, class E>
+Nodo_AB<T, E>* AB3<T, E>::agregar(Nodo_AB<T, E>* nodo, T clave, E dato)
 {
     if(nodo == nullptr)
-        nodo = new Nodo_AB<T>(this -> vias, clave, dato);
+        nodo = new Nodo_AB<T, E>(this -> vias, clave, dato);
 
-    else if(nodo -> es_hoja())
-        nodo -> insertar_clave(clave);
+    else if(nodo -> _es_hoja())
+    {
+        nodo -> insertar_clave(clave, dato);
+        nodo -> asignar_padre_a_hijos(nodo);
+    }
 
-    else if (!(nodo -> es_hoja())) 
-        nodo -> asignar_hijo(agregar(nodo ->obtener_hijo(nodo -> es_menor(clave)), clave), nodo -> es_menor(clave), nodo);
-    
+    else if (!(nodo -> _es_hoja())){
+        nodo -> asignar_hijo(agregar(nodo -> obtener_hijo(nodo -> menor_a(clave)), clave, dato), nodo -> menor_a(clave));
+    }
+    // nodo -> mostrar_claves();
     return nodo;
 }
 
-template <class T>
-void AB3<T>::print_in_order(Nodo_AB<T>* nodo)
+template <class T, class E>
+void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)
 {
     if (nodo != nullptr)
     {
@@ -101,8 +105,8 @@ void AB3<T>::print_in_order(Nodo_AB<T>* nodo)
     }
 }
 
-template <class T>
-void AB3<T>::print_in_order()
+template <class T, class E>
+void AB3<T, E>::print_in_order()
 {
     this->print_in_order(this->raiz);
 }
