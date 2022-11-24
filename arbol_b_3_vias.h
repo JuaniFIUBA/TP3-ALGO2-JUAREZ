@@ -51,11 +51,13 @@ class AB3
 
         void agregar(T clave, E dato);
 
+        Nodo_AB<T, E>* obtener_raiz();
         void print_in_order();
     private:
-        Nodo_AB<T, E>* agregar(Nodo_AB<T, E>* nodo, T clave, E dato);
+        // Nodo_AB<T, E>* agregar(Nodo_AB<T, E>* nodo, T clave, E dato);
 
         Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
+
         void print_in_order(Nodo_AB<T, E>* nodo);
 };  
 
@@ -66,6 +68,13 @@ AB3<T, E>::AB3(int vias)
     this -> raiz =  nullptr;
 }
 
+template <class T, class E>
+Nodo_AB<T, E>* AB3<T, E>::obtener_raiz()
+{
+    return this -> raiz;    
+}
+
+
 
 
 template <class T, class E>
@@ -74,40 +83,19 @@ void AB3<T, E>::agregar(T clave, E dato)
     if(raiz == nullptr)
         raiz = new Nodo_AB<T, E>(this -> vias, clave, dato);
     else
-        buscar(this -> raiz) -> insertar_clave(clave, dato);
+        buscar(this -> raiz, clave) -> insertar_clave(clave, dato);
+
 }
 
 
 template <class T, class E>
-Nodo_AB<T, E>* Nodo_AB<T,E>::buscar(Nodo_AB<T,E>*nodo, T clave){
-    if(nodo -> _es_hoja())
+Nodo_AB<T, E>* AB3<T,E>::buscar(Nodo_AB<T,E>*nodo, T clave){
+    if(nodo -> es_hoja())
         return nodo;
     else    
-        return buscar(nodo -> obtener_hijo(es_menor(clave)), clave);
+        return buscar(nodo -> obtener_hijo(nodo -> menor_a(clave)), clave);
 }
 
-
-
-// template <class T, class E>
-// Nodo_AB<T, E>* AB3<T, E>::agregar(Nodo_AB<T, E>* nodo, T clave, E dato)
-// {
-//     if(nodo == nullptr)
-//         nodo = new Nodo_AB<T, E>(this -> vias, clave, dato);
-
-//     else if(nodo -> _es_hoja())
-//     {
-//         nodo -> insertar_clave(clave, dato);
-//         nodo -> asignar_padre_a_hijos(nodo);
-//     }
-
-//     else if (!(nodo -> _es_hoja())){
-
-//         nodo -> asignar_hijo(agregar(nodo -> obtener_hijo(nodo -> menor_a(clave)), clave, dato), nodo -> menor_a(clave));
-//     }
-//     // cout << "claves "<< endl;
-//     // nodo -> mostrar_claves();
-//     return nodo;
-// }
 
 template <class T, class E>
 void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)
@@ -115,10 +103,9 @@ void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)
     if (nodo != nullptr)
     {
         print_in_order(nodo -> obtener_hijo(0));
-        nodo -> mostrar_claves();
         print_in_order(nodo -> obtener_hijo(1));
-        nodo -> mostrar_claves();
         print_in_order(nodo -> obtener_hijo(2));
+        nodo -> mostrar_claves();
     } 
 }
 

@@ -14,7 +14,7 @@ class Nodo_AB
         Vector<E> *datos;
         Nodo_AB<T, E> *padre;
         Vector<Nodo_AB<T, E>*> *hijos;
-        bool es_hoja;
+        // bool es_hoja;
         bool eliminado;
 
     public:
@@ -52,6 +52,8 @@ class Nodo_AB
         //Devuelve la posicion de la cual la clave pasada es menor
         int menor_a(T clave);
 
+        bool es_hoja();
+
         void eliminar_nodo(T clave);
 
         // DESTRUCTOR
@@ -84,7 +86,7 @@ Nodo_AB<T, E>::Nodo_AB(int vias, T clave, E dato)
     //relaciones
     this -> padre = nullptr;
     this -> hijos = new Vector<Nodo_AB<T, E>*>(vias + 1);
-    this -> es_hoja = true;
+    // this -> es_hoja = true;
     this -> eliminado = false;
 }
 
@@ -116,13 +118,13 @@ template <class T, class E>
 void Nodo_AB<T, E>::asignar_hijo(Nodo_AB<T, E>* hijo, int pos)
 {
     this -> hijos -> en(pos) = hijo; 
-    es_hoja = false;
+    // es_hoja = false;
 }
 
 template <class T, class E>
 void Nodo_AB<T, E>::insertar_hijo_izquierda(Nodo_AB<T, E>* nodo){
     hijos -> insertar(0, nodo);
-    es_hoja = false;
+    // es_hoja = false;
 }
 
 template <class T, class E>
@@ -136,7 +138,7 @@ void Nodo_AB<T, E>::insertar_hijo_derecha(Nodo_AB<T, E>* nodo){
         i--;
 
     this -> hijos -> en(i + 1) = nodo;
-    es_hoja = false;
+    // es_hoja = false;
 }
 
 template <class T, class E>
@@ -201,13 +203,23 @@ int Nodo_AB<T,E>::menor_a(T clave){
         if(claves -> en(i) > clave)
             return i;
     }
-    return claves_usadas - 1;
+    return claves_usadas;
 }
 
+// template <class T, class E>
+// bool Nodo_AB<T,E>::_es_hoja()
+// {
+//     return this -> es_hoja;
+// }
+
 template <class T, class E>
-bool Nodo_AB<T,E>::_es_hoja()
+bool Nodo_AB<T, E>::es_hoja()
 {
-    return this -> es_hoja;
+    for(int i = 0; i < vias; i++){
+        if(hijos -> en(i) != nullptr)   
+            return false;
+    }
+    return true;
 }
 
 template <class T, class E>

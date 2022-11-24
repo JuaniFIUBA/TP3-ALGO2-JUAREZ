@@ -50,8 +50,9 @@ int main(void)
     ab.agregar(2, true);
     ab.agregar(3, true);
     ab.agregar(4, true);
-    ab.agregar(5, true);
-
+    // ab.agregar(5, true);
+    // ab.obtener_raiz()->obtener_hijo(2)->mostrar_claves();
+    // ab.print_in_order();
     return 0;
 }
 
