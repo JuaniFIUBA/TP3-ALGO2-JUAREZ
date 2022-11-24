@@ -53,12 +53,16 @@ class AB3
 
         Nodo_AB<T, E>* obtener_raiz();
         void print_in_order();
+
+
+        void buscar(T clave);
+
     private:
         // Nodo_AB<T, E>* agregar(Nodo_AB<T, E>* nodo, T clave, E dato);
 
-        Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
-
         void print_in_order(Nodo_AB<T, E>* nodo);
+
+        Nodo_AB<T, E>* buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave);
 };  
 
 template <class T, class E>
@@ -74,28 +78,51 @@ Nodo_AB<T, E>* AB3<T, E>::obtener_raiz()
     return this -> raiz;    
 }
 
-
-
-
 template <class T, class E>
 void AB3<T, E>::agregar(T clave, E dato)
 {
     if(raiz == nullptr)
         raiz = new Nodo_AB<T, E>(this -> vias, clave, dato);
-    else
-        buscar(this -> raiz, clave) -> insertar_clave(clave, dato);
-
+    else{
+        Nodo_AB<T, E>* nodo = buscar_para_insertar(this -> raiz, clave);
+        // cout << "nodo a insertar:"<<endl;
+        // nodo1->mostrar_claves();
+        nodo ->insertar_clave(clave, dato);
+        nodo -> asignar_padre_a_hijos(nodo);
+        // if(nodo->obtener_padre() != nullptr)
+            // nodo -> obtener_padre() -> mostrar_claves();
+    }
 }
-
 
 template <class T, class E>
-Nodo_AB<T, E>* AB3<T,E>::buscar(Nodo_AB<T,E>*nodo, T clave){
+Nodo_AB<T, E>* AB3<T,E>::buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave){
     if(nodo -> es_hoja())
         return nodo;
-    else    
-        return buscar(nodo -> obtener_hijo(nodo -> menor_a(clave)), clave);
+
+    else
+        return buscar_para_insertar(nodo -> obtener_hijo(nodo->menor_a(clave)), clave);
 }
 
+// template <class T, class E>
+// Nodo_AB<T, E>* AB3<T, E>::agregar(Nodo_AB<T, E>* nodo, T clave, E dato)
+// {
+//     if(nodo == nullptr)
+//         nodo = new Nodo_AB<T, E>(this -> vias, clave, dato);
+
+//     else if(nodo -> _es_hoja())
+//     {
+//         nodo -> insertar_clave(clave, dato);
+//         nodo -> asignar_padre_a_hijos(nodo);
+//     }
+
+//     else if (!(nodo -> _es_hoja())){
+
+//         nodo -> asignar_hijo(agregar(nodo -> obtener_hijo(nodo -> menor_a(clave)), clave, dato), nodo -> menor_a(clave));
+//     }
+//     // cout << "claves "<< endl;
+//     // nodo -> mostrar_claves();
+//     return nodo;
+// }
 
 template <class T, class E>
 void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)

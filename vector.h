@@ -52,7 +52,7 @@ void Vector<T>::insertar(int pos, T dato){
         j++;
     }
     delete [] datos;
-    datos = nuevo_array; 
+    datos = nuevo_array;
 }
 
 template <class T>

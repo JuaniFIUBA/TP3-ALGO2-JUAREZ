@@ -3,15 +3,10 @@ using namespace std;
 #include "Nodo_AB.h"
 #include "arbol_b_3_vias.h"
 #include "vector.h"
+
 int main(void)
 {
 
-    // Vector<int*> g1(3);
-    // if(g1.en(0) == nullptr)
-        // cout << "asdsa" << endl;
-    // for(int i = 0; i < 3;i++){
-    //     g1.en(i) = i+1;
-    // }
 
 
     // Nodo_AB<int, bool> nodo1(3, 1, true);
@@ -19,16 +14,15 @@ int main(void)
     // nodo1.insertar_clave(3, true);
     // nodo1.obtener_hijo(0)->asignar_padre(&nodo1);
     // nodo1.obtener_hijo(1)->asignar_padre(&nodo1);
-    // // cout << nodo1._es_hoja() << endl;
     // nodo1.obtener_hijo(1)->insertar_clave(4, true);// HACER UN OBTENER HIJO DERECHA, IZQUIERDA.
     // nodo1.obtener_hijo(1)->insertar_clave(5, true);// HACER UN OBTENER HIJO DERECHA, IZQUIERDA.
     // nodo1.obtener_hijo(2)->asignar_padre(&nodo1);
     // nodo1.obtener_hijo(2)->insertar_clave(6, true);
     // nodo1.obtener_hijo(2)->insertar_clave(7, true);
-    // // nodo1.obtener_hijo(1)->obtener_hijo(0)->mostrar_claves();
-    // nodo1.obtener_hijo(1)->mostrar_claves();
-    // nodo1.obtener_hijo(0)->asignar_padre(&nodo1);
     // nodo1.obtener_hijo(1)->asignar_padre(&nodo1);
+    // nodo1.obtener_hijo(0)->asignar_padre(&nodo1);
+    // nodo1.obtener_hijo(1)->obtener_hijo(1)->mostrar_claves();
+    // nodo1.obtener_hijo(1)->mostrar_claves();
     // nodo1.obtener_hijo(1)->obtener_hijo(1)->insertar_clave(8, true);
     // nodo1.obtener_hijo(1)->obtener_hijo(1)->insertar_clave(9, true);
     // nodo1.obtener_hijo(1)->obtener_hijo(2)->mostrar_claves();
@@ -46,12 +40,16 @@ int main(void)
     // nodo1.obtener_hijo(0)->insertar_clave(2, true);
 
     AB3<int, bool>ab(3);
-    ab.agregar(1, true);    
+    ab.agregar(1, true);
     ab.agregar(2, true);
     ab.agregar(3, true);
     ab.agregar(4, true);
-    // ab.agregar(5, true);
-    // ab.obtener_raiz()->obtener_hijo(2)->mostrar_claves();
+    ab.agregar(5, true);
+
+    ab.agregar(6, true);
+    ab.agregar(7, true);
+    ab.obtener_raiz()->obtener_hijo(1)->obtener_hijo(1)->mostrar_claves();
+    // ab.obtener_raiz()->mostrar_claves();
     // ab.print_in_order();
     return 0;
 }
