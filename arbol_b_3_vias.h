@@ -71,7 +71,10 @@ AB3<T, E>::AB3(int vias)
 template <class T, class E>
 void AB3<T, E>::agregar(T clave, E dato)
 {
-    this -> raiz = agregar(this -> raiz, clave, dato);
+    if(raiz == nullptr)
+        raiz = new Nodo_AB<T, E>(this -> vias, clave, dato);
+    else
+        buscar(this -> raiz) -> insertar_clave(clave, dato);
 }
 
 
