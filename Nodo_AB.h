@@ -236,7 +236,6 @@ void Nodo_AB<T, E>::dividir_nodo()
 {
     if(padre == nullptr)
     {
-        // mostrar_claves();
         Nodo_AB<T, E>* aux_derecho = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(2), this -> datos -> en(2));
         aux_derecho -> asignar_hijo(this -> hijos -> en(2), 0);
         aux_derecho -> asignar_hijo(this -> hijos -> en(3), 1);
@@ -249,10 +248,11 @@ void Nodo_AB<T, E>::dividir_nodo()
         {
             for(int i = 0; i < this -> vias - 1; i++)
             {
-                aux_izquierdo -> obtener_hijo(i) -> asignar_padre(aux_izquierdo);
-                aux_derecho -> obtener_hijo(i) -> asignar_padre(aux_derecho);
+                aux_izquierdo-> asignar_padre_a_hijos(aux_derecho);                
+                aux_derecho -> asignar_padre_a_hijos(aux_derecho);                
             }
         }
+        // mostrar_claves();
         hijos -> en(2) = nullptr;
         hijos -> en(3) = nullptr;
             
@@ -277,12 +277,10 @@ void Nodo_AB<T, E>::dividir_nodo()
 
         else
             padre -> asignar_hijo(aux_derecho, 1);
-
         reordenar(this -> claves -> en(0));
     
         aux_derecho -> asignar_padre(this -> padre);
         this -> padre -> insertar_clave(clave_aux, dato_aux); 
-
     }
 }
 

@@ -46,9 +46,19 @@ int main(void)
     ab.agregar(4, true);
     ab.agregar(5, true);
 
-    ab.agregar(6, true);
-    ab.agregar(7, true);
-    ab.obtener_raiz()->obtener_hijo(1)->obtener_hijo(1)->mostrar_claves();
+    ab.agregar(0, true);
+    ab.agregar(-1, true);    
+    // ab.agregar(0, true);
+    // ab.agregar(-1, true);
+    // ab.agregar(-2, true);
+    ab.obtener_raiz()->obtener_hijo(0)->obtener_hijo(0)->mostrar_claves();
+
+    // ab.agregar(-3, true);
+    // ab.agregar(8, true);    
+    // ab.agregar(9, true);    
+    // for(int i = 0; i < 40; i++)
+        // ab.agregar(i, true);
+
     // ab.obtener_raiz()->mostrar_claves();
     // ab.print_in_order();
     return 0;
