@@ -15,7 +15,7 @@ class Mapa
 
         //Pre: Recibe la cantidad de filas y columnas
         //Pro: Une los vertices para crear casilleros para un mapa de fila x columna.Tiene que ser matriz cuadrada.
-        void unir_casilleros(int fila, int columna);
+        void unir_casilleros();
 
         void editar_mapa();
         void mostrar_mapa();

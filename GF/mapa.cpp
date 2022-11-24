@@ -1,4 +1,9 @@
 #include "mapa.hpp"
+#include <fstream>
+
+using namespace std;
+    
+
 
 void Mapa::crear_casilleros(int fila, int columna)
 {
@@ -14,8 +19,36 @@ void Mapa::crear_casilleros(int fila, int columna)
     }
 }
 
-void Mapa::unir_casilleros(int fila, int columna)
+void Mapa::unir_casilleros()
 {
-    for()
-    grafo.insertar_arista(int posicion_uno, int posicion_dos, int costo);
+
+    ifstream conexiones ("conexiones.txt");
+
+    if(!conexiones.is_open()){
+        cout<<"Error al abrir el archivo"<<endl;
+    
+    }
+
+    string vertice_uno, vertice_dos, valor;
+
+    
+
+
+    while(getline(conexiones, vertice_uno, ',')){
+        getline(conexiones, vertice_dos, ',');
+        getline(conexiones, valor);
+
+        int posicion_uno = stoi(vertice_uno);
+        int posicion_dos = stoi(vertice_dos);
+        int costo = stoi(valor);
+
+        grafo.insertar_arista(posicion_uno, posicion_dos, costo);
+    }
+
+    conexiones.close();
+
+}
+
+void Mapa::mostrar_mapa(){
+    grafo.mostrar_lista_adyacencia();
 }
