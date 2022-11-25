@@ -14,7 +14,6 @@ class Nodo_AB
         Vector<E> *datos;
         Nodo_AB<T, E> *padre;
         Vector<Nodo_AB<T, E>*> *hijos;
-        // bool es_hoja;
         bool eliminado;
 
     public:
@@ -87,7 +86,6 @@ Nodo_AB<T, E>::Nodo_AB(int vias, T clave, E dato)
     //relaciones
     this -> padre = nullptr;
     this -> hijos = new Vector<Nodo_AB<T, E>*>(vias + 1);
-    // this -> es_hoja = true;
     this -> eliminado = false;
 }
 
@@ -118,13 +116,12 @@ template <class T, class E>
 void Nodo_AB<T, E>::asignar_hijo(Nodo_AB<T, E>* hijo, int pos)
 {
     this -> hijos -> en(pos) = hijo; 
-    // es_hoja = false;
 }
 
 template <class T, class E>
 void Nodo_AB<T, E>::insertar_hijo_izquierda(Nodo_AB<T, E>* nodo){
     hijos -> insertar(0, nodo);
-    // es_hoja = false;
+    hijos -> redimensionar(4);
 }
 
 template <class T, class E>
@@ -138,7 +135,6 @@ void Nodo_AB<T, E>::insertar_hijo_derecha(Nodo_AB<T, E>* nodo){
         i--;
 
     this -> hijos -> en(i + 1) = nodo;
-    // es_hoja = false;
 }
 
 template <class T, class E>
@@ -175,14 +171,7 @@ void Nodo_AB<T,E>::asignar_padre_a_hijos(Nodo_AB<T, E>* padre)
     for(int i = 0; i < vias; i++)
     {
         if(hijos -> en(i) != nullptr)
-        {
-            // cout << "claves del nodo: " << endl;
-            // hijos -> en(i) -> mostrar_claves();
             hijos -> en(i) -> asignar_padre(padre);
-            // cout << "claves del padre: " << endl;
-            // hijos -> en(i) -> obtener_padre() -> mostrar_claves();
-            
-        }
     }
 }
 
@@ -229,6 +218,7 @@ Nodo_AB<T, E>::~Nodo_AB()
 {
     delete claves;
     delete datos;
+    delete hijos;
 }
 
 //-------------PRIVATE----------------
@@ -255,7 +245,6 @@ void Nodo_AB<T, E>::dividir_nodo()
                 aux_derecho -> asignar_padre_a_hijos(aux_derecho);                
             }
         }
-        // mostrar_claves();
         hijos -> en(2) = nullptr;
         hijos -> en(3) = nullptr;
             
@@ -268,7 +257,6 @@ void Nodo_AB<T, E>::dividir_nodo()
 
     else
     {
-        // mostrar_claves();
         Nodo_AB<T, E>* aux_derecho = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(2), this -> datos -> en(2));
         T clave_aux = this -> claves -> en(1); 
         E dato_aux = this -> datos -> en(1);

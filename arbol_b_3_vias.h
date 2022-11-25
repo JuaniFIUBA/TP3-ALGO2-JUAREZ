@@ -21,16 +21,19 @@ class AB3
         void print_in_order();
 
         T obtener_dato(T clave);
-        // bool existe_clave(T clave);
 
         Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
 
         void borrar(T clave);
+
+        ~AB3();
     private:
 
         void print_in_order(Nodo_AB<T, E>* nodo);
 
         Nodo_AB<T, E>* buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave);
+
+        void borrar_nodo(Nodo_AB<T,E> *nodo);
 };  
 
 template <class T, class E>
@@ -53,8 +56,6 @@ void AB3<T, E>::agregar(T clave, E dato)
         raiz = new Nodo_AB<T, E>(this -> vias, clave, dato);
     else{
         Nodo_AB<T, E>* nodo = buscar_para_insertar(this -> raiz, clave);
-        // cout << "nodo a insertar: " <<endl;
-        // nodo->mostrar_claves();
         nodo ->insertar_clave(clave, dato);
         nodo -> asignar_padre_a_hijos(nodo);
         raiz -> asignar_padre_a_hijos(raiz);
@@ -79,13 +80,14 @@ void AB3<T, E>::print_in_order()
 template <class T, class E>
 void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)
 {
-    if (!(nodo -> es_hoja()))
+    if(nodo != nullptr)
     {
-        print_in_order(nodo -> obtener_hijo(nodo -> menor_a(nodo -> obtener_clave(0))));
+        print_in_order(nodo -> obtener_hijo(0));
         nodo -> mostrar_claves();
+        print_in_order(nodo -> obtener_hijo(1));
+        print_in_order(nodo -> obtener_hijo(2));
     } 
-    if(nodo -> es_hoja())
-        nodo -> mostrar_claves();
+
 }
 
 template <class T, class E>
@@ -117,11 +119,19 @@ void AB3<T, E>::borrar(T clave)
     nodo -> eliminar_nodo();
 }
 
+template <class T, class E>
+AB3<T, E>::~AB3(){
+    borrar_nodo(this -> raiz);
+}
 
-// template <class T, class E>
-// bool AB3<T,E>::existe_clave(T clave){
-
-// }
-
+template <class T, class E>
+void AB3<T,E>::borrar_nodo(Nodo_AB<T,E> *nodo){
+    if(nodo == nullptr)
+        return;
+    borrar_nodo(nodo -> obtener_hijo(0));
+    borrar_nodo(nodo -> obtener_hijo(1));
+    borrar_nodo(nodo -> obtener_hijo(2));
+    delete nodo;
+}
 
 #endif
