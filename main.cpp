@@ -39,11 +39,11 @@ int main(void)
     // nodo1.obtener_hijo(0)->insertar_clave(1, true);
     // nodo1.obtener_hijo(0)->insertar_clave(2, true);
 
-    AB3<int, bool>ab(3);
-    ab.agregar(1, true);
-    ab.agregar(2, true);
-    ab.agregar(3, true);
-    ab.agregar(4, true);
+    // AB3<int, bool>ab(3);
+    // ab.agregar(1, true);
+    // ab.agregar(2, true);
+    // ab.agregar(3, true);
+    // ab.agregar(4, true);
     // ab.agregar(5, true);
     // ab.agregar(6, true);
     // ab.agregar(7, true);    
@@ -51,7 +51,7 @@ int main(void)
     // ab.agregar(9, true);
     // ab.agregar(10, true);
     // ab.agregar(11, true);
-    ab.print_in_order();
+    // ab.print_in_order();
     // ab.agregar(0, true);
     // ab.agregar(-1, true);
     // ab.agregar(-2, true);
