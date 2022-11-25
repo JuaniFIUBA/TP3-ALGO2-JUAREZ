@@ -84,8 +84,12 @@ void AB3<T, E>::agregar(T clave, E dato)
     if(raiz == nullptr)
         raiz = new Nodo_AB<T, E>(this -> vias, clave, dato);
     else{
-        Nodo_AB<T, E>* nodo1 = buscar(this -> raiz, clave);
-        nodo1 ->insertar_clave(clave,dato);
+        Nodo_AB<T, E>* nodo = buscar_para_insertar(this -> raiz, clave);
+        // cout << "nodo a insertar: " <<endl;
+        // nodo->mostrar_claves();
+        nodo ->insertar_clave(clave, dato);
+        nodo -> asignar_padre_a_hijos(nodo);
+        raiz -> asignar_padre_a_hijos(raiz);
     }
 }
 
