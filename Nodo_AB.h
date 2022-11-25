@@ -145,7 +145,8 @@ template <class T, class E>
 void Nodo_AB<T, E>::mostrar_claves()
 {
     for(int i = 0; i < claves_usadas; i++)
-        cout << claves -> en(i) << endl;
+        cout <<  claves -> en(i);
+    cout << "\n";
 }
 
 
