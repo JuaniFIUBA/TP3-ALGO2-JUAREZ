@@ -85,7 +85,6 @@ void AB3<T, E>::agregar(T clave, E dato)
     else{
         Nodo_AB<T, E>* nodo1 = buscar(this -> raiz, clave);
         nodo1 ->insertar_clave(clave,dato);
-        cout<<"hosgayhdf"<<endl;
     }
 }
 
