@@ -51,18 +51,18 @@ class AB3
 
         void agregar(T clave, E dato);
 
+        Nodo_AB<T, E>* obtener_raiz();
         void print_in_order();
 
-        Nodo_AB<T, E>* obtener_raiz();
 
         void buscar(T clave);
 
     private:
-        Nodo_AB<T, E>* agregar(Nodo_AB<T, E>* nodo, T clave, E dato);
+        // Nodo_AB<T, E>* agregar(Nodo_AB<T, E>* nodo, T clave, E dato);
 
         void print_in_order(Nodo_AB<T, E>* nodo);
 
-        Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
+        Nodo_AB<T, E>* buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave);
 };  
 
 template <class T, class E>
@@ -73,8 +73,9 @@ AB3<T, E>::AB3(int vias)
 }
 
 template <class T, class E>
-Nodo_AB<T, E>* AB3<T,E>::obtener_raiz(){
-    return this->raiz;
+Nodo_AB<T, E>* AB3<T, E>::obtener_raiz()
+{
+    return this -> raiz;    
 }
 
 template <class T, class E>
@@ -89,15 +90,12 @@ void AB3<T, E>::agregar(T clave, E dato)
 }
 
 template <class T, class E>
-Nodo_AB<T, E>* AB3<T,E>::buscar(Nodo_AB<T,E>*nodo, T clave){
-    if((nodo->contiene_clave(clave))){
+Nodo_AB<T, E>* AB3<T,E>::buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave){
+    if(nodo -> es_hoja())
         return nodo;
-    }else if(nodo->_es_hoja()){
-        return nullptr;
-    }
-    else{
-        return buscar(nodo -> obtener_hijo(nodo->menor_a(clave)), clave);
-    }
+
+    else
+        return buscar_para_insertar(nodo -> obtener_hijo(nodo->menor_a(clave)), clave);
 }
 
 // template <class T, class E>
@@ -127,10 +125,9 @@ void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)
     if (nodo != nullptr)
     {
         print_in_order(nodo -> obtener_hijo(0));
-        nodo -> mostrar_claves();
         print_in_order(nodo -> obtener_hijo(1));
-        nodo -> mostrar_claves();
         print_in_order(nodo -> obtener_hijo(2));
+        nodo -> mostrar_claves();
     } 
 }
 
