@@ -1,13 +1,22 @@
 #include <iostream>
-#include "grafo.hpp"
+#include "mapa.hpp"
 
 using namespace std;
 
+const int Filas = 8;
+const int Columnas = 8;
+
 int main()
 {
-    Grafo *grafo = new Grafo();
-    int opc = 0;
-
+    Mapa mapa;
+    
+    cout <<"A"<< endl;
+    //Hay que borrar el tema de casilleros o filas, dejarlas como cte por ejemplo
+    mapa.crear_casilleros(Filas,Columnas);
+    mapa.unir_casilleros();
+    mapa.mostrar_mapa();
+    cout <<"Paso mostrar mapa" << endl;
+    /*
     while(opc != 8)
     {
         system("cls");
@@ -18,6 +27,12 @@ int main()
         cout <<"5. Eliminar vertice" <<endl;
         cout <<"6. Eliminar arista" <<endl;
         cout <<"7. Eliminar todo" <<endl;
-        cout <<"8.Salir del menu" <<endl;
+        cout <<"8. Salir del menu" <<endl;
     }
+    */
+
+   return 0;
+
 }
+
+//Para probar de manera rapida g++ *.cpp -o Demo -Wall -Werror -Wconversion

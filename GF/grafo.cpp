@@ -20,33 +20,34 @@ int Grafo::obtener_cantidad()
 Vertice* Grafo::obtener_vertice(int posicion)
 {
     Vertice* puntero_soporte = raiz; //Puntero Auxiliar a la raiz.
-    while (puntero_soporte != nullptr)
+    
+    while (puntero_soporte != NULL)
     {
         if (puntero_soporte->posicion == posicion){
             return puntero_soporte;
         }
+        puntero_soporte = puntero_soporte ->sig;
     }
 
-    return nullptr;
+    return NULL;
 }
 
 void Grafo::insertar_vertice(int posicion)
 {
-    if (obtener_vertice(posicion) == nullptr) //Verifica si existe el vertice
+    if (obtener_vertice(posicion) == NULL) //Verifica si existe el vertice
     {
         Vertice* nuevo = new Vertice(posicion);
-
         if (ChequearVacio())
         {
             raiz = nuevo;
         }
         else{
             Vertice* i = raiz;
-
-            while (i->sig != nullptr)
+            while (i->sig != NULL)
             {
-                i->sig = nuevo;
+                i = i->sig;
             }
+            i->sig = nuevo;
 
         }
         capacidad++;
@@ -54,6 +55,7 @@ void Grafo::insertar_vertice(int posicion)
     else{
         std::cout << "Ese vertice ya existe en el grafo" <<std::endl;
     }
+    std::cout<<"Creaste el vertice "<<obtener_vertice(posicion)<<std::endl;
 }
 
 void Grafo::insertar_arista(int posicion_uno, int posicion_dos, int costo)
@@ -61,33 +63,36 @@ void Grafo::insertar_arista(int posicion_uno, int posicion_dos, int costo)
     Vertice* vertice_uno = obtener_vertice(posicion_uno);
     Vertice* vertice_dos = obtener_vertice(posicion_dos);
 
-    if (vertice_uno == nullptr)
+    if (vertice_uno == NULL)
     {
         std::cout<<"El vertice uno, no existe"<<std::endl;
     }
     
-    if (vertice_dos == nullptr)
+    if (vertice_dos == NULL)
     {
         std::cout<<"El vertice dos, no existe"<<std::endl;
     }
 
-    if(vertice_uno != nullptr && vertice_dos != nullptr)
+    if(vertice_uno != NULL && vertice_dos != NULL)
     {
         Arista* nueva = new Arista(vertice_dos, costo);
 
-        if (vertice_uno == nullptr)
+        if (vertice_uno == NULL)
         {
             vertice_uno->ady = nueva;
         }
         else{
+            
             Arista* puntero_soporte = vertice_uno->ady;
+            
+            //Hay un error de acceso a la clase arista
 
-            while (puntero_soporte->sig != nullptr)
+            while (puntero_soporte->sig != NULL)
             {
                 puntero_soporte = puntero_soporte->sig;
             }
             
-            puntero_soporte->sig = nueva;
+            puntero_soporte->sig = nueva; 
 
         }
     }
@@ -245,7 +250,7 @@ void Grafo::eliminar_arista(int posicion_uno, int posicion_dos)
                     puntero->sig =siguiente->sig;
                     std::cout<<"Arista"<<posicion_uno<<" -> "<<posicion_dos<<" "<<std::endl;                     
                     delete(siguiente);
-                    encontrado == true;
+                    //encontrado == true;
                 }
 
                 puntero = siguiente;

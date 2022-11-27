@@ -1,9 +1,11 @@
 #include "arista.hpp"
+#include <iostream>
 
-Arista::Arista(Vertice* destino, int costo)
+Arista::Arista(Vertice* dest, int costo)
 {
+    this->dest = dest;
     this->costo = costo;
-    sig = nullptr;
-    dest = nullptr;
+    sig = NULL;
+    dest = NULL;
 
 }
