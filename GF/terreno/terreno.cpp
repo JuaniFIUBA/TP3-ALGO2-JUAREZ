@@ -15,12 +15,9 @@ int Terreno::asignar_consumo(string color){
     }
 };
 
-void Terreno::cargar_terreno(){
-    srand((unsigned) time(NULL));
-    string colores[] = {BGND_BROWN_94,BGND_BROWN_137,BGND_LIGHT_GRAY_246,BGND_BLACK_16};
+void Terreno::cargar_mapa_consumo(){
     for(int i = 0; i < dimension; i ++){
         for(int j = 0; j < dimension; j ++){
-            terreno[i][j] = colores[(rand() % 4)];
             mapa_de_consumo[i][j] = asignar_consumo(terreno[i][j]);
         }
     }

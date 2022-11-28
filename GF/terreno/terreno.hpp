@@ -17,7 +17,7 @@ private:
 
 public:
     Terreno();
-    void cargar_terreno();
+    void cargar_mapa_consumo();
     void mostrar_terreno();
 };
 
