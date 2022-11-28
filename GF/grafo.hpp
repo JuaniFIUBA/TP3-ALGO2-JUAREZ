@@ -4,6 +4,7 @@
 #include <iostream>
 #include "vertice.hpp"
 #include "arista.hpp"
+#include "vector.hpp"
 
 class Grafo
 {
@@ -60,6 +61,10 @@ class Grafo
         //Pre:-
         //Post: Elimina todos los vertices y aristas del Grafo
         void eliminar_todo();
+
+        //Pre:-
+        //Post: Despliega las rutas más cortas entre los vertices
+        void Dijkstra(int posicion_uno, int posicion_dos);
 };
 
 #endif

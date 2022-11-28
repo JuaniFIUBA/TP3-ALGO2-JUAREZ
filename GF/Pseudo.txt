@@ -1,0 +1,15 @@
+CamMinDijk {
+    // D es un vector de n-1 elementos
+    // para calcular los valroes  de los respectivos caminos minimos
+    inicializar S = { 1 }
+    para cada vertice i desde 2 hasta N {
+        D[1] = coste inicial de alcanzar i desde el vertice 1
+        //corresponde al peso de la arista (1, i ).
+        //si existe, o bien un peso  maximo
+    }
+    mientras (conjunto de vertice no visitados V-S no este vacio) {
+        elegir vertice w perteneciente a V-S tal que D[w] sea minimo  S = S U {w}
+    {
+        D[v] = min ( D[v], D[w] + M[w,v])
+    }
+}
