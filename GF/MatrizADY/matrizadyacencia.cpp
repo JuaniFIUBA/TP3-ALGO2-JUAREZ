@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int const INF = -1;
+#define INF -1;
 
 int const filas = 7;
 int const columnas = 7;

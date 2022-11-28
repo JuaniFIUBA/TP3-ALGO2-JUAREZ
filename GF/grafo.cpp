@@ -77,7 +77,7 @@ void Grafo::insertar_arista(int posicion_uno, int posicion_dos, int costo)
     {
         Arista* nueva = new Arista(vertice_dos, costo);
 
-        if (vertice_uno == NULL)
+        if (vertice_uno->ady == NULL)
         {
             vertice_uno->ady = nueva;
         }
@@ -278,3 +278,17 @@ void Grafo::eliminar_todo()
     }
 
 }
+
+/*
+void Grafo::Dijkstra(int posicion_uno, int posicion_dos)
+{
+    Vertice* vertice_origen = obtener_vertice(posicion_uno);
+    if (vertice_uno == NULL)
+    {
+        std::cout<<"El vertice uno, no existe"<<std::endl;
+    }else{
+
+    }
+       
+}
+*/
