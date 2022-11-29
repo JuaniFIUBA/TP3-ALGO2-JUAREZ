@@ -6,7 +6,8 @@ Terreno::Terreno(){
         for(int j = 0; j < dimension; j ++){
             terreno[i][j] = ' ';
         }
-    } 
+    }
+    tope_animales = ANIMALES_A_SER_RESCATADOS;
 };
 
 string Terreno::asignar_color(int consumo){
@@ -80,6 +81,25 @@ void Terreno::colocar_animales(){
     for(int i = 0; i < ANIMALES_A_SER_RESCATADOS; i++){
         terreno[animales[i].pos.fil][animales[i].pos.col] = animales[i].especie;
     };
+}
+
+int Terreno::jugador_en_animal(){
+    bool hay_animal = false;
+    int i = 0;
+    while((!hay_animal)||(i < tope_animales)){
+        if(distancia_manhattan(animales[i].pos,auto_jugador.posicion) == SUPERPUESTOS){
+            return i;
+        }i++;
+    }return -1;
+}
+
+void Terreno::eliminar_animal(){
+    int i = jugador_en_animal();
+    if(i != -1){
+        for(int j = i; j < tope_animales; j++){
+            animales[j] = animales[j+1];
+        }tope_animales --;
+    }
 }
 
 void Terreno::cargar_terreno(){

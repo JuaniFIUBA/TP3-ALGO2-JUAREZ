@@ -26,6 +26,7 @@ private:
     char terreno[dimension][dimension];
     int mapa_de_consumo[dimension][dimension];
     animal_rescate animales[5];
+    int tope_animales;
     coor pos_jugador;
     //Metodos
     string asignar_color(int consumo);
@@ -35,6 +36,8 @@ private:
     void colocar_animales();
     void colocar_jugador();
     int distancia_manhattan(coor pos1, coor pos2);
+    int jugador_en_animal();
+    void eliminar_animal();
 
 public:
     Terreno();
