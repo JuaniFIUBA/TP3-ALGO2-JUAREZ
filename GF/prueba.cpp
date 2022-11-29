@@ -1,6 +1,6 @@
 #include <iostream>
 #include "terreno.hpp"
-
+/*
 int main(){
     srand((unsigned) time(NULL));
     Terreno t = Terreno();
@@ -8,3 +8,4 @@ int main(){
     t.mostrar_terreno();
     return 0;
 }
+*/

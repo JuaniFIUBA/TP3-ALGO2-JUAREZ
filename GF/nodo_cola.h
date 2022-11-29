@@ -10,8 +10,8 @@ struct Dato{
 
 class Nodo {
 private:
-    Dato dato;
     Nodo* siguiente;
+    Dato dato;
 
 public:
     Nodo(Dato d);
@@ -19,6 +19,8 @@ public:
     void cambiar_siguiente(Nodo* pn);
 
     Dato obtener_dato();
+
+    void modificar_dato(int vertice, int costo);
 
     Nodo* obtener_siguiente();
 };

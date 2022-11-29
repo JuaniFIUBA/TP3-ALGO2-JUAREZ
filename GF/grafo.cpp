@@ -360,29 +360,16 @@ int Grafo::Dijkstra(int inicio, int destino)
         Vertice* vertice = obtener_vertice(aux.vertice_actual);
         Arista* puntero_arista = vertice->ady;
 
-        while (puntero_arista != nullptr){
-            
+        while (puntero_arista != nullptr){   
             int vertice_adyacente = puntero_arista->dest->posicion;
             int costo_adyacente = puntero_arista->costo;
 
-
-            if(!visitados[vertice_adyacente] && (distancias[aux.vertice_actual] + costo_adyacente) < distancias[vertice_adyacente]){
-                //std::cout<<"----------"<<vertice_adyacente<<"-----------"<<std::endl;
-                //std::cout<<distancias[vertice_adyacente]<<std::endl;
-                
+            if(!visitados[vertice_adyacente] && (distancias[aux.vertice_actual] + costo_adyacente) < distancias[vertice_adyacente]){    
                 distancias[vertice_adyacente] = aux.costo_camino + costo_adyacente;
-                cola.alta(vertice_adyacente, (distancias[aux.vertice_actual] + costo_adyacente));
-                
-                //std::cout<<distancias[vertice_adyacente]<<std::endl;
-                //std::cout<<"Alta cola: ";
-                //std::cout<<vertice_adyacente<<"-"<<(distancias[aux.vertice_actual] + costo_adyacente)<<std::endl;
+                cola.insertar(vertice_adyacente, (distancias[aux.vertice_actual] + costo_adyacente));
             }
-
-
             puntero_arista = puntero_arista->sig;
-
         }
-
     }
     return -1;      
 }

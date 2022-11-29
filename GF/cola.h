@@ -19,11 +19,13 @@ public:
 
     void alta(int vertice, int costo);
 
+    void ordenar_prioridad();
+
+    void insertar(int vertice, int costo);
+
     Dato consulta();
 
     Dato baja();
-
-    void imprimir_cola();
 
     bool vacia();
 

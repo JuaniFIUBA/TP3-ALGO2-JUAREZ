@@ -66,6 +66,6 @@ void Mapa::mostrar_mapa(){
 }
 
 void Mapa::camino_minimo(){
-    std::cout<<"Costo del camino: "<<grafo.Dijkstra(0,2)<<std::endl;
+    std::cout<<"Costo del camino: "<<grafo.Dijkstra(0,63)<<std::endl;
 
 }
