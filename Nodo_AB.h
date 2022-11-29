@@ -147,7 +147,6 @@ template <class T, class E>
 void Nodo_AB<T,E>::insertar_hijo(Nodo_AB<T,E>* nodo, int pos)
 {
     hijos -> insertar(pos, nodo);
-    hijos -> redimensionar(4);
 }
 
 
