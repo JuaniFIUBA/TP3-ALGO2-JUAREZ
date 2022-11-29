@@ -7,7 +7,7 @@
 #include "vector.hpp"
 
 const int DIMENSION_ADY = 64;
-const int INF = 99;
+const int INF = 999;
 
 class Grafo
 {
@@ -75,9 +75,11 @@ class Grafo
         //Post: Llena la matriz de adyacencia con los costos del archivo de conexiones.txt
         void llenar_matriz_ady();
 
-        //Pre:-
-        //Post: Despliega las rutas más cortas entre los vertices
-        void Dijkstra(int posicion_uno, int posicion_dos);
+
+
+        //Pre: Tienen que estar creado e inicializado el grafo
+        //Post: Retorna la ruta más corta entre los vertices
+        int Dijkstra(int posicion_uno, int posicion_dos);
 };
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef NODO_H_INCLUDED
 #define NODO_H_INCLUDED
 
+
+
 struct Dato{
     int vertice_actual;
     int costo_camino;

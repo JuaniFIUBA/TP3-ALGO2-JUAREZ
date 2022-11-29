@@ -1,11 +1,27 @@
 #include "cola.h"
 
+
+
 Cola::Cola() {
     primero = 0;
     ultimo = 0;
 }
 
 void Cola::alta(Dato d) {
+    Nodo* nuevo = new Nodo(d);
+    if (vacia()) {
+        primero = nuevo;
+    }
+    else {
+        ultimo->cambiar_siguiente(nuevo);
+    }
+    ultimo = nuevo;
+}
+
+void Cola::alta(int vertice, int costo) {
+    Dato d;
+    d.vertice_actual = vertice;
+    d.costo_camino = costo;
     Nodo* nuevo = new Nodo(d);
     if (vacia()) {
         primero = nuevo;

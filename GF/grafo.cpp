@@ -1,5 +1,6 @@
 #include "grafo.hpp"
 #include <fstream>
+#include "cola.h"
 
 using namespace std;
 
@@ -120,6 +121,7 @@ void Grafo::mostrar_lista_adyacencia()
     }
 
 }
+
 
 void Grafo::eliminar_aristas(Vertice* vertice)
 {
@@ -320,16 +322,99 @@ void Grafo::llenar_matriz_ady()
     conexiones.close();
 }
 
-/*
-void Grafo::Dijkstra(int posicion_uno, int posicion_dos)
+
+
+int Grafo::Dijkstra(int inicio, int destino)
 {
-    Vertice* vertice_origen = obtener_vertice(posicion_uno);
-    if (vertice_uno == NULL)
-    {
-        std::cout<<"El vertice uno, no existe"<<std::endl;
-    }else{
+    Cola cola;
+    int distancias[capacidad];
+    bool visitados[capacidad];
+    
+    for(int i = 0; i < capacidad; i++){
+        distancias[i] = INF;
+        visitados[i] = false;
+    }
+
+    Dato dato;
+    dato.vertice_actual = inicio;
+    dato.costo_camino = 0;
+    
+    distancias[inicio] = 0; // Valor inicial del vertice de partida.
+    cola.alta(dato);
+
+    while(!cola.vacia()){
+        Dato aux = cola.consulta();
+        cola.baja();
+        visitados[aux.vertice_actual] = true;
+        std::cout<<"costo camino despues de chequear ady: "<<aux.costo_camino<<std::endl;
+        
+        if(aux.vertice_actual == destino){
+            while (! cola.vacia()){
+                Dato print = cola.consulta();
+                std::cout<<print.vertice_actual<<"-"<<print.costo_camino<<std::endl;
+                cola.baja();
+
+            }
+            return aux.costo_camino;
+        }
+        Vertice* vertice = obtener_vertice(aux.vertice_actual);
+        Arista* puntero_arista = vertice->ady;
+
+        while (puntero_arista != nullptr){
+            
+            int vertice_adyacente = puntero_arista->dest->posicion;
+            int costo_adyacente = puntero_arista->costo;
+
+
+            if(!visitados[vertice_adyacente] && (distancias[aux.vertice_actual] + costo_adyacente) < distancias[vertice_adyacente]){
+                //std::cout<<"----------"<<vertice_adyacente<<"-----------"<<std::endl;
+                //std::cout<<distancias[vertice_adyacente]<<std::endl;
+                
+                distancias[vertice_adyacente] = aux.costo_camino + costo_adyacente;
+                cola.alta(vertice_adyacente, (distancias[aux.vertice_actual] + costo_adyacente));
+                
+                //std::cout<<distancias[vertice_adyacente]<<std::endl;
+                //std::cout<<"Alta cola: ";
+                //std::cout<<vertice_adyacente<<"-"<<(distancias[aux.vertice_actual] + costo_adyacente)<<std::endl;
+            }
+
+
+            puntero_arista = puntero_arista->sig;
+
+        }
 
     }
-       
+    return -1;      
 }
+
+/*
+int algoritmo(int begin, int end)
+	{
+		priority_queue<State> pq; // La cola de prioridad.
+		vector<int> Dist(graph.V, oo); // La distancia hacia todos los vertices. Inicialmente para cada vertice su valor es infinito.
+		vector<bool> mark(graph.V, false); // Este arreglo nos permitira determinar los nodos procesados.
+	
+		Dist[begin] = 0; // Valor inicial del vertice de partida.
+		pq.push(State(begin, 0)); // Agregamos el primer elemento, que no es mas que el vertice de partida.
+		while(!pq.empty()) // Mientras existan vertices por procesar.
+		{
+			State st = pq.top(); pq.pop(); // Se desencola el elemento minimo.
+			mark[st.node] = true; // Se marca el nodo como visitado.
+			if (st.node == end)
+				return st.cost; // Retornamos el valor del camino, hemos llegado al vertice destino.
+	
+			int T = (int)graph.G[st.node].size();
+			for(int i = 0; i < T; ++i) // Se recorren las adyacencias de "a".
+			{
+				// Si no ha sido procesado el vertice "vi" y la distancia hacia "vi" es menor a la distancia
+				// en Dist entonces hemos encontrado un camino mas corto a "vi".
+				if (!mark[graph.G[st.node][i].node] && ((Dist[st.node] + graph.G[st.node][i].cost) < Dist[graph.G[st.node][i].node]))
+				{
+					Dist[graph.G[st.node][i].node] = st.cost + graph.G[st.node][i].cost;
+					pq.push(State(graph.G[st.node][i].node, st.cost + graph.G[st.node][i].cost));
+				}
+			}
+		}
+		return -1; // Si no se puede llegar al destino, retornar -1.
+	}
 */

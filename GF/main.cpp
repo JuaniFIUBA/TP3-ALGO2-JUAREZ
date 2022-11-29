@@ -10,7 +10,6 @@ const int Columnas = 8;
 int main()
 {
     Mapa mapa;
-    Grafo grafo;
     
     
     //Hay que borrar el tema de casilleros o filas, dejarlas como cte por ejemplo
@@ -18,9 +17,13 @@ int main()
 
     mapa.unir_casilleros();
 
-    grafo.llenar_matriz_ady();
+    //grafo.llenar_matriz_ady();
 
-    mapa.mostrar_mapa();
+    //mapa.mostrar_mapa();
+
+    mapa.camino_minimo();
+
+
     /*
     while(opc != 8)
     {

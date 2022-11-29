@@ -3,6 +3,8 @@
 
 #include "nodo_cola.h"
 
+
+
 class Cola {
 
 private:
@@ -15,9 +17,13 @@ public:
 
     void alta(Dato d);
 
+    void alta(int vertice, int costo);
+
     Dato consulta();
 
     Dato baja();
+
+    void imprimir_cola();
 
     bool vacia();
 
