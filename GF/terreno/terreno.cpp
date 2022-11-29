@@ -83,6 +83,13 @@ void Terreno::colocar_animales(){
     };
 }
 
+void Terreno::cargar_terreno(){
+    cargar_mapa_consumo();
+    cargar_colores();
+    cargar_animales();
+    colocar_animales();
+}
+
 void Terreno::mostrar_terreno(){
     for(int i = 0; i < dimension; i ++){
         for(int j = 0; j < dimension; j ++){
