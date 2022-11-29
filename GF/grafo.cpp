@@ -1,5 +1,6 @@
 #include "grafo.hpp"
 #include <fstream>
+#include "cola.h"
 
 using namespace std;
 
@@ -119,6 +120,21 @@ void Grafo::mostrar_lista_adyacencia()
         i = i->sig;
     }
 
+}
+
+int Grafo::obtener_cantidad_aristas(int posicion){
+
+    Vertice* vertice = obtener_vertice(posicion);
+    int i = 0;
+    Arista* puntero_arista = vertice->ady;
+
+    while (puntero_arista != nullptr)
+    {
+        puntero_arista = puntero_arista->sig;
+        i++;
+    }
+
+    return i;
 }
 
 void Grafo::eliminar_aristas(Vertice* vertice)
@@ -320,16 +336,51 @@ void Grafo::llenar_matriz_ady()
     conexiones.close();
 }
 
-/*
-void Grafo::Dijkstra(int posicion_uno, int posicion_dos)
-{
-    Vertice* vertice_origen = obtener_vertice(posicion_uno);
-    if (vertice_uno == NULL)
-    {
-        std::cout<<"El vertice uno, no existe"<<std::endl;
-    }else{
 
+void Grafo::Dijkstra(int inicio, int fin)
+{
+    Cola cola;
+    int distancias[capacidad];
+    bool visitados[capacidad];
+    
+    for(int i = 0; i < capacidad; i++){
+        distancias[i] = INF;
+        visitados[i] = false;
     }
+    
+    distancias[inicio] = 0; // Valor inicial del vertice de partida.
+    cola.alta(inicio, 0);
+
        
 }
-*/
+
+
+int algoritmo(int begin, int end)
+	{
+		priority_queue<State> pq; // La cola de prioridad.
+		vector<int> Dist(graph.V, oo); // La distancia hacia todos los vertices. Inicialmente para cada vertice su valor es infinito.
+		vector<bool> mark(graph.V, false); // Este arreglo nos permitira determinar los nodos procesados.
+	
+		Dist[begin] = 0; // Valor inicial del vertice de partida.
+		pq.push(State(begin, 0)); // Agregamos el primer elemento, que no es mas que el vertice de partida.
+		while(!pq.empty()) // Mientras existan vertices por procesar.
+		{
+			State st = pq.top(); pq.pop(); // Se desencola el elemento minimo.
+			mark[st.node] = true; // Se marca el nodo como visitado.
+			if (st.node == end)
+				return st.cost; // Retornamos el valor del camino, hemos llegado al vertice destino.
+	
+			int T = (int)graph.G[st.node].size();
+			for(int i = 0; i < T; ++i) // Se recorren las adyacencias de "a".
+			{
+				// Si no ha sido procesado el vertice "vi" y la distancia hacia "vi" es menor a la distancia
+				// en Dist entonces hemos encontrado un camino mas corto a "vi".
+				if (!mark[graph.G[st.node][i].node] && ((Dist[st.node] + graph.G[st.node][i].cost) < Dist[graph.G[st.node][i].node]))
+				{
+					Dist[graph.G[st.node][i].node] = st.cost + graph.G[st.node][i].cost;
+					pq.push(State(graph.G[st.node][i].node, st.cost + graph.G[st.node][i].cost));
+				}
+			}
+		}
+		return -1; // Si no se puede llegar al destino, retornar -1.
+	}
