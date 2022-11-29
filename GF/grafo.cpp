@@ -1,4 +1,7 @@
 #include "grafo.hpp"
+#include <fstream>
+
+using namespace std;
 
 Grafo::Grafo()
 {
@@ -55,7 +58,6 @@ void Grafo::insertar_vertice(int posicion)
     else{
         std::cout << "Ese vertice ya existe en el grafo" <<std::endl;
     }
-    std::cout<<"Creaste el vertice "<<obtener_vertice(posicion)<<std::endl;
 }
 
 void Grafo::insertar_arista(int posicion_uno, int posicion_dos, int costo)
@@ -100,8 +102,8 @@ void Grafo::insertar_arista(int posicion_uno, int posicion_dos, int costo)
 }
 
 void Grafo::mostrar_lista_adyacencia()
-{
-    Vertice* i = raiz;
+{ 
+   Vertice* i = raiz;
 
     while (i != nullptr)
     {
@@ -116,6 +118,7 @@ void Grafo::mostrar_lista_adyacencia()
         std::cout<<std::endl;
         i = i->sig;
     }
+
 }
 
 void Grafo::eliminar_aristas(Vertice* vertice)
@@ -277,6 +280,44 @@ void Grafo::eliminar_todo()
 
     }
 
+}
+
+void Grafo::inicializar_matriz_ady(){
+    for(int i = 0; i < DIMENSION_ADY; i++){
+        for(int j = 0; j < DIMENSION_ADY; j++){
+            matriz_de_adyacencia[i][j] = INF;
+            if(i == j){
+                matriz_de_adyacencia[i][j] = 0;
+            }
+        }
+    }
+}
+
+void Grafo::llenar_matriz_ady()
+{
+
+    inicializar_matriz_ady();
+
+    ifstream conexiones ("conexiones.txt");
+
+    if(!conexiones.is_open()){
+        std::cout<<"Error al abrir el archivo"<<std::endl;
+    }
+
+    string vertice_uno, vertice_dos, valor;
+    
+    while(getline(conexiones, vertice_uno, ',')){
+        getline(conexiones, vertice_dos, ',');
+        getline(conexiones, valor);
+           
+        int posicion_uno = stoi(vertice_uno);
+        int posicion_dos = stoi(vertice_dos);
+        int costo = stoi(valor);
+
+        matriz_de_adyacencia[posicion_uno][posicion_dos] = costo;
+
+    }
+    conexiones.close();
 }
 
 /*
