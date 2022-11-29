@@ -57,4 +57,6 @@ void Mapa::mostrar_mapa(){
     }
     std::cout<<std::endl;
    */
+
+    std::cout<<grafo.obtener_cantidad_aristas(12)<<std::endl;
 }

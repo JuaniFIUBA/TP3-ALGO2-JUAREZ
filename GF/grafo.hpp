@@ -51,6 +51,8 @@ class Grafo
         //Post: Elimina el vertice:
         void eliminar_vertice(int posicion);
 
+        int obtener_cantidad_aristas(int posicion);
+
         //Pre:-
         //Post Elimina las aristas del vertice.
         void eliminar_aristas(Vertice* vertice);
@@ -75,7 +77,7 @@ class Grafo
         //Post: Llena la matriz de adyacencia con los costos del archivo de conexiones.txt
         void llenar_matriz_ady();
 
-        //Pre:-
+        //Pre: Tienen que estar creado e inicializado el grafo
         //Post: Despliega las rutas más cortas entre los vertices
         void Dijkstra(int posicion_uno, int posicion_dos);
 };
