@@ -14,8 +14,8 @@ class Vector
         Vector(int largo);
         
         void insertar(int pos, T dato);
-
-        void insertar(T* iterador, T dato);
+        
+        void insertar_delante(T dato);
 
         void borrar(int pos);
 

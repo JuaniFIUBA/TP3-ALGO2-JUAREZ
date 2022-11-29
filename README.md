@@ -1,1 +1,1 @@
-# TP3-ALGO2-JUAREZ
+# TP2-Algoritmos-y-Programaci-n-Juarez

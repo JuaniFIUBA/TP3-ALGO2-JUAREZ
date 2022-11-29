@@ -1,14 +1,15 @@
 #ifndef ARBOL_B_3_VIAS
-#define ARBOL_B_3_VIAS  
+#define ARBOL_B_3_VIAS
 #include "Nodo_AB.h"
-#include "vector.h"  
+#include "vector.h"
 #include <iostream>
+
 using namespace std;
 
 template <class T, class E>
-class AB3 
+class AB3
 {
-    private:    
+    private:
         int vias;
         Nodo_AB<T, E>* raiz;
     public:
@@ -20,21 +21,32 @@ class AB3
 
         void print_in_order();
 
-        T obtener_dato(T clave);
+        E obtener_dato(T clave);
 
-        Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
+        E buscar(T clave);
+
+        void aplicar_funcion(void (*foo)(E dato));
+        
+        void aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
+
+        bool clave_existe(T clave);
 
         void borrar(T clave);
 
         ~AB3();
     private:
+        void aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato));
+
+        void aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
+
+        Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
 
         void print_in_order(Nodo_AB<T, E>* nodo);
 
         Nodo_AB<T, E>* buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave);
 
         void borrar_nodo(Nodo_AB<T,E> *nodo);
-};  
+};
 
 template <class T, class E>
 AB3<T, E>::AB3(int vias)
@@ -46,7 +58,7 @@ AB3<T, E>::AB3(int vias)
 template <class T, class E>
 Nodo_AB<T, E>* AB3<T, E>::obtener_raiz()
 {
-    return this -> raiz;    
+    return this -> raiz;
 }
 
 template <class T, class E>
@@ -86,12 +98,11 @@ void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)
         nodo -> mostrar_claves();
         print_in_order(nodo -> obtener_hijo(1));
         print_in_order(nodo -> obtener_hijo(2));
-    } 
-
+    }
 }
 
 template <class T, class E>
-T AB3<T, E>::obtener_dato(T clave)
+E AB3<T, E>::obtener_dato(T clave)
 {
     Nodo_AB<T,E>* nodo = buscar(this -> raiz, clave);
     if(nodo == nullptr)
@@ -99,15 +110,76 @@ T AB3<T, E>::obtener_dato(T clave)
     return nodo -> obtener_dato(clave);
 }
 
+
+template <class T, class E>
+E AB3<T,E>::buscar(T clave){
+    return (buscar(this -> raiz, clave)) -> obtener_dato(clave);
+}
+
+
 template <class T, class E>
 Nodo_AB<T, E>* AB3<T, E>::buscar(Nodo_AB<T,E>*nodo, T clave)
 {
-    if(nodo -> contiene_clave(clave))   
-        return nodo;
-    else if(nodo -> es_hoja())
+    if(nodo != nullptr)
+    {
+        if(nodo -> contiene_clave(clave))
+            return nodo;
+        else if(nodo -> es_hoja())
+            return nullptr;
+        else
+            return buscar(nodo->obtener_hijo(nodo -> menor_a(clave)), clave);
+    }
+    else   
         return nullptr;
-    else 
-        return buscar(nodo->obtener_hijo(nodo -> menor_a(clave)), clave);
+}
+
+
+template <class T, class E>
+void AB3<T,E>::aplicar_funcion(void (*foo)(E dato))
+{
+    aplicar_funcion(this -> raiz, foo);
+}
+
+template <class T, class E>
+void AB3<T,E>::aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato))
+{
+    if(nodo != nullptr)
+    {
+        aplicar_funcion(nodo -> obtener_hijo(0), foo);
+        for(int i = 0; i < nodo -> obtener_claves_usadas(); i++)
+            foo(nodo -> obtener_dato(nodo -> obtener_clave(i)));
+        aplicar_funcion(nodo -> obtener_hijo(1), foo);
+        aplicar_funcion(nodo -> obtener_hijo(2), foo);
+    }
+}
+
+template <class T, class E>
+void AB3<T,E>::aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector){
+    aplicar_funcion3(this -> raiz, foo, vector);
+}
+
+
+template <class T, class E>
+void AB3<T,E>::aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector)
+{
+    if(nodo != nullptr)
+    {
+        aplicar_funcion3(nodo -> obtener_hijo(0), foo, vector);
+        for(int i =0; i < nodo -> obtener_claves_usadas(); i++)
+            foo(nodo -> obtener_dato(nodo -> obtener_clave(i)), vector);
+        aplicar_funcion3(nodo -> obtener_hijo(1), foo, vector);
+        aplicar_funcion3(nodo -> obtener_hijo(2), foo, vector);
+    }
+}
+
+
+template <class T, class E>
+bool AB3<T,E>::clave_existe(T clave)
+{
+    Nodo_AB<T,E> *nodo = buscar(this -> raiz, clave);
+    if(nodo != nullptr)
+        return true;
+    return false;
 }
 
 
@@ -118,6 +190,8 @@ void AB3<T, E>::borrar(T clave)
     Nodo_AB<T, E>* nodo = buscar(clave);
     nodo -> eliminar_nodo();
 }
+
+
 
 template <class T, class E>
 AB3<T, E>::~AB3(){
@@ -133,5 +207,6 @@ void AB3<T,E>::borrar_nodo(Nodo_AB<T,E> *nodo){
     borrar_nodo(nodo -> obtener_hijo(2));
     delete nodo;
 }
+
 
 #endif

@@ -1,0 +1,4 @@
+g++ -Wall -Werror -Wconversion -I ./Animales -I ./Animales/Personalidades Animales/*.cpp Animales/Personalidades/*.cpp  *.cpp
+
+
+

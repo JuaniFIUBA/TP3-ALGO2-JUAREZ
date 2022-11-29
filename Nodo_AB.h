@@ -14,7 +14,7 @@ class Nodo_AB
         Vector<E> *datos;
         Nodo_AB<T, E> *padre;
         Vector<Nodo_AB<T, E>*> *hijos;
-        bool eliminado;
+        bool nodo_eliminado;
 
     public:
         //constructor
@@ -52,7 +52,9 @@ class Nodo_AB
 
         bool es_hoja();
 
-        void eliminar_nodo(T clave);
+        void eliminar();
+
+        bool esta_eliminado();
 
         // DESTRUCTOR
         ~Nodo_AB();
@@ -73,6 +75,7 @@ class Nodo_AB
 
 };
 
+
 template <class T, class E>
 Nodo_AB<T, E>::Nodo_AB(int vias, T clave, E dato)
 {
@@ -86,8 +89,9 @@ Nodo_AB<T, E>::Nodo_AB(int vias, T clave, E dato)
     //relaciones
     this -> padre = nullptr;
     this -> hijos = new Vector<Nodo_AB<T, E>*>(vias + 1);
-    this -> eliminado = false;
 }
+
+
 
 template <class T, class E>
 void Nodo_AB<T, E>::insertar_clave(T clave, E dato){
@@ -209,8 +213,14 @@ bool Nodo_AB<T, E>::es_hoja()
 }
 
 template <class T, class E>
-void Nodo_AB<T,E>::eliminar_nodo(T clave){
-    this -> eliminado = true;    
+void Nodo_AB<T,E>::eliminar(){
+    this -> nodo_eliminado = true;
+}
+
+template <class T, class E>
+bool Nodo_AB<T,E>::esta_eliminado()
+{
+    return nodo_eliminado;
 }
 
 template <class T, class E>
@@ -266,7 +276,7 @@ void Nodo_AB<T, E>::dividir_nodo()
         if(mayor_aux > mayor_padre)
             padre -> insertar_hijo_derecha(aux_derecho);
 
-        else if(mayor_aux < mayor_padre && mayor_aux > padre -> obtener_dato(0))
+        else if(mayor_aux < mayor_padre && mayor_aux > padre -> obtener_clave(0))
             padre -> asignar_hijo(aux_derecho, 2);
 
         else
