@@ -6,11 +6,16 @@
 #include "arista.hpp"
 #include "vector.hpp"
 
+const int DIMENSION_ADY = 64;
+const int INF = 99;
+
 class Grafo
 {
     private:
         Vertice *raiz; //Arranque del mapa
         int capacidad; //Capacidad del mapa
+        int matriz_de_adyacencia[DIMENSION_ADY][DIMENSION_ADY]; //matriz de adyacencia
+
 
     public:
         //Pre:-
@@ -61,6 +66,14 @@ class Grafo
         //Pre:-
         //Post: Elimina todos los vertices y aristas del Grafo
         void eliminar_todo();
+
+        //Pre:-
+        //Post: Inicializa la matriz con INF y la diagonal principal en 0
+        void inicializar_matriz_ady();
+
+        //Pre:-
+        //Post: Llena la matriz de adyacencia con los costos del archivo de conexiones.txt
+        void llenar_matriz_ady();
 
         //Pre:-
         //Post: Despliega las rutas más cortas entre los vertices

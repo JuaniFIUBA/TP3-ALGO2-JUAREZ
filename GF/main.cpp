@@ -1,5 +1,6 @@
 #include <iostream>
 #include "mapa.hpp"
+#include "grafo.hpp"
 
 using namespace std;
 
@@ -9,13 +10,17 @@ const int Columnas = 8;
 int main()
 {
     Mapa mapa;
+    Grafo grafo;
     
-    cout <<"A"<< endl;
+    
     //Hay que borrar el tema de casilleros o filas, dejarlas como cte por ejemplo
     mapa.crear_casilleros(Filas,Columnas);
+
     mapa.unir_casilleros();
+
+    grafo.llenar_matriz_ady();
+
     mapa.mostrar_mapa();
-    cout <<"Paso mostrar mapa" << endl;
     /*
     while(opc != 8)
     {
