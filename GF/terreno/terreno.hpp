@@ -13,11 +13,11 @@ private:
     static const int dimension = 8;
     string terreno[dimension][dimension];
     int mapa_de_consumo[dimension][dimension];
-    int asignar_consumo(string color);
+    string asignar_color(int consumo);
 
 public:
     Terreno();
-    void cargar_mapa_consumo();
+    void cargar_terreno();
     void mostrar_terreno();
 };
 
