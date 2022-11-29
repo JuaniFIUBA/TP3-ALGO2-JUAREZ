@@ -39,9 +39,9 @@ void Menu::seleccionar_opcion()
                 cin.get();
                 cout << "\e[1;1H\e[2J" << endl; // limpia la consola
                 break;
-            // case 4:
-            //     mostrar_submenu();
-            //     break;
+            case 4:
+                mostrar_submenu();
+                break;
             // case 5:
             //     sistema.adoptar_animal();
             //     cout << "Presione enter para continuar..." << endl;
@@ -54,46 +54,35 @@ void Menu::seleccionar_opcion()
         }       
 
         sistema.actualizar_atributos();
+        if(sistema.cantidad_perdidos() == 3)
+        {
+            cout << "Su reserva fue clausurada por no mantener a los animales adecuadamente." << endl;
+            break;
+        }
     }
     
 }
 
-// void Menu::mostrar_submenu(){ 
-//     int opcion_elegida = 0;
-//     while(opcion_elegida != REGRESAR)
-//     {        
-//         cout<<endl;
-//         cout<<"\t\t=========================="<<endl;
-//         cout<<"\t Por favor eliga una de las siguientes opciones\n";
-//         cout<<"1. Elegir individualmente"<<endl;
-//         cout<<"2. Alimentar a todos"<<endl;
-//         cout<<"3. Bañar a todos"<<endl;
-//         cout<<"4. Regresar al inicio"<<endl;
-//         cout<<"\t\t=========================="<<endl;
-//         cout<<"Ingrese una opción: ";
-//         opcion_elegida = sistema.pedir_opcion(ELEGIR_INDIVIDUALMENTE, REGRESAR);
-//         switch(opcion_elegida)
-//         {
-//             case 1:
-//                 sistema.elegir_individualmente();
-//                 break;
-//             case 2:    
-//                 sistema.alimentar_todos();
-//                 cout << "Presione enter para continuar..." << endl;
-//                 cin.get();
-//                 cout << "\e[1;1H\e[2J" << endl; // limpia la consola
-//                 break;
-
-//             case 3:
-//                 sistema.baniar_todos();
-//                 cout << "Presione enter para continuar..." << endl;
-//                 cin.get();
-//                 cout << "\e[1;1H\e[2J" << endl; // limpia la consola
-
-//                 break;
-//             case 4:
-//                 opcion_elegida = REGRESAR;
-//                 break;
-//         }       
-//     }
-// }
+void Menu::mostrar_submenu(){ 
+    int opcion_elegida = 0;
+    while(opcion_elegida != REGRESAR)
+    {        
+        cout<<endl;
+        cout<<"\t\t=========================="<<endl;
+        cout<<"\t Por favor eliga una de las siguientes opciones\n";
+        cout<<"1. Elegir individualmente"<<endl;
+        cout<<"2. Regresar al inicio"<<endl;
+        cout<<"\t\t=========================="<<endl;
+        cout<<"Ingrese una opción: ";
+        opcion_elegida = sistema.pedir_opcion(ELEGIR_INDIVIDUALMENTE, REGRESAR);
+        switch(opcion_elegida)
+        {
+            case 1:
+                sistema.elegir_individualmente();
+                break;
+            case 2:    
+                opcion_elegida = REGRESAR;
+                break;
+        }       
+    }
+}

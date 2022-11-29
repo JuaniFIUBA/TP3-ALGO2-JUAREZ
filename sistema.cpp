@@ -1,10 +1,54 @@
 #include "sistema.hpp"
 using namespace std;
 
+
+
+// FUNCIONES AUXILIARES //
+void alimentar(Animal *animal)
+{
+    animal -> alimentarse();
+}
+
+void baniar(Animal *animal)
+{
+    animal -> lavarse(); 
+}
+
+void actualizar(Animal* animal, Vector<string>* vector)
+{
+    animal -> pasar_tiempo();
+    if(!animal -> esta_adoptado())
+    {
+        if(animal -> obtener_hambre() == 100 || animal -> obtener_higiene() == 0)
+        {
+            for(int i = 0; i < vector->tamanio();i++)
+            {
+                if(vector->en(i) == animal ->obtener_nombre())
+                    return;
+            }
+            vector-> insertar(0, animal -> obtener_nombre());
+            cout << animal -> obtener_nombre() << " escapó de la reserva, se encontraba en mal estado" << endl;
+            animal -> eliminar_animal();
+        }
+    }
+}
+
+void borrar_animal(Animal *animal)
+{
+    delete animal;
+}
+
+void guardar_nombres(Animal *animal, Vector<string>* vector)
+{
+    vector->insertar(0, animal -> obtener_nombre());
+}
+
+// FIN DE FUNCIONES AUXILIARES //
+
 Sistema::Sistema(){
     this -> arbol = new AB3<string, Animal*>(3);
     leer_archivo();
-    animales_perdidos = 0;
+    this -> animales_perdidos = new Vector<string>(1);
 }
 
 void Sistema::leer_archivo(){
@@ -28,6 +72,7 @@ void mostrar_info_animal(Animal *animal)
 {
     if(animal -> esta_eliminado() || animal -> esta_adoptado())
         return;
+    std::cout << "----------------------------------------" << endl;
     std::cout << "nombre: " << animal->obtener_nombre() << endl;
     std::cout << "edad: " << animal->obtener_edad() << endl;
     std::cout << "tamaño: " << animal->obtener_tamanio() << endl;
@@ -237,36 +282,47 @@ bool Sistema::seleccionar_animal(){
     }
 }
 
-// void Sistema::elegir_individualmente(){
-//     int opcion = 0;
-//     bool escogido = false;
-//     int i = 0;
-//     while(!escogido && i < lista.mostrar_cantidad()){
-//         mostrar_info_animal(i);
-//         cout<<"\t\t=========================="<<endl;
-//         cout<<"\t Por favor eliga una de las siguientes opciones\n";
-//         cout<<"1.Alimentar\n";
-//         cout<<"2.Baniar\n";
-//         cout<<"3.Saltear al siguiente\n";
-//         cout<<"\t\t=========================="<<endl;
-//         cout<<"Ingrese una opcion: ";
-//         opcion = pedir_opcion(ALIMENTAR, SALTEAR);
-//         if(opcion == ALIMENTAR){
-//             lista.consulta(i)->alimentarse();
-//             escogido = true;
-//         }
-//         else if(opcion == BANIAR){
-//             lista.consulta(i)->lavarse();
-//             escogido = true;
-//         }
-//         else if(opcion == SALTEAR){
-//             i++;
-//         }
-//     }
-//     if(lista.mostrar_cantidad() == i){
-//         cout<<"\t¡No hay más animales!"<<endl;
-//     }
-// }
+void Sistema::elegir_individualmente()
+{
+    Vector<string> *nombres = new Vector<string>(1);
+    arbol -> aplicar_funcion3(&guardar_nombres, nombres);
+    int largo_vector = nombres -> tamanio() - 1;
+    int opcion = 0;
+    bool escogido = false;
+    int i = 0;
+    Animal *actual = arbol -> buscar(nombres->en(i));
+    while(!escogido && i < largo_vector){
+        if(actual->esta_adoptado() || actual->esta_eliminado())
+            i++;
+        else
+        {
+            mostrar_info_animal(actual);
+            cout<<"\t\t=========================="<<endl;
+            cout<<"\t Por favor eliga una de las siguientes opciones\n";
+            cout<<"1.Alimentar\n";
+            cout<<"2.Baniar\n";
+            cout<<"3.Saltear al siguiente\n";
+            cout<<"\t\t=========================="<<endl;
+            cout<<"Ingrese una opcion: ";
+            opcion = pedir_opcion(ALIMENTAR, SALTEAR);
+            if(opcion == ALIMENTAR){
+                actual->alimentarse();
+                escogido = true;
+            }
+            else if(opcion == BANIAR){
+                actual->lavarse();
+                escogido = true;
+            }
+            else if(opcion == SALTEAR){
+                i++;
+            }
+        }
+    }
+    if(largo_vector == i){
+        cout<<"\t¡No hay más animales!"<<endl;
+    }
+    delete nombres;
+}
 
 int Sistema::pedir_opcion(int rango_min, int rango_max){
     string opcion;
@@ -278,19 +334,10 @@ int Sistema::pedir_opcion(int rango_min, int rango_max){
     return stoi(opcion);
 }
 
-void alimentar(Animal *animal)
-{
-    animal -> alimentarse();
-}
 
 void Sistema::alimentar_todos()
 {
     arbol -> aplicar_funcion(&alimentar);
-}
-
-void baniar(Animal *animal)
-{
-    animal -> lavarse(); 
 }
 
 void Sistema::baniar_todos()
@@ -298,34 +345,19 @@ void Sistema::baniar_todos()
     arbol -> aplicar_funcion(&baniar);
 }
 
-void actualizar(Animal* animal)
-{
-    animal -> pasar_tiempo();
-    if(animal -> obtener_hambre() == 100 || animal -> obtener_higiene() == 0)
-        animal -> eliminar_animal();
-}
-
 void Sistema::actualizar_atributos()
 {
-    arbol -> aplicar_funcion(&actualizar);
-}
-
-void borrar_animal(Animal *animal){
-    delete animal;
+    arbol -> aplicar_funcion3(&actualizar, this -> animales_perdidos);
 }
 
 void Sistema::borrar_animales()
 {
     arbol -> aplicar_funcion(&borrar_animal);
 }
-void Sistema::aumentar_perdidos(){
-    this -> animales_perdidos++;
-}
 
-
-
-void guardar_nombres(Animal *animal, Vector<string>* vector){
-    vector->insertar(0, animal -> obtener_nombre());
+int Sistema::cantidad_perdidos()
+{
+    return this -> animales_perdidos -> tamanio() - 1;
 }
 
 void Sistema::cerrar_archivo()
@@ -364,4 +396,5 @@ void Sistema::cerrar_archivo()
 Sistema::~Sistema(){
     borrar_animales();
     delete arbol;
+    delete animales_perdidos;
 }

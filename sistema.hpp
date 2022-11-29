@@ -54,8 +54,6 @@ enum opciones_menu{
 
 enum opciones_menu2{
     ELEGIR_INDIVIDUALMENTE = 1,
-    ALIMENTAR_TODOS,
-    BANIAR_TODOS,
     REGRESAR
 };
 
@@ -68,8 +66,7 @@ enum opciones_menu3{
 class Sistema{
 private:
     AB3<string, Animal*> *arbol;
-    int animales_perdidos;
-
+    Vector<string>* animales_perdidos;
 public:
 
     //pre:
@@ -89,7 +86,7 @@ public:
     void buscar_animal();
     //pre:
     //pos:
-    // void elegir_individualmente();
+    void elegir_individualmente();
     //pre:
     //pos: 
     int pedir_opcion(int rango_min, int rango_max);
@@ -103,7 +100,7 @@ public:
     //post: Muestra según el tamanio disponible los animales y una vez elegido uno de ellos lo elimina de la lista.
     // void adoptar_animal();
 
-    void aumentar_perdidos();
+    int cantidad_perdidos();
 
     void borrar_animales();
     //pre: 
