@@ -15,6 +15,10 @@ int Terreno::asignar_consumo(string color){
     }
 };
 
+void Terreno::cargar_terreno(){
+    
+}
+
 void Terreno::cargar_mapa_consumo(){
     for(int i = 0; i < dimension; i ++){
         for(int j = 0; j < dimension; j ++){
