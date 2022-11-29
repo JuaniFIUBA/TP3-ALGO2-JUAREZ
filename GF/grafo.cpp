@@ -284,51 +284,13 @@ void Grafo::eliminar_todo()
 
 }
 
-void Grafo::inicializar_matriz_ady(){
-    for(int i = 0; i < DIMENSION_ADY; i++){
-        for(int j = 0; j < DIMENSION_ADY; j++){
-            matriz_de_adyacencia[i][j] = INF;
-            if(i == j){
-                matriz_de_adyacencia[i][j] = 0;
-            }
-        }
-    }
-}
-
-void Grafo::llenar_matriz_ady()
-{
-
-    inicializar_matriz_ady();
-
-    ifstream conexiones ("conexiones.txt");
-
-    if(!conexiones.is_open()){
-        std::cout<<"Error al abrir el archivo"<<std::endl;
-    }
-
-    string vertice_uno, vertice_dos, valor;
-    
-    while(getline(conexiones, vertice_uno, ',')){
-        getline(conexiones, vertice_dos, ',');
-        getline(conexiones, valor);
-           
-        int posicion_uno = stoi(vertice_uno);
-        int posicion_dos = stoi(vertice_dos);
-        int costo = stoi(valor);
-
-        matriz_de_adyacencia[posicion_uno][posicion_dos] = costo;
-
-    }
-    conexiones.close();
-}
-
-
 
 int Grafo::Dijkstra(int inicio, int destino)
 {
     Cola cola;
     int distancias[capacidad];
     bool visitados[capacidad];
+    int padres[capacidad];
     
     for(int i = 0; i < capacidad; i++){
         distancias[i] = INF;
@@ -346,15 +308,25 @@ int Grafo::Dijkstra(int inicio, int destino)
         Dato aux = cola.consulta();
         cola.baja();
         visitados[aux.vertice_actual] = true;
-        std::cout<<"costo camino despues de chequear ady: "<<aux.costo_camino<<std::endl;
+        
         
         if(aux.vertice_actual == destino){
             while (! cola.vacia()){
-                Dato print = cola.consulta();
-                std::cout<<print.vertice_actual<<"-"<<print.costo_camino<<std::endl;
                 cola.baja();
 
             }
+            cola.~Cola();
+            int i = destino;
+            int j = 0;
+            
+            while(i != inicio){
+                recorrido[j] = i;
+                i = padres[i];
+                j++;
+                tope_recorrido = j;
+            }
+            std::cout<<std::endl;
+
             return aux.costo_camino;
         }
         Vertice* vertice = obtener_vertice(aux.vertice_actual);
@@ -367,10 +339,12 @@ int Grafo::Dijkstra(int inicio, int destino)
             if(!visitados[vertice_adyacente] && (distancias[aux.vertice_actual] + costo_adyacente) < distancias[vertice_adyacente]){    
                 distancias[vertice_adyacente] = aux.costo_camino + costo_adyacente;
                 cola.insertar(vertice_adyacente, (distancias[aux.vertice_actual] + costo_adyacente));
+                padres[vertice_adyacente] = aux.vertice_actual;
             }
             puntero_arista = puntero_arista->sig;
         }
     }
     return -1;      
 }
+
 

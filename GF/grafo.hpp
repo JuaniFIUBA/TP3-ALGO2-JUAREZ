@@ -14,8 +14,8 @@ class Grafo
     private:
         Vertice *raiz; //Arranque del mapa
         int capacidad; //Capacidad del mapa
-        int matriz_de_adyacencia[DIMENSION_ADY][DIMENSION_ADY]; //matriz de adyacencia
-
+        int recorrido[DIMENSION_ADY];
+        int tope_recorrido;
 
     public:
         //Pre:-
@@ -67,19 +67,11 @@ class Grafo
         //Post: Elimina todos los vertices y aristas del Grafo
         void eliminar_todo();
 
-        //Pre:-
-        //Post: Inicializa la matriz con INF y la diagonal principal en 0
-        void inicializar_matriz_ady();
-
-        //Pre:-
-        //Post: Llena la matriz de adyacencia con los costos del archivo de conexiones.txt
-        void llenar_matriz_ady();
-
-
-
         //Pre: Tienen que estar creado e inicializado el grafo
         //Post: Retorna la ruta más corta entre los vertices
         int Dijkstra(int posicion_uno, int posicion_dos);
+
+        void imprimir_camino();
 };
 
 #endif
