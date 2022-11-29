@@ -10,7 +10,8 @@ Animal::Animal(string nombre , int edad, string tamanio, char especie, Personali
     this->personalidad_t = personalidad->mostrar_personalidad();
     this->hambre = 0;
     this->higiene = 100;
-
+    this -> eliminado = false;
+    this -> adoptado = false;
 }
 
 string Animal::obtener_nombre(){

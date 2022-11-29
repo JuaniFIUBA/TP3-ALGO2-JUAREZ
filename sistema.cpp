@@ -26,8 +26,8 @@ void Sistema::leer_archivo(){
 
 void mostrar_info_animal(Animal *animal)
 {
-    // if(animal -> esta_eliminado() || animal -> esta_adoptado())
-    //     return;
+    if(animal -> esta_eliminado() || animal -> esta_adoptado())
+        return;
     std::cout << "nombre: " << animal->obtener_nombre() << endl;
     std::cout << "edad: " << animal->obtener_edad() << endl;
     std::cout << "tamaño: " << animal->obtener_tamanio() << endl;
@@ -102,7 +102,6 @@ void Sistema::crear_animal(std::string n_personalidad, std::string n_nombre, int
         this->arbol->agregar(animal -> obtener_nombre(), animal);
         return;
     }
-
 }
 
 
@@ -272,13 +271,11 @@ bool Sistema::seleccionar_animal(){
 int Sistema::pedir_opcion(int rango_min, int rango_max){
     string opcion;
     getline(cin>>ws, opcion);
-
     while(!es_opcion_valida(opcion, rango_min, rango_max)){
         cout<<"El dato ingresado no es válido. Por favor, ingrese una opción correcta: ";
         getline(cin>>ws, opcion);
     }
     return stoi(opcion);
-
 }
 
 void alimentar(Animal *animal)

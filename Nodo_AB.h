@@ -33,6 +33,8 @@ class Nodo_AB
 
         void insertar_hijo_derecha(Nodo_AB<T, E>* nodo);
 
+        void insertar_hijo(Nodo_AB<T,E>* nodo, int pos);
+
         void mostrar_claves();
 
         int obtener_claves_usadas();
@@ -140,6 +142,14 @@ void Nodo_AB<T, E>::insertar_hijo_derecha(Nodo_AB<T, E>* nodo){
 
     this -> hijos -> en(i + 1) = nodo;
 }
+
+template <class T, class E>
+void Nodo_AB<T,E>::insertar_hijo(Nodo_AB<T,E>* nodo, int pos)
+{
+    hijos -> insertar(pos, nodo);
+    hijos -> redimensionar(4);
+}
+
 
 template <class T, class E>
 void Nodo_AB<T, E>::mostrar_claves()
@@ -264,10 +274,10 @@ void Nodo_AB<T, E>::dividir_nodo()
     }
 
 
-
     else
     {
         Nodo_AB<T, E>* aux_derecho = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(2), this -> datos -> en(2));
+
         T clave_aux = this -> claves -> en(1); 
         E dato_aux = this -> datos -> en(1);
 
@@ -280,7 +290,7 @@ void Nodo_AB<T, E>::dividir_nodo()
             padre -> asignar_hijo(aux_derecho, 2);
 
         else
-            padre -> asignar_hijo(aux_derecho, 1);
+            padre -> insertar_hijo(aux_derecho, 1);
         
         reordenar(this -> claves -> en(0));
         intercambiar_hijos(aux_derecho, 2, 0);
