@@ -39,11 +39,8 @@ int Terreno::distancia_manhattan(coor pos1, coor pos2){
     return  (abs((pos1.col - pos2.col)) + abs((pos1.fil - pos2.fil)));
 }
 
-void Terreno::inicializar_jugador(){
-    coor jugador;
-    jugador.col = 0;
-    jugador.fil = 0;
-    terreno[0][0] = 'X';
+void Terreno::colocar_jugador(){
+    terreno[auto_jugador.posicion.fil][auto_jugador.posicion.col] = auto_jugador.identificador;
 }
 
 void Terreno::cargar_animales(){
@@ -60,7 +57,7 @@ void Terreno::cargar_animales(){
                 superpuestos = true;
             }
         }
-        if(distancia_manhattan(coor1,pos_jugador) == SUPERPUESTOS){
+        if(distancia_manhattan(coor1,auto_jugador.posicion) == SUPERPUESTOS){
             superpuestos = true;
         }
         if(!superpuestos){
@@ -85,16 +82,13 @@ void Terreno::colocar_animales(){
     };
 }
 
-
-
 void Terreno::cargar_terreno(){
-    inicializar_jugador();
     cargar_mapa_consumo();
     cargar_colores();
     cargar_animales();
+    colocar_jugador();
     colocar_animales();
 }
-
 
 void Terreno::mostrar_terreno(){
     for(int i = 0; i < dimension; i ++){

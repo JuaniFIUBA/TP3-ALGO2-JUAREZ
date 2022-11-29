@@ -6,15 +6,11 @@
 #include<string>
 #include <fstream>
 #include "colors.h"
+#include "auto.hpp"
 const int ANIMALES_A_SER_RESCATADOS = 5;
 const int SUPERPUESTOS = 0;
 
 using namespace std;
-
-struct coor{
-    int col;
-    int fil;
-};
 
 struct animal_rescate{
     coor pos;
@@ -24,6 +20,7 @@ struct animal_rescate{
 class Terreno{
 private:
     //Atributos
+    Auto auto_jugador;
     static const int dimension = 8;
     string colores[dimension][dimension];
     char terreno[dimension][dimension];
@@ -36,7 +33,7 @@ private:
     void cargar_colores();
     void cargar_animales();
     void colocar_animales();
-    void inicializar_jugador();
+    void colocar_jugador();
     int distancia_manhattan(coor pos1, coor pos2);
 
 public:
