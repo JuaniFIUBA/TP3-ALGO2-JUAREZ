@@ -30,9 +30,6 @@ void Terreno::cargar_mapa_consumo(){
     for(int i = 0; i < dimension; i++){
         for(int j = 0; j < dimension; j++){
             getline(lista_consumo, consumo,',');
-            if(j == dimension -1){
-                getline(lista_consumo, consumo,'\n');
-            }
             mapa_de_consumo[i][j] = stoi(consumo);
         }
     }
@@ -42,29 +39,34 @@ int Terreno::distancia_manhattan(coor pos1, coor pos2){
     return  (abs((pos1.col - pos2.col)) + abs((pos1.fil - pos2.fil)));
 }
 
-void Terreno::cargar_animales(){
-    char especies[] = {'P','G','C','L','R','O','E'};
-    srand((unsigned) time(NULL));
-    int i = 0;
+void Terreno::inicializar_jugador(){
     coor jugador;
     jugador.col = 0;
     jugador.fil = 0;
+    terreno[0][0] = 'X';
+}
+
+void Terreno::cargar_animales(){
+    char especies[] = {'P','G','C','L','R','O','E'};
+    int i = 0;
+
     while(i < ANIMALES_A_SER_RESCATADOS){
         bool superpuestos = false;
         coor coor1;
-        coor1.fil = rand() % ANIMALES_A_SER_RESCATADOS;
-        coor1.col = rand() % ANIMALES_A_SER_RESCATADOS;
+        coor1.fil = rand() % dimension;
+        coor1.col = rand() % dimension;
         for(int j = 0; j < ANIMALES_A_SER_RESCATADOS; j++){
             if(distancia_manhattan(coor1,animales[j].pos) == SUPERPUESTOS){
                 superpuestos = true;
             }
-        if(distancia_manhattan(coor1,jugador) == SUPERPUESTOS){
+        }
+        if(distancia_manhattan(coor1,pos_jugador) == SUPERPUESTOS){
             superpuestos = true;
         }
         if(!superpuestos){
             animales[i].pos = coor1;
             animales[i].especie = especies[rand() % ANIMALES_A_SER_RESCATADOS];
-        }
+            i++;
         }
     }
 }
@@ -83,20 +85,21 @@ void Terreno::colocar_animales(){
     };
 }
 
+
+
 void Terreno::cargar_terreno(){
+    inicializar_jugador();
     cargar_mapa_consumo();
     cargar_colores();
     cargar_animales();
     colocar_animales();
 }
 
+
 void Terreno::mostrar_terreno(){
     for(int i = 0; i < dimension; i ++){
         for(int j = 0; j < dimension; j ++){
             cout << colores[i][j] << terreno[i][j] << END_COLOR;
-            if(j == dimension -1){
-                cout << colores[i][j] << terreno[i][j] << END_COLOR<<endl;
-            }
-        }
+        }cout <<' '<<endl;
     } 
 }
