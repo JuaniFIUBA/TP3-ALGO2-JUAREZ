@@ -43,6 +43,10 @@ void Mapa::unir_casilleros()
     conexiones.close();
 }
 
+void Mapa::cargar_matriz_adyacencia(){
+    grafo.llenar_matriz_ady();
+
+}
 
 
 
@@ -58,5 +62,10 @@ void Mapa::mostrar_mapa(){
     std::cout<<std::endl;
    */
 
-    std::cout<<grafo.obtener_cantidad_aristas(12)<<std::endl;
+
+}
+
+void Mapa::camino_minimo(){
+    std::cout<<"Costo del camino: "<<grafo.Dijkstra(0,2)<<std::endl;
+
 }

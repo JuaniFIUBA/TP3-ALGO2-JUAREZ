@@ -19,7 +19,9 @@ int main()
 
     //grafo.llenar_matriz_ady();
 
-    mapa.mostrar_mapa();
+    //mapa.mostrar_mapa();
+
+    mapa.camino_minimo();
 
 
     /*
