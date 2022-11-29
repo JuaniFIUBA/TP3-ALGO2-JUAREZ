@@ -4,12 +4,11 @@ using namespace std;
 
 #define INF -1;
 
-int const filas = 7;
-int const columnas = 7;
+int const filas = 8;
+int const columnas = 8;
 
 int main() 
 {
-
     int matriz_ady[filas][columnas];
 
     /* 64 224*/
@@ -18,15 +17,15 @@ int main()
     /*2 -> 3 ; Coste X*/
 
     int V = 64; //Vertices
-    int E = 186; //Conexiones
+    int E = 244; //Conexiones
 
     cin >> V >> E;
 
     int u, v , w;
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < filas; i++)
     {
-        for(int j = 0; j < 7; j++)
+        for(int j = 0; j < columnas; j++)
         {
             matriz_ady[i][j] = INF;
         }
