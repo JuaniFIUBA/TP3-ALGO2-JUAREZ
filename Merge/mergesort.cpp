@@ -18,7 +18,7 @@ void merge_sort(Vector<int>&arreglo, int inicio, int final)
 
 void merge(Vector<int>&arreglo, int inicio, int mitad, int final){
     int i,j,k;
-    int elementos_izquierda = mitad - inicio +1;
+    int elementos_izquierda = mitad - inicio + 1;
     int elementos_derecha = final - mitad;
 
     Vector<int>izquierda(elementos_izquierda);
@@ -57,7 +57,7 @@ void merge(Vector<int>&arreglo, int inicio, int mitad, int final){
 
     while(i < elementos_izquierda)
     {
-        arreglo.en(i) = izquierda.en(i);
+        arreglo.en(k) = izquierda.en(i);
         i++;
         k++;
     }
@@ -65,10 +65,10 @@ void merge(Vector<int>&arreglo, int inicio, int mitad, int final){
 
 }
 
-void imprimir_arreglo(Vector<int>arreglo)
+void imprimir_arreglo(Vector<int>&arreglo)
 {
     cout << arreglo.tamanio();
-    for(int i = 0; i < int(arreglo.tamanio()); i++)
+    for(int i = 0; i < int(arreglo.tamanio() -1); i++)
     {
         cout << arreglo.en(i) << " ";
     }
@@ -76,10 +76,19 @@ void imprimir_arreglo(Vector<int>arreglo)
 }
 
 int main(){
-    Vector<int> prueba1(10);
-    for(int i = 0; i < 10;i ++)
-        prueba1.en(i) = i;
-    // imprimir_arreglo(prueba1);
-    // merge_sort(prueba1,0,int(prueba1.tamanio())-1);
-    // imprimir_arreglo(prueba1);
+    Vector<int> prueba1(7);
+    
+    prueba1.en(0) = 16;
+    prueba1.en(1) = 6;
+    prueba1.en(2) = 5;
+    prueba1.en(3) = 44;
+    prueba1.en(4) = 2;
+    prueba1.en(5) = 14;
+    prueba1.en(6) = 555;
+
+    imprimir_arreglo(prueba1);
+    merge_sort(prueba1,0,int(prueba1.tamanio()) - 1);
+    imprimir_arreglo(prueba1);
 }
+
+//g++ *.cpp -Wall -Werror -Wconversion -o mergesort
