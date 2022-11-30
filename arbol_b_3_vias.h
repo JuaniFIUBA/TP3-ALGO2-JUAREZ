@@ -27,6 +27,8 @@ class AB3
 
         void aplicar_funcion(void (*foo)(E dato));
         
+        void aplicar_funcion2(void (*foo)(E dato, int parametro), int parametro);
+
         void aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
 
         bool clave_existe(T clave);
@@ -36,6 +38,8 @@ class AB3
         ~AB3();
     private:
         void aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato));
+
+        void aplicar_funcion2(Nodo_AB<T,E>* nodo, void (*foo)(E dato, int parametro), int parametro);
 
         void aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
 
@@ -152,6 +156,25 @@ void AB3<T,E>::aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato))
         aplicar_funcion(nodo -> obtener_hijo(2), foo);
     }
 }
+
+template <class T, class E>
+void AB3<T,E>::aplicar_funcion2(void (*foo)(E dato, int parametro), int parametro){
+    aplicar_funcion2(this -> raiz, foo, parametro);
+}
+
+
+template <class T, class E>
+void AB3<T,E>::aplicar_funcion2(Nodo_AB<T,E>*nodo, void (*foo)(E dato, int parametro), int parametro){
+    if(nodo != nullptr)
+    {
+        aplicar_funcion2(nodo -> obtener_hijo(0), foo, parametro);
+        for(int i =0; i < nodo -> obtener_claves_usadas(); i++)
+            foo(nodo -> obtener_dato(nodo -> obtener_clave(i)), parametro);
+        aplicar_funcion2(nodo -> obtener_hijo(1), foo, parametro);
+        aplicar_funcion2(nodo -> obtener_hijo(2), foo, parametro);
+    }
+}
+
 
 template <class T, class E>
 void AB3<T,E>::aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector){

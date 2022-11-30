@@ -42,12 +42,12 @@ void Menu::seleccionar_opcion()
             case 4:
                 mostrar_submenu();
                 break;
-            // case 5:
-            //     sistema.adoptar_animal();
-            //     cout << "Presione enter para continuar..." << endl;
-            //     cin.get();                
-            //     cout << "\e[1;1H\e[2J" << endl; // limpia la consola
-            //     break;
+            case 5:
+                sistema.adoptar_animal();
+                cout << "Presione enter para continuar..." << endl;
+                cin.get();                
+                cout << "\e[1;1H\e[2J" << endl; // limpia la consola
+                break;
             case 6:
                 sistema.cerrar_archivo();
                 break;

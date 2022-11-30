@@ -60,7 +60,8 @@ enum opciones_menu2{
 enum opciones_menu3{
     ALIMENTAR = 1,
     BANIAR,
-    SALTEAR
+    SALTEAR,
+    VOLVER
 };
 
 class Sistema{
@@ -98,7 +99,7 @@ public:
     void baniar_todos();
     //pre:
     //post: Muestra según el tamanio disponible los animales y una vez elegido uno de ellos lo elimina de la lista.
-    // void adoptar_animal();
+    void adoptar_animal();
 
     int cantidad_perdidos();
 
@@ -139,7 +140,7 @@ private:
 
     //pre:
     //pos: muestra por consola los animales que se puedan tener en un espacio contenido en espacio_disponible
-    // void mostrar_animales_disponibles(int espacio_disponible);
+    void mostrar_animales_disponibles(int espacio_disponible);
    
     //pre:
     //pos: true en caso de que el animal sea seleccionado con exito, false en caso de que no se encuentre el animal

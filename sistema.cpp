@@ -4,6 +4,22 @@ using namespace std;
 
 
 // FUNCIONES AUXILIARES //
+
+void mostrar_info_animal(Animal *animal)
+{
+    if(animal -> esta_eliminado() || animal -> esta_adoptado())
+        return;
+    std::cout << "----------------------------------------" << endl;
+    std::cout << "nombre: " << animal->obtener_nombre() << endl;
+    std::cout << "edad: " << animal->obtener_edad() << endl;
+    std::cout << "tamaño: " << animal->obtener_tamanio() << endl;
+    std::cout << "especie: " << animal->devolver_especie() << endl;
+    std::cout << "personalidad: " << animal->mostrar_personalidad() << endl;
+    std::cout << "hambre: " << animal->obtener_hambre() << endl;
+    std::cout << "higiene: " << animal->obtener_higiene() << endl;
+    std::cout << "----------------------------------------" << endl;
+}
+
 void alimentar(Animal *animal)
 {
     animal -> alimentarse();
@@ -27,8 +43,11 @@ void actualizar(Animal* animal, Vector<string>* vector)
                     return;
             }
             vector-> insertar(0, animal -> obtener_nombre());
-            cout << animal -> obtener_nombre() << " escapó de la reserva, se encontraba en mal estado" << endl;
+            cout << "-----------------------------------------" << endl;
+            cout << animal -> obtener_nombre() << " escapó de la reserva, se encontraba en mal estado." << endl;
             animal -> eliminar_animal();
+            cout << "¡ATENCION! "<< endl;
+            cout << "Si se escapan " << 4 - vector -> tamanio() << " animal/es más, se clausurará la reserva." <<endl;
         }
     }
 }
@@ -40,7 +59,35 @@ void borrar_animal(Animal *animal)
 
 void guardar_nombres(Animal *animal, Vector<string>* vector)
 {
-    vector->insertar(0, animal -> obtener_nombre());
+    if(!animal -> esta_adoptado() && !animal ->esta_eliminado())
+        vector->insertar(0, animal -> obtener_nombre());
+}
+
+
+void _mostrar_animales_disponibles(Animal* animal, int espacio_disponible){
+        if (espacio_disponible >= GIGANTE){
+            mostrar_info_animal(animal);
+        }
+        else if(espacio_disponible >= GRANDE){
+            if(animal -> obtener_tamanio() != "gigante"){
+                mostrar_info_animal(animal);
+            }
+        }
+        else if(espacio_disponible >= MEDIANO){
+            if (animal -> obtener_tamanio() != "gigante" && animal -> obtener_tamanio() != "grande"){
+                mostrar_info_animal(animal);
+            }
+        }
+        else if(espacio_disponible < PEQUENIO && espacio_disponible > DIMINUTO){
+            if (animal -> obtener_tamanio() == "pequeño" || animal -> obtener_tamanio() == "diminuto"){
+                mostrar_info_animal(animal);
+            }
+        }
+        else if(espacio_disponible <= DIMINUTO){
+            if(animal -> obtener_tamanio() == "diminuto"){
+                mostrar_info_animal(animal);
+            }
+        }
 }
 
 // FIN DE FUNCIONES AUXILIARES //
@@ -67,21 +114,6 @@ void Sistema::leer_archivo(){
     lista_animales.close();
 }
 
-
-void mostrar_info_animal(Animal *animal)
-{
-    if(animal -> esta_eliminado() || animal -> esta_adoptado())
-        return;
-    std::cout << "----------------------------------------" << endl;
-    std::cout << "nombre: " << animal->obtener_nombre() << endl;
-    std::cout << "edad: " << animal->obtener_edad() << endl;
-    std::cout << "tamaño: " << animal->obtener_tamanio() << endl;
-    std::cout << "especie: " << animal->devolver_especie() << endl;
-    std::cout << "personalidad: " << animal->mostrar_personalidad() << endl;
-    std::cout << "hambre: " << animal->obtener_hambre() << endl;
-    std::cout << "higiene: " << animal->obtener_higiene() << endl;
-    std::cout << "----------------------------------------" << endl;
-}
 
 
 
@@ -215,52 +247,33 @@ void Sistema::buscar_animal()
         cout << "No se encontró ningún animal que se llame <" << nombre << ">." << endl;
 }
 
-// void Sistema::adoptar_animal()
-// {
-//     int espacio_disponible;
-//     cout<<"Indicar el espacio disponible en metros cuadrados(desde 1 hasta 500 metros cuadrados):"<<endl;
-//     espacio_disponible = pedir_opcion(ESPACIO_MIN, ESPACIO_MAX) ;
+void Sistema::adoptar_animal()
+{
+    int espacio_disponible;
+    cout << "Espacio necesario: " << endl;
+    cout << "Diminuto: 2 metros o menos." << endl;
+    cout << "Pequeño: 10 metros o menos." << endl;
+    cout << "Mediano: 10 metros o más." << endl;
+    cout << "Grande: 20 metros o más." << endl;
+    cout << "Gigante: 60 metros o más." << endl;
+    cout << "--------------------------------------" << endl;
+    cout<<"Indicar el espacio disponible en metros cuadrados(desde 1 hasta 500 metros cuadrados):"<<endl;
+    espacio_disponible = pedir_opcion(ESPACIO_MIN, ESPACIO_MAX) ;
+    mostrar_animales_disponibles(espacio_disponible);
 
-//     mostrar_animales_disponibles(espacio_disponible);
-
-//     string input_usuario;
-//     cout << "¿Desea elegir un animal de los listados para adoptar? S(sí), N(no)." << endl;
-//     getline(cin>>ws, input_usuario);
-//     a_minuscula(input_usuario);
-//     if(input_usuario.find('s') != string::npos)
-//         seleccionar_animal();
-// }
+    string input_usuario;
+    cout << "¿Desea elegir un animal de los listados para adoptar? S(sí), N(no)." << endl;
+    getline(cin>>ws, input_usuario);
+    a_minuscula(input_usuario);
+    if(input_usuario.find('s') != string::npos)
+        seleccionar_animal();
+}
 
 
-// void Sistema::mostrar_animales_disponibles(int espacio_disponible){
-
-//     int largo_lista = lista.mostrar_cantidad();
-//     for(int i = 0; i < largo_lista; i++){
-//         if (espacio_disponible >= GIGANTE){
-//             mostrar_info_animal(i);
-//         }
-//         else if(espacio_disponible >= GRANDE){
-//             if(lista.consulta(i)->obtener_tamanio() != "gigante"){
-//                 mostrar_info_animal(i);
-//             }
-//         }
-//         else if(espacio_disponible >= MEDIANO){
-//             if (lista.consulta(i)->obtener_tamanio() != "gigante" && lista.consulta(i)->obtener_tamanio() != "grande"){
-//                 mostrar_info_animal(i);
-//             }
-//         }
-//         else if(espacio_disponible < PEQUENIO && espacio_disponible > DIMINUTO){
-//             if (lista.consulta(i)->obtener_tamanio() == "pequeño" || lista.consulta(i)->obtener_tamanio() == "diminuto"){
-//                 mostrar_info_animal(i);
-//             }
-//         }
-//         else if(espacio_disponible <= DIMINUTO){
-//             if(lista.consulta(i)->obtener_tamanio() == "diminuto"){
-//                 mostrar_info_animal(i);
-//             }
-//         }
-//     }
-// }
+void Sistema::mostrar_animales_disponibles(int espacio_disponible)
+{
+    arbol -> aplicar_funcion2(&_mostrar_animales_disponibles, espacio_disponible);
+}
 
 bool Sistema::seleccionar_animal(){
     string nombre;
@@ -292,31 +305,28 @@ void Sistema::elegir_individualmente()
     int i = 0;
     Animal *actual = arbol -> buscar(nombres->en(i));
     while(!escogido && i < largo_vector){
-        if(actual->esta_adoptado() || actual->esta_eliminado())
-            i++;
-        else
-        {
-            mostrar_info_animal(actual);
-            cout<<"\t\t=========================="<<endl;
-            cout<<"\t Por favor eliga una de las siguientes opciones\n";
-            cout<<"1.Alimentar\n";
-            cout<<"2.Baniar\n";
-            cout<<"3.Saltear al siguiente\n";
-            cout<<"\t\t=========================="<<endl;
-            cout<<"Ingrese una opcion: ";
-            opcion = pedir_opcion(ALIMENTAR, SALTEAR);
-            if(opcion == ALIMENTAR){
-                actual->alimentarse();
-                escogido = true;
-            }
-            else if(opcion == BANIAR){
-                actual->lavarse();
-                escogido = true;
-            }
-            else if(opcion == SALTEAR){
-                i++;
-            }
+        mostrar_info_animal(actual);
+        cout<<"\t\t=========================="<<endl;
+        cout<<"\t Por favor eliga una de las siguientes opciones\n";
+        cout<<"1.Alimentar\n";
+        cout<<"2.Baniar\n";
+        cout<<"3.Saltear al siguiente\n";
+        cout<<"\t\t=========================="<<endl;
+        cout<<"Ingrese una opcion: ";
+        opcion = pedir_opcion(ALIMENTAR, VOLVER);
+        if(opcion == ALIMENTAR){
+            actual->alimentarse();
+            escogido = true;
         }
+        else if(opcion == BANIAR){
+            actual->lavarse();
+            escogido = true;
+        }
+        else if(opcion == SALTEAR){
+            i++;
+        }
+        else   
+            escogido = true;
     }
     if(largo_vector == i){
         cout<<"\t¡No hay más animales!"<<endl;
