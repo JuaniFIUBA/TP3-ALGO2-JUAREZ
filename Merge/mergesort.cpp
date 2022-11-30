@@ -68,9 +68,8 @@ void merge(Vector<int>&arreglo, int inicio, int mitad, int final){
 void imprimir_arreglo(Vector<int>&arreglo)
 {
     for(int i = 0; i < int(arreglo.tamanio()); i++)
-    {
         cout << arreglo.en(i) << " ";
-    }
+        
     cout << endl;
 }
 
