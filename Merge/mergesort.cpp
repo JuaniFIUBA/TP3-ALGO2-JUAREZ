@@ -11,7 +11,7 @@ void merge_sort(Vector<int>&arreglo, int inicio, int final)
     if(inicio < final){
         int mitad = inicio + (final - inicio)/2;
         merge_sort(arreglo, inicio, mitad);
-        merge_sort(arreglo, mitad+1,final);
+        merge_sort(arreglo, mitad + 1,final);
         merge(arreglo, inicio, mitad, final);
     }
 }
@@ -67,8 +67,7 @@ void merge(Vector<int>&arreglo, int inicio, int mitad, int final){
 
 void imprimir_arreglo(Vector<int>&arreglo)
 {
-    cout << arreglo.tamanio();
-    for(int i = 0; i < int(arreglo.tamanio() -1); i++)
+    for(int i = 0; i < int(arreglo.tamanio()); i++)
     {
         cout << arreglo.en(i) << " ";
     }
