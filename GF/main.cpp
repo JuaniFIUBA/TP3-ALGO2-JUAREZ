@@ -1,18 +1,21 @@
 #include <iostream>
 #include "mapa.hpp"
 #include "grafo.hpp"
+#include <time.h>
 
 using namespace std;
 
 int main()
 {
+    srand((unsigned) time(NULL));
+
     Mapa mapa;
     
     mapa.crear_casilleros();
 
     mapa.unir_casilleros();
 
-    //mapa.mostrar_mapa();
+    mapa.mostrar_mapa();
 
     mapa.trasladar();
 

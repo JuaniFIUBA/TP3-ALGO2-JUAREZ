@@ -52,8 +52,8 @@ void Mapa::editar_mapa(){
 
 
 void Mapa::mostrar_mapa(){
-   
-    //terreno_t.mostrar_terreno();
+    terreno_t.inicializar_terreno();
+    terreno_t.mostrar_terreno();
    /*
     for(int i = 0; i < DIMENSION_ADY; i++){
         std::cout<<std::endl;

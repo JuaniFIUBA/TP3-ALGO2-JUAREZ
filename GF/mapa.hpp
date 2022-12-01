@@ -1,7 +1,7 @@
 #ifndef MAPA_HPP
 #define MAPA_HPP
 #include "grafo.hpp"
-//#include "terreno.hpp"
+#include "terreno.hpp"
 
 const int FILAS = 8;
 const int COLUMNAS = 8;
@@ -16,7 +16,7 @@ class Mapa
     private:
         Grafo grafo;
         Auto vehiculo;
-        //Terreno terreno_t;
+        Terreno terreno_t;
         
     public:
         //Pre: Recibe la cantidad de filas y columnas
