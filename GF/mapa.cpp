@@ -79,7 +79,8 @@ void Mapa::camino_minimo()
 
 void Mapa::mostrar_recorrido()
 {
-    
+    int posicion;
+    traducir_posicion();
 }
 
 
