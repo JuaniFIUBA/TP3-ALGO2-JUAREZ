@@ -13,15 +13,15 @@ class AB3
         int vias;
         Nodo_AB<T, E>* raiz;
     public:
+        //CONSTRUCTOR 
         AB3(int vias);
+        
         //PRE:
-        //POS:
+        //POS: Agrega la clave junto con el dato en el nodo que corresponda
         void agregar(T clave, E dato);
+
         //PRE:
-        //POS:
-        Nodo_AB<T, E>* obtener_raiz();
-        //PRE:
-        //POS:
+        //POS: Muestra las claves en orden, 
         void print_in_order();
         //PRE:
         //POS:
@@ -78,12 +78,6 @@ AB3<T, E>::AB3(int vias)
 }
 
 template <class T, class E>
-Nodo_AB<T, E>* AB3<T, E>::obtener_raiz()
-{
-    return this -> raiz;
-}
-
-template <class T, class E>
 void AB3<T, E>::agregar(T clave, E dato)
 {
     if(raiz == nullptr)
@@ -117,8 +111,10 @@ void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)
     if(nodo != nullptr)
     {
         print_in_order(nodo -> obtener_hijo(0));
-        nodo -> mostrar_claves();
+        cout << nodo -> obtener_clave(0) << ", " << endl;
         print_in_order(nodo -> obtener_hijo(1));
+        if(nodo -> obtener_claves_usadas() != 1)
+            cout << nodo -> obtener_clave(1) << ", " <<endl;
         print_in_order(nodo -> obtener_hijo(2));
     }
 }
