@@ -27,7 +27,7 @@ class AB3
 
         void aplicar_funcion(void (*foo)(E dato));
         
-        void aplicar_funcion2(void (*foo)(E dato, int parametro), int parametro);
+        void aplicar_funcion2(void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector);
 
         void aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
 
@@ -39,7 +39,7 @@ class AB3
     private:
         void aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato));
 
-        void aplicar_funcion2(Nodo_AB<T,E>* nodo, void (*foo)(E dato, int parametro), int parametro);
+        void aplicar_funcion2(Nodo_AB<T,E>* nodo, void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector);
 
         void aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
 
@@ -158,20 +158,22 @@ void AB3<T,E>::aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato))
 }
 
 template <class T, class E>
-void AB3<T,E>::aplicar_funcion2(void (*foo)(E dato, int parametro), int parametro){
-    aplicar_funcion2(this -> raiz, foo, parametro);
+void AB3<T,E>::aplicar_funcion2(void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector)
+{
+    aplicar_funcion2(this -> raiz, foo, parametro, vector);
 }
 
 
 template <class T, class E>
-void AB3<T,E>::aplicar_funcion2(Nodo_AB<T,E>*nodo, void (*foo)(E dato, int parametro), int parametro){
+void AB3<T,E>::aplicar_funcion2(Nodo_AB<T,E>* nodo, void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector)
+{
     if(nodo != nullptr)
     {
-        aplicar_funcion2(nodo -> obtener_hijo(0), foo, parametro);
+        aplicar_funcion2(nodo -> obtener_hijo(0), foo, parametro, vector);
         for(int i =0; i < nodo -> obtener_claves_usadas(); i++)
-            foo(nodo -> obtener_dato(nodo -> obtener_clave(i)), parametro);
-        aplicar_funcion2(nodo -> obtener_hijo(1), foo, parametro);
-        aplicar_funcion2(nodo -> obtener_hijo(2), foo, parametro);
+            foo(nodo -> obtener_dato(nodo -> obtener_clave(i)), parametro, vector);
+        aplicar_funcion2(nodo -> obtener_hijo(1), foo, parametro, vector);
+        aplicar_funcion2(nodo -> obtener_hijo(2), foo, parametro, vector);
     }
 }
 

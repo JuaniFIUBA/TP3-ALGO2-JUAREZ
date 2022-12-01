@@ -64,30 +64,33 @@ void guardar_nombres(Animal *animal, Vector<string>* vector)
 }
 
 
-void _mostrar_animales_disponibles(Animal* animal, int espacio_disponible){
+void _mostrar_animales_disponibles(Animal* animal, int espacio_disponible, Vector<Animal*>* lista_disponibles){
+    if(!animal -> esta_adoptado() && !animal->esta_eliminado())
+    {
         if (espacio_disponible >= GIGANTE){
-            mostrar_info_animal(animal);
+            lista_disponibles->insertar(0, animal);
         }
         else if(espacio_disponible >= GRANDE){
             if(animal -> obtener_tamanio() != "gigante"){
-                mostrar_info_animal(animal);
+                lista_disponibles->insertar(0, animal);
             }
         }
         else if(espacio_disponible >= MEDIANO){
             if (animal -> obtener_tamanio() != "gigante" && animal -> obtener_tamanio() != "grande"){
-                mostrar_info_animal(animal);
+                lista_disponibles->insertar(0, animal);
             }
         }
         else if(espacio_disponible < PEQUENIO && espacio_disponible > DIMINUTO){
             if (animal -> obtener_tamanio() == "pequeño" || animal -> obtener_tamanio() == "diminuto"){
-                mostrar_info_animal(animal);
+                lista_disponibles->insertar(0, animal);
             }
         }
         else if(espacio_disponible <= DIMINUTO){
             if(animal -> obtener_tamanio() == "diminuto"){
-                mostrar_info_animal(animal);
+                lista_disponibles->insertar(0, animal);
             }
         }
+    }
 }
 
 // FIN DE FUNCIONES AUXILIARES //
@@ -272,7 +275,11 @@ void Sistema::adoptar_animal()
 
 void Sistema::mostrar_animales_disponibles(int espacio_disponible)
 {
-    arbol -> aplicar_funcion2(&_mostrar_animales_disponibles, espacio_disponible);
+    Vector<Animal*> disponibles(1);
+    arbol -> aplicar_funcion2(&_mostrar_animales_disponibles, espacio_disponible, &disponibles);
+    merge_sort(disponibles, 0,disponibles.tamanio() - 2); //UN -1 SE DEBE A LA IMPLEMENTACIÓN DE VECTOR
+    for(int i = 0; i < disponibles.tamanio() - 1; i++)
+        mostrar_info_animal(disponibles.en(i));
 }
 
 bool Sistema::seleccionar_animal(){

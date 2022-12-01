@@ -3,6 +3,7 @@
 #include "arbol_b_3_vias.h"
 #include "Nodo_AB.h"
 #include "vector.h"
+#include "./Merge/mergesort.h"
 #include "validaciones.h"
 #include "./Animales/animales.h"
 #include "./Animales/perro.h"
