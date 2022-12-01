@@ -379,7 +379,7 @@ int Sistema::cantidad_perdidos()
 
 void Sistema::cerrar_archivo()
 {
-    ofstream lista_animales("animales.csv");
+    ofstream animales_registrados("animales.csv");
     
     Vector<string> *nombres = new Vector<string>(1);
     arbol -> aplicar_funcion3(&guardar_nombres, nombres);
@@ -388,24 +388,18 @@ void Sistema::cerrar_archivo()
     for(int i = 0; i < largo_vector; i++)
     {
         Animal *animal = arbol -> buscar(nombres->en(i));
-        if(i == largo_vector - 1)
-        {
-            lista_animales << animal->obtener_nombre() << ','
-            << animal->obtener_edad() << ','
-            << animal->obtener_tamanio() << ','
-            << animal->devolver_especie() << ','
-            << animal->mostrar_personalidad();
-            lista_animales.close();
-            delete nombres;
-            return;
-        }
+
+        animales_registrados << animal->obtener_nombre() << ','
+        << animal->obtener_edad() << ','
+        << animal->obtener_tamanio() << ','
+        << animal->devolver_especie() << ','
+        << animal->mostrar_personalidad();
+        if(i != largo_vector -1)
+            animales_registrados << "\n";
         else
         {
-            lista_animales << animal->obtener_nombre() << ','
-            << animal->obtener_edad() << ','
-            << animal->obtener_tamanio() << ','
-            << animal->devolver_especie() << ','
-            << animal->mostrar_personalidad() << "\n";
+            animales_registrados.close();
+            delete nombres;
         }
     }
 }
