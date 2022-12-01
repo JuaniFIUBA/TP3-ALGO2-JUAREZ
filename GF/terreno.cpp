@@ -46,6 +46,7 @@ void Terreno::colocar_jugador(){
 
 void Terreno::colocar_jugador(int fil_orig, int col_orig, int fil_dest, int col_dest){
     if((fil_orig != fil_dest) && (col_orig != col_dest))
+        terreno[fil_orig][col_orig] = ' ';
         terreno[fil_dest][col_dest] = auto_jugador.identificador;
 }
 
@@ -101,6 +102,7 @@ int Terreno::jugador_en_animal(int fil_auto, int col_auto){
 void Terreno::eliminar_animal(int fil_auto, int col_auto){
     int i = jugador_en_animal(fil_auto,col_auto);
     if(i != -1){
+        terreno[animales[i].fil][animales[i].col] = ' ';
         for(int j = i; j < tope_animales; j++){
             animales[j] = animales[j+1];
         }tope_animales --;
@@ -115,8 +117,9 @@ void Terreno::inicializar_terreno(){
     colocar_animales();
 }
 
-void Terreno::actualizar_terreno(){
-    
+void Terreno::actualizar_terreno(int fil_orig, int col_orig, int fil_dest, int col_dest){
+    colocar_animales();
+    colocar_jugador(fil_orig,col_orig, fil_dest, col_dest);
 }
 
 void Terreno::mostrar_terreno(){

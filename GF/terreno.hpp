@@ -46,7 +46,7 @@ private:
 public:
     Terreno();
     void inicializar_terreno();
-    void actualizar_terreno();
+    void actualizar_terreno(int fil_orig, int col_orig, int fil_dest, int col_dest);
     void mostrar_terreno();
 };
 
