@@ -3,12 +3,13 @@
 
 using namespace std;
 
-void Mapa::crear_casilleros(int fila, int columna)
+void Mapa::crear_casilleros()
 {
     int posicion = 0;
-    for(int i = 0; i < fila; i++)
+    //Esto se puede fusionar
+    for(int i = 0; i < FILAS; i++)
     {
-        for(int j = 0; j < columna; j++)
+        for(int j = 0; j < COLUMNAS; j++)
         {
              grafo.insertar_vertice(posicion);
              posicion++;
@@ -63,7 +64,7 @@ void Mapa::mostrar_mapa(){
 
 void Mapa::camino_minimo()
 {   
-    int destino;
+    int origen, destino;
     int fila_destino, columna_destino;
     
     std::cout<<"Ingrese por favor la fila destino (Coordenada X): ";
@@ -71,16 +72,22 @@ void Mapa::camino_minimo()
     
     std::cout<<"Ingrese por favor la columna destino (Coordenada Y):";
     cin>>columna_destino;
-    
+
+
+    origen = vehiculo.obtener_posicion();
     destino = traducir_coordenadas(fila_destino, columna_destino);
+
     grafo.Dijkstra(0,destino);
+    
     
 }
 
 void Mapa::mostrar_recorrido()
 {
     int posicion;
-    traducir_posicion();
+
+    //Se itera la variable del grafo recorrido, pasanda los vertices al traducir posicion, obteniendo las coordenadas para la matriz.
+    traducir_posicion(posicion);
 }
 
 
@@ -89,4 +96,25 @@ int Mapa::traducir_coordenadas(int x, int y)
     int posicion = (x * 8) + y; //Cada x fila hay una diferencia de 8 con el anterior F0 C1 = 0; F1 C1 = 8
 
     return posicion;
+}
+
+coor Mapa::traducir_posicion(int posicion)
+{
+    int fil = 1; 
+    int col = INF; 
+    coor coordenadas;
+
+    while(posicion < COLUMNAS*fil && col == INF)
+    {
+        if(posicion < COLUMNAS*fil)
+        {
+            col = posicion - COLUMNAS*FILAS; 
+        }
+    }
+
+    coordenadas.col = col;
+    coordenadas.fil = fil;
+
+    return coordenadas;
+    
 }

@@ -2,16 +2,24 @@
 #define MAPA_HPP
 #include "grafo.hpp"
 
+const int FILAS = 8;
+const int COLUMNAS = 8;
+
+struct coor{
+    int col;
+    int fil;
+};
 
 class Mapa
 {
     private:
         Grafo grafo;
+        Auto vehiculo;
         
     public:
         //Pre: Recibe la cantidad de filas y columnas
         //Pro: Une los vertices para crear casilleros para un mapa de fila x columna.Tiene que ser matriz cuadrada.
-        void crear_casilleros(int fila, int columna);
+        void crear_casilleros();
 
         //Pre: Recibe la cantidad de filas y columnas
         //Pro: Une los vertices para crear casilleros para un mapa de fila x columna.Tiene que ser matriz cuadrada.
@@ -39,7 +47,7 @@ class Mapa
 
         //Pre:-
         //Post: Descompone la posicion del vertice en coordenadasa X e Y.
-        int traducir_posicion(int posicion);
+        coor traducir_posicion(int posicion);
 };
 
 #endif

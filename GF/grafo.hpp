@@ -5,6 +5,7 @@
 #include "vertice.hpp"
 #include "arista.hpp"
 #include "vector.hpp"
+#include "auto.hpp"
 
 const int DIMENSION_ADY = 64;
 const int INF = 999;
@@ -24,7 +25,7 @@ class Grafo
 
         //Pre:-
         //Post: Retorna True si el grafo esta vacio
-        bool ChequearVacio();
+        bool chequear_vacio();
 
         //Pre:-
         //Post: Retorna el numero de vertices en el grafo

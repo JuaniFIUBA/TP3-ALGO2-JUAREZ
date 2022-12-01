@@ -1,27 +1,41 @@
 #ifndef AUTO_HPP
 #define AUTO_HPP
 
-struct coor{
-    int col;
-    int fil;
-};
-
 class Auto{
 private:
-    coor posicion;
+    int posicion;
     int combustible;
     char identificador;
-    void mover_izquierda();
-    void mover_derecha();
-    void mover_arriba();
-    void mover_abajo();
+
     friend class Terreno;
+
 public:
     Auto();
-    void recargar_combustible(); //Aumenta +5 de combustible.
+    
+    //Pre:-
+    //Post: Aumenta +5 de combustible
+    void recargar_combustible();
+
+    //Pre:-
+    //Post: Reduce el combustible debido al costo del desplazamiento
     void restar_combustible(int costo);
-    coor obtener_posicion();
+
+    //Pre:-
+    //Post: Devuelve la posicion del auto
+    int obtener_posicion();
+
+    //Pre:-
+    //Post: Actualiza la ubicacion del auto
+    void cambiar_posicion(int posicion);
+
+    //Pre:-
+    //Post: Devuelve el combustible actual.
     int obtener_combustible();
+
+    //Pre:-
+    //Post: Revisa el combustible.
+    bool chequear_combustible();
+
 };
 
 #endif

@@ -11,7 +11,7 @@ Grafo::Grafo()
 
 }
 
-bool Grafo::ChequearVacio()
+bool Grafo::chequear_vacio()
 {
     return capacidad == 0;
 }
@@ -41,7 +41,7 @@ void Grafo::insertar_vertice(int posicion)
     if (obtener_vertice(posicion) == NULL) //Verifica si existe el vertice
     {
         Vertice* nuevo = new Vertice(posicion);
-        if (ChequearVacio())
+        if (chequear_vacio())
         {
             raiz = nuevo;
         }
