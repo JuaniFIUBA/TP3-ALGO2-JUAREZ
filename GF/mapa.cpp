@@ -45,6 +45,7 @@ void Mapa::unir_casilleros()
 
 
 void Mapa::mostrar_mapa(){
+   
    /*
     for(int i = 0; i < DIMENSION_ADY; i++){
         std::cout<<std::endl;
@@ -60,7 +61,18 @@ void Mapa::mostrar_mapa(){
 
 
 
-void Mapa::camino_minimo(){
-    std::cout<<"Costo del camino: "<<grafo.Dijkstra(0,63)<<std::endl;
+void Mapa::camino_minimo()
+{
+    int fila, columna;
+    std::cout<<"Ingrese por favor la fila: ";
+    cin>>fila;
+    cin>>columna;
+    
+}
 
+int Mapa::traducir_coordenadas(int x, int y)
+{
+    int posicion = (x * 8)+ y //Cada x fila hay una diferencia de 8 con el anterior F0 C1 = 0; F1 C1 = 8
+
+    return posicion;
 }
