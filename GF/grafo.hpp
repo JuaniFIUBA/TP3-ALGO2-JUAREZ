@@ -14,8 +14,8 @@ class Grafo
     private:
         Vertice *raiz; //Arranque del mapa
         int capacidad; //Capacidad del mapa
-        int recorrido[DIMENSION_ADY];
-        int tope_recorrido;
+        int recorrido[DIMENSION_ADY]; //Los vertices pasados para llegar al destino
+        int tope_recorrido; 
 
     public:
         //Pre:-
@@ -67,7 +67,7 @@ class Grafo
         //Post: Elimina todos los vertices y aristas del Grafo
         void eliminar_todo();
 
-        //Pre: Tienen que estar creado e inicializado el grafo
+        //Pre: Tiene que estar creado e inicializado el grafo
         //Post: Retorna la ruta más corta entre los vertices
         int Dijkstra(int posicion_uno, int posicion_dos);
 

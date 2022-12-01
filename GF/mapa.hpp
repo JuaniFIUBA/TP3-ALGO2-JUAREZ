@@ -29,9 +29,17 @@ class Mapa
         //Post: Calcula el camino minimo a recorrer de origen a destino.
         void camino_minimo();
 
+        //Pre: Usar camino_minimo
+        //Post: Muestra en pantalla el recorrido hecho
+        void mostrar_recorrido();
+
         //Pre:-
         //Post: Transforma las coordenadas recibidas en posición del vertice.
         int traducir_coordenadas(int x, int y);
+
+        //Pre:-
+        //Post: Descompone la posicion del vertice en coordenadasa X e Y.
+        int traducir_posicion(int posicion);
 };
 
 #endif

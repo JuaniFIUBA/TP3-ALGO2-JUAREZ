@@ -62,17 +62,30 @@ void Mapa::mostrar_mapa(){
 
 
 void Mapa::camino_minimo()
-{
-    int fila, columna;
-    std::cout<<"Ingrese por favor la fila: ";
-    cin>>fila;
-    cin>>columna;
+{   
+    int destino;
+    int fila_destino, columna_destino;
+    
+    std::cout<<"Ingrese por favor la fila destino (Coordenada X): ";
+    cin>>fila_destino;
+    
+    std::cout<<"Ingrese por favor la columna destino (Coordenada Y):";
+    cin>>columna_destino;
+    
+    destino = traducir_coordenadas(fila_destino, columna_destino);
+    grafo.Dijkstra(0,destino);
     
 }
 
+void Mapa::mostrar_recorrido()
+{
+    
+}
+
+
 int Mapa::traducir_coordenadas(int x, int y)
 {
-    int posicion = (x * 8)+ y //Cada x fila hay una diferencia de 8 con el anterior F0 C1 = 0; F1 C1 = 8
+    int posicion = (x * 8) + y; //Cada x fila hay una diferencia de 8 con el anterior F0 C1 = 0; F1 C1 = 8
 
     return posicion;
 }

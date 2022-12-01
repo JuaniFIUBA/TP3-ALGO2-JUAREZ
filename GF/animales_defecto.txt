@@ -1,0 +1,3 @@
+Fifi,10,diminuto,sociable
+Messi,35,gigante,jugueton
+Disney,5,pequenio,travieso
