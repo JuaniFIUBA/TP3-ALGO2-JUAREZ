@@ -21,52 +21,57 @@ class AB3
         void agregar(T clave, E dato);
 
         //PRE:
-        //POS: Muestra las claves en orden, 
+        //POS: Wrapper
         void print_in_order();
-        //PRE:
-        //POS:
-        E obtener_dato(T clave);
-        //PRE:
-        //POS:
+        
+        //PRE: Clave debe existir
+        //POS: Devuelve el dato asociado a la clave 
         E buscar(T clave);
+
         //PRE:
-        //POS:
+        //POS: Wrapper
         void aplicar_funcion(void (*foo)(E dato));
-                //PRE:
-        //POS:
+
+        //PRE:
+        //POS: Wrapper
         void aplicar_funcion2(void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector);
+        
         //PRE:
         //POS:
         void aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
+        
         //PRE:
-        //POS:
+        //POS: Wrapper
         bool clave_existe(T clave);
-        //PRE:
-        //POS:
-        void borrar(T clave);
 
+        //DESTRUCTOR.        
         ~AB3();
     private:
+
         //PRE:
-        //POS:
+        //POS: Aplica la función pasada por interfaz a cada uno de los datos del árbol
         void aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato));
         //PRE:
-        //POS:
+        //POS: Aplica la función pasada por interfaz a cada uno de los datos del árbol
         void aplicar_funcion2(Nodo_AB<T,E>* nodo, void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector);
         //PRE:
-        //POS:
+        //POS: Aplica la función pasada por interfaz a cada uno de los datos del árbol
         void aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
+        
         //PRE:
-        //POS:
+        //POS: Función recursiva. Devuelve el nodo asociado a la clave en caso de que exista, nullptr en caso de que no.
         Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
+        
         //PRE:
-        //POS:
+        //POS: Muestra en orden las claves en el árbol.
         void print_in_order(Nodo_AB<T, E>* nodo);
+
         //PRE:
-        //POS:
+        //POS: Busca un nodo válido para insertar la clave dada.
         Nodo_AB<T, E>* buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave);
+       
         //PRE:
-        //POS:
+        //POS: Función recursiva. Borra los nodos del árbol.
         void borrar_nodo(Nodo_AB<T,E> *nodo);
 };
 
@@ -117,15 +122,6 @@ void AB3<T, E>::print_in_order(Nodo_AB<T, E>* nodo)
             cout << nodo -> obtener_clave(1) << ", " <<endl;
         print_in_order(nodo -> obtener_hijo(2));
     }
-}
-
-template <class T, class E>
-E AB3<T, E>::obtener_dato(T clave)
-{
-    Nodo_AB<T,E>* nodo = buscar(this -> raiz, clave);
-    if(nodo == nullptr)
-        cout << "Error, clave inválida" << endl;
-    return nodo -> obtener_dato(clave);
 }
 
 
@@ -220,17 +216,6 @@ bool AB3<T,E>::clave_existe(T clave)
         return true;
     return false;
 }
-
-
-//clave debe existir
-template <class T, class E>
-void AB3<T, E>::borrar(T clave)
-{
-    Nodo_AB<T, E>* nodo = buscar(clave);
-    nodo -> eliminar_nodo();
-}
-
-
 
 template <class T, class E>
 AB3<T, E>::~AB3(){

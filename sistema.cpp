@@ -243,7 +243,7 @@ void Sistema::buscar_animal()
     getline(cin>>ws, nombre);
     if(arbol -> clave_existe(nombre))
     {
-        Animal* animal = arbol -> obtener_dato(nombre);
+        Animal* animal = arbol -> buscar(nombre);
         mostrar_info_animal(animal);
     }
     else
@@ -293,7 +293,7 @@ bool Sistema::seleccionar_animal(){
         return false;
     }
     else{
-        Animal *animal = arbol -> obtener_dato(nombre);
+        Animal *animal = arbol -> buscar(nombre);
         cout << "=====================================" << endl;
         cout << "Felicidades! Ha adoptado a " << nombre << endl;
         cout << "=====================================" << endl;
@@ -387,7 +387,7 @@ void Sistema::cerrar_archivo()
 
     for(int i = 0; i < largo_vector; i++)
     {
-        Animal *animal = arbol -> obtener_dato(nombres->en(i));
+        Animal *animal = arbol -> buscar(nombres->en(i));
         if(i == largo_vector - 1)
         {
             lista_animales << animal->obtener_nombre() << ','
