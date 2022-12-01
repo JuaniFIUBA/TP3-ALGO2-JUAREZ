@@ -36,12 +36,17 @@ void Terreno::cargar_mapa_consumo(){
     }
 }
 
-int Terreno::distancia_manhattan(coor pos1, coor pos2){
-    return  (abs((pos1.col - pos2.col)) + abs((pos1.fil - pos2.fil)));
+int Terreno::distancia_manhattan(int fil_1, int col_1, int fil_2, int col_2){
+    return  (abs((col_1 - col_2)) + abs((fil_1 - fil_2)));
 }
 
 void Terreno::colocar_jugador(){
-    terreno[auto_jugador.posicion.fil][auto_jugador.posicion.col] = auto_jugador.identificador;
+    terreno[0][0] = auto_jugador.identificador;
+}
+
+void Terreno::colocar_jugador(int fil_orig, int col_orig, int fil_dest, int col_dest){
+    if((fil_orig != fil_dest) && (col_orig != col_dest))
+        terreno[fil_dest][col_dest] = auto_jugador.identificador;
 }
 
 void Terreno::cargar_animales(){
@@ -50,19 +55,19 @@ void Terreno::cargar_animales(){
 
     while(i < ANIMALES_A_SER_RESCATADOS){
         bool superpuestos = false;
-        coor coor1;
-        coor1.fil = rand() % dimension;
-        coor1.col = rand() % dimension;
+        int fil = rand() % dimension;
+        int col = rand() % dimension;
         for(int j = 0; j < ANIMALES_A_SER_RESCATADOS; j++){
-            if(distancia_manhattan(coor1,animales[j].pos) == SUPERPUESTOS){
+            if(distancia_manhattan(fil,col,animales[j].fil,animales[j].col) == SUPERPUESTOS){
                 superpuestos = true;
             }
         }
-        if(distancia_manhattan(coor1,auto_jugador.posicion) == SUPERPUESTOS){
+        if(distancia_manhattan(fil,col,0,0) == SUPERPUESTOS){
             superpuestos = true;
         }
         if(!superpuestos){
-            animales[i].pos = coor1;
+            animales[i].fil = fil;
+            animales[i].col = col;
             animales[i].especie = especies[rand() % ANIMALES_A_SER_RESCATADOS];
             i++;
         }
@@ -79,22 +84,22 @@ void Terreno::cargar_colores(){
 
 void Terreno::colocar_animales(){
     for(int i = 0; i < ANIMALES_A_SER_RESCATADOS; i++){
-        terreno[animales[i].pos.fil][animales[i].pos.col] = animales[i].especie;
+        terreno[animales[i].fil][animales[i].col] = animales[i].especie;
     };
 }
 
-int Terreno::jugador_en_animal(){
+int Terreno::jugador_en_animal(int fil_auto, int col_auto){
     bool hay_animal = false;
     int i = 0;
     while((!hay_animal)||(i < tope_animales)){
-        if(distancia_manhattan(animales[i].pos,auto_jugador.posicion) == SUPERPUESTOS){
+        if(distancia_manhattan(animales[i].fil,animales[i].col, fil_auto, col_auto) == SUPERPUESTOS){
             return i;
         }i++;
     }return -1;
 }
 
-void Terreno::eliminar_animal(){
-    int i = jugador_en_animal();
+void Terreno::eliminar_animal(int fil_auto, int col_auto){
+    int i = jugador_en_animal(fil_auto,col_auto);
     if(i != -1){
         for(int j = i; j < tope_animales; j++){
             animales[j] = animales[j+1];
@@ -102,12 +107,16 @@ void Terreno::eliminar_animal(){
     }
 }
 
-void Terreno::cargar_terreno(){
+void Terreno::inicializar_terreno(){
     cargar_mapa_consumo();
     cargar_colores();
     cargar_animales();
     colocar_jugador();
     colocar_animales();
+}
+
+void Terreno::actualizar_terreno(){
+    
 }
 
 void Terreno::mostrar_terreno(){

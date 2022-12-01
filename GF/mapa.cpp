@@ -44,9 +44,13 @@ void Mapa::unir_casilleros()
     conexiones.close();
 }
 
+void Mapa::editar_mapa(){
+    //terreno_t.cargar_terreno();
+}
 
 void Mapa::mostrar_mapa(){
    
+    //terreno_t.mostrar_terreno();
    /*
     for(int i = 0; i < DIMENSION_ADY; i++){
         std::cout<<std::endl;
@@ -56,8 +60,6 @@ void Mapa::mostrar_mapa(){
     }
     std::cout<<std::endl;
    */
-
-
 }
 
 void Mapa::trazladar()
@@ -76,6 +78,7 @@ void Mapa::trazladar()
 
     camino_minimo(origen, destino);
     std::cout<<"Combustible actual: "<<vehiculo.obtener_combustible()<<std::endl;  
+    editar_mapa();
 }
 
 

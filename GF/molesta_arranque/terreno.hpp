@@ -12,8 +12,10 @@ const int SUPERPUESTOS = 0;
 
 using namespace std;
 
+
 struct animal_rescate{
-    coor pos;
+    int fil;
+    int col;
     char especie;
 };
 
@@ -27,7 +29,8 @@ private:
     int mapa_de_consumo[dimension][dimension];
     animal_rescate animales[5];
     int tope_animales;
-    coor pos_jugador;
+    int pos_jugador;
+    friend class Mapa;
     //Metodos
     string asignar_color(int consumo);
     void cargar_mapa_consumo();
@@ -35,13 +38,15 @@ private:
     void cargar_animales();
     void colocar_animales();
     void colocar_jugador();
-    int distancia_manhattan(coor pos1, coor pos2);
-    int jugador_en_animal();
-    void eliminar_animal();
+    void colocar_jugador(int fil_orig, int col_orig, int fil_dest, int col_dest);
+    int distancia_manhattan(int fil_1, int col_1, int fil_2, int col_2);
+    int jugador_en_animal(int fil_auto, int col_auto);
+    void eliminar_animal(int fil_auto, int col_auto);
 
 public:
     Terreno();
-    void cargar_terreno();
+    void inicializar_terreno();
+    void actualizar_terreno();
     void mostrar_terreno();
 };
 
