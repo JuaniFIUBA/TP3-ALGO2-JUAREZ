@@ -21,7 +21,7 @@ void Mapa::crear_casilleros()
 void Mapa::unir_casilleros()
 {
     //std::cout<<"Entraste al unir casilleros"<<std::endl;
-    ifstream conexiones ("../conexiones.txt");
+    ifstream conexiones ("conexiones.txt");
 
     if(!conexiones.is_open()){
         std::cout<<"Error al abrir el archivo"<<std::endl;
@@ -164,4 +164,10 @@ coor Mapa::traducir_posicion(int posicion)
 
     return coordenadas;
     
+}
+
+
+void Mapa::destruir_mapa()
+{
+    grafo.eliminar_todo();
 }

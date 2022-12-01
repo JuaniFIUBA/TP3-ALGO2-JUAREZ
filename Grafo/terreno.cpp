@@ -23,7 +23,7 @@ string Terreno::asignar_color(int consumo){
 };
 
 void Terreno::cargar_mapa_consumo(){
-    fstream lista_consumo("colores.txt");
+    fstream lista_consumo("./Grafo/colores.txt");
     if(!lista_consumo.is_open()){
         cout<< "Error, no se encuentra el archivo"<<endl;
     }

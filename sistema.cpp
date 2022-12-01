@@ -30,7 +30,7 @@ void baniar(Animal *animal)
     animal -> lavarse(); 
 }
 
-void actualizar(Animal* animal, Vector<string>* vector)
+void actualizar(Animal* animal, Vector<Animal*> *vector)
 {
     animal -> pasar_tiempo();
     if(!animal -> esta_adoptado())
@@ -39,10 +39,10 @@ void actualizar(Animal* animal, Vector<string>* vector)
         {
             for(int i = 0; i < vector->tamanio();i++)
             {
-                if(vector->en(i) == animal ->obtener_nombre())
-                    return;
+                if(vector->en(i) == animal)
+                    i++;
             }
-            vector-> insertar(0, animal -> obtener_nombre());
+            vector-> insertar(0, animal);
             cout << "-----------------------------------------" << endl;
             cout << animal -> obtener_nombre() << " escapó de la reserva, se encontraba en mal estado." << endl;
             animal -> eliminar_animal();
@@ -57,12 +57,12 @@ void borrar_animal(Animal *animal)
     delete animal;
 }
 
-void guardar_nombres(Animal *animal, Vector<string>* vector)
+
+void guardar_animales(Animal *animal, Vector<Animal*>* vector)
 {
     if(!animal -> esta_adoptado() && !animal ->esta_eliminado())
-        vector->insertar(0, animal -> obtener_nombre());
+        vector->insertar(0, animal);
 }
-
 
 void _mostrar_animales_disponibles(Animal* animal, int espacio_disponible, Vector<Animal*>* lista_disponibles){
     if(!animal -> esta_adoptado() && !animal->esta_eliminado())
@@ -98,7 +98,7 @@ void _mostrar_animales_disponibles(Animal* animal, int espacio_disponible, Vecto
 Sistema::Sistema(){
     this -> arbol = new AB3<string, Animal*>(3);
     leer_archivo();
-    this -> animales_perdidos = new Vector<string>(1);
+    this -> animales_perdidos = new Vector<Animal*>(1);
 }
 
 void Sistema::leer_archivo(){
@@ -206,10 +206,11 @@ void Sistema::rescatar_animal()
             reiniciar_solicitud = false;
         }
     }
+    mapa.destruir_mapa();
 }
 /*
 
-// ATENCION: ESTA TAMPOCO VA (ES DE LA RESERVA ANTERIOR)
+ATENCION: ESTA TAMPOCO VA (ES DE LA RESERVA ANTERIOR)
 bool Sistema::solicitar_datos_y_agregar()
 {
     string nombre = "", tamanio = "", personalidad = "";
@@ -246,6 +247,8 @@ void Sistema::buscar_animal()
     if(arbol -> clave_existe(nombre))
     {
         Animal* animal = arbol -> buscar(nombre);
+        if(animal -> esta_adoptado() || animal -> esta_eliminado())
+            cout << "No se encontró ningún animal que se llame <" << nombre << ">." << endl;            
         mostrar_info_animal(animal);
     }
     else
@@ -306,15 +309,17 @@ bool Sistema::seleccionar_animal(){
 
 void Sistema::elegir_individualmente()
 {
-    Vector<string> *nombres = new Vector<string>(1);
-    arbol -> aplicar_funcion3(&guardar_nombres, nombres);
-    int largo_vector = nombres -> tamanio() - 1;
+    Vector<Animal*> *animales = new Vector<Animal*>(1);
+    arbol -> aplicar_funcion3(&guardar_animales, animales);
+    int largo_vector = animales -> tamanio() - 1;
     int opcion = 0;
     bool escogido = false;
     int i = 0;
-    Animal *actual = arbol -> buscar(nombres->en(i));
+
     while(!escogido && i < largo_vector){
+        Animal *actual = animales->en(i);
         mostrar_info_animal(actual);
+        cout << i << endl;
         cout<<"\t\t=========================="<<endl;
         cout<<"\t Por favor eliga una de las siguientes opciones\n";
         cout<<"1.Alimentar\n";
@@ -340,7 +345,7 @@ void Sistema::elegir_individualmente()
     if(largo_vector == i){
         cout<<"\t¡No hay más animales!"<<endl;
     }
-    delete nombres;
+    delete animales;
 }
 
 int Sistema::pedir_opcion(int rango_min, int rango_max){
@@ -383,13 +388,13 @@ void Sistema::cerrar_archivo()
 {
     ofstream animales_registrados("animales.csv");
     
-    Vector<string> *nombres = new Vector<string>(1);
-    arbol -> aplicar_funcion3(&guardar_nombres, nombres);
-    int largo_vector = nombres -> tamanio() - 1;
+    Vector<Animal*> *animales = new Vector<Animal*>(1);
+    arbol -> aplicar_funcion3(&guardar_animales, animales);
+    int largo_vector = animales -> tamanio() - 1;
 
     for(int i = 0; i < largo_vector; i++)
     {
-        Animal *animal = arbol -> buscar(nombres->en(i));
+        Animal *animal = animales->en(i);
 
         animales_registrados << animal->obtener_nombre() << ','
         << animal->obtener_edad() << ','
@@ -401,7 +406,7 @@ void Sistema::cerrar_archivo()
         else
         {
             animales_registrados.close();
-            delete nombres;
+            delete animales;
         }
     }
 }

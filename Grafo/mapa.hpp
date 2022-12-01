@@ -51,6 +51,7 @@ class Mapa
         //Post: Descompone la posicion del vertice en coordenadasa X e Y.
         coor traducir_posicion(int posicion);
 
+        void destruir_mapa();
 };
 
 #endif

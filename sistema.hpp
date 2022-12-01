@@ -69,7 +69,7 @@ enum opciones_menu3{
 class Sistema{
 private:
     AB3<string, Animal*> *arbol;
-    Vector<string>* animales_perdidos;
+    Vector<Animal*>* animales_perdidos;
     Mapa mapa;
 public:
 

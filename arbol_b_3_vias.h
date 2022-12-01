@@ -17,31 +17,31 @@ class AB3
         AB3(int vias);
         
         //PRE:
-        //POS: Agrega la clave junto con el dato en el nodo que corresponda
+        //POST: Agrega la clave junto con el dato en el nodo que corresponda
         void agregar(T clave, E dato);
 
         //PRE:
-        //POS: Wrapper
+        //POST: Wrapper
         void print_in_order();
         
         //PRE: Clave debe existir
-        //POS: Devuelve el dato asociado a la clave 
+        //POST: Devuelve el dato asociado a la clave 
         E buscar(T clave);
 
         //PRE:
-        //POS: Wrapper
+        //POST: Wrapper
         void aplicar_funcion(void (*foo)(E dato));
 
         //PRE:
-        //POS: Wrapper
+        //POST: Wrapper
         void aplicar_funcion2(void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector);
         
         //PRE:
-        //POS:
-        void aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
+        //POST: Wrapper
+        void aplicar_funcion3(void (*foo)(E dato, Vector<E>* vector), Vector<E>* vector);
         
         //PRE:
-        //POS: Wrapper
+        //POST: Wrapper
         bool clave_existe(T clave);
 
         //DESTRUCTOR.        
@@ -49,29 +49,29 @@ class AB3
     private:
 
         //PRE:
-        //POS: Aplica la función pasada por interfaz a cada uno de los datos del árbol
+        //POST: Aplica la función pasada por interfaz a cada uno de los datos del árbol
         void aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato));
         //PRE:
-        //POS: Aplica la función pasada por interfaz a cada uno de los datos del árbol
+        //POST: Aplica la función pasada por interfaz a cada uno de los datos del árbol
         void aplicar_funcion2(Nodo_AB<T,E>* nodo, void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector);
         //PRE:
-        //POS: Aplica la función pasada por interfaz a cada uno de los datos del árbol
-        void aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
+        //POST: Aplica la función pasada por interfaz a cada uno de los datos del árbol
+        void aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<E>* vector), Vector<E>* vector);
         
         //PRE:
-        //POS: Función recursiva. Devuelve el nodo asociado a la clave en caso de que exista, nullptr en caso de que no.
+        //POST: Función recursiva. Devuelve el nodo asociado a la clave en caso de que exista, nullptr en caso de que no.
         Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
         
         //PRE:
-        //POS: Muestra en orden las claves en el árbol.
+        //POST: Muestra en orden las claves en el árbol.
         void print_in_order(Nodo_AB<T, E>* nodo);
 
         //PRE:
-        //POS: Busca un nodo válido para insertar la clave dada.
+        //POST: Busca un nodo válido para insertar la clave dada.
         Nodo_AB<T, E>* buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave);
        
         //PRE:
-        //POS: Función recursiva. Borra los nodos del árbol.
+        //POST: Función recursiva. Borra los nodos del árbol.
         void borrar_nodo(Nodo_AB<T,E> *nodo);
 };
 
@@ -189,13 +189,13 @@ void AB3<T,E>::aplicar_funcion2(Nodo_AB<T,E>* nodo, void (*foo)(E dato, int para
 
 
 template <class T, class E>
-void AB3<T,E>::aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector){
+void AB3<T,E>::aplicar_funcion3(void (*foo)(E dato, Vector<E>* vector), Vector<E>* vector){
     aplicar_funcion3(this -> raiz, foo, vector);
 }
 
 
 template <class T, class E>
-void AB3<T,E>::aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector)
+void AB3<T,E>::aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<E>* vector), Vector<E>* vector)
 {
     if(nodo != nullptr)
     {
