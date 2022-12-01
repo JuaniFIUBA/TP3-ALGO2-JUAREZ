@@ -19,61 +19,103 @@ class Nodo_AB
     public:
         //constructor
         Nodo_AB(int vias, T clave, E dato);
-
-        //inserta una clave en el nodo y evalua si es válido, en caso de no serlo llama a dividir();
+        
+        //PRE: 
+        //POS: inserta una clave en el nodo y evalua si es válido, en caso de no serlo llama a dividir();
         void insertar_clave(T clave, E dato);
-
+        
+        //PRE: la clave existe
+        //POS: devuelve el dato asociado a la clave
         E obtener_dato(T clave);
-
+        
+        //PRE:
+        //POS: true en caso de que el nodo contenga la clave, false en otro caso
         bool contiene_clave(T clave);
-
+        
+        //PRE: El nodo pasado por referencia no es nullptr
+        //POS: Asigna el nodo pasado por referencia como hijo en la posicion indicada
         void asignar_hijo(Nodo_AB<T, E>* hijo, int pos);
         
+        //PRE:
+        //POS: Inserta el nodo en el primer lugar del vector <hijos>
         void insertar_hijo_izquierda(Nodo_AB<T, E>* nodo);
-
-        void insertar_hijo_derecha(Nodo_AB<T, E>* nodo);
-
-        void insertar_hijo(Nodo_AB<T,E>* nodo, int pos);
-
-        void mostrar_claves();
-
-        int obtener_claves_usadas();
-
-        Nodo_AB<T, E>* obtener_hijo(int pos);
-
-        void asignar_padre(Nodo_AB<T, E>* padre);
         
+        //PRE:
+        //POS: Inserta el nodo luego del primer lugar distinto de nullptr del vector hijos 
+        void insertar_hijo_derecha(Nodo_AB<T, E>* nodo);
+        
+        //PRE:
+        //POS: Inserta el nodo en la posición indicada
+        void insertar_hijo(Nodo_AB<T,E>* nodo, int pos);
+        
+        //PRE:
+        //POS: Muestra las claves contenidas en el nodo 
+        void mostrar_claves();
+        
+        //PRE:
+        //POS: Devuelve la cantidad de claves contenidas en el nodo
+        int obtener_claves_usadas();
+        
+        //PRE:
+        //POS: Devuelve el nodo hijo en la posición indicada
+        Nodo_AB<T, E>* obtener_hijo(int pos);
+        
+        //PRE:
+        //POS: Asigna al nodo como nodo padre del nodo original
+        void asignar_padre(Nodo_AB<T, E>* nodo);
+        
+        //PRE:
+        //POS: Asigna a todos los hijos distintos de nullptr un padre dado por referencia
         void asignar_padre_a_hijos(Nodo_AB<T,E>* padre);
-
+        
+        //PRE:
+        //POS: Devuelve el padre del nodo
         Nodo_AB<T, E>* obtener_padre();
         
+        //PRE: La clave existe.
+        //POS: Devuelve la clave contenida en la posición dada
         T obtener_clave(int pos);
-
-        //Devuelve la posicion de la cual la clave pasada es menor
+        
+        //PRE:
+        //POS: Devuelve la posicion de la cual la clave pasada es menor
         int menor_a(T clave);
-
+        
+        //PRE:
+        //POS: Devuelve true si los hijos del nodo son todos nullptr
         bool es_hoja();
-
-        void eliminar();
-
-        bool esta_eliminado();
-
+    
         // DESTRUCTOR
         ~Nodo_AB();
 
     private:
+
+        //PRE: El nodo contiene una cantidad de claves inválida 
+        //POS: Separa el nodo en 2 y asigna la clave del medio al nodo padre. Ambos nodos serán hijos del padre. 
         void dividir_nodo();
 
+        //PRE:
+        //POS: Separa el nodo raíz en 2 nodos (que serán hijos de la nueva raíz) y crea una nueva raíz con la clave del medio. 
+        void dividir_nodo_raiz();
+        
+        //PRE:
+        //POS: Inserta la clave y el dato asociado en una posición válida (respetando un orden de menor a mayor).
         void insertar_en_orden(T clave, E dato);
-
+        
+        //PRE:
+        //POS: Devuelve la clave de mayor orden del nodo
         T obtener_mayor();
 
-        //borra todo lo que no sea clave
+        //PRE:
+        //POS: Borra todas las claves y datos asociados a las mismas que no sean la pasada por parámetro
         void reordenar(T clave);
-
+ 
+        //PRE:
+        //POS: Devuelve el índice de la clave pasada por parámetro y -1 en caso de que no exista.
         int index_clave(T clave);
-
-        void intercambiar_hijos(Nodo_AB<T,E>*intercambio, int pos1, int pos2);
+        
+        //PRE:
+        //POS: "Intercambia" hijos en las posiciones indicadas con el nodo pasado por referencia.
+        void intercambiar_hijos(Nodo_AB<T,E>*nodo, int pos1, int pos2);
 
 };
 
@@ -221,16 +263,6 @@ bool Nodo_AB<T, E>::es_hoja()
     return true;
 }
 
-template <class T, class E>
-void Nodo_AB<T,E>::eliminar(){
-    this -> nodo_eliminado = true;
-}
-
-template <class T, class E>
-bool Nodo_AB<T,E>::esta_eliminado()
-{
-    return nodo_eliminado;
-}
 
 template <class T, class E>
 Nodo_AB<T, E>::~Nodo_AB()
@@ -247,32 +279,7 @@ template <class T, class E>
 void Nodo_AB<T, E>::dividir_nodo()
 {
     if(padre == nullptr)
-    {
-        Nodo_AB<T, E>* aux_izquierdo = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(0), this -> datos -> en(0));
-        aux_izquierdo -> asignar_hijo(this -> hijos -> en(0), 0);
-        aux_izquierdo -> asignar_hijo(this -> hijos -> en(1), 1);
-
-        Nodo_AB<T, E>* aux_derecho = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(2), this -> datos -> en(2));
-        aux_derecho -> asignar_hijo(this -> hijos -> en(2), 0);
-        aux_derecho -> asignar_hijo(this -> hijos -> en(3), 1);
-        
-
-        if(hijos -> en(0) != nullptr && hijos -> en(1) != nullptr)
-        {
-            for(int i = 0; i < this -> vias - 1; i++)
-            {
-                aux_izquierdo-> asignar_padre_a_hijos(aux_izquierdo);                
-                aux_derecho -> asignar_padre_a_hijos(aux_derecho);                
-            }
-        }
-        hijos -> en(2) = nullptr;
-        hijos -> en(3) = nullptr;
-            
-        reordenar(claves -> en(1));
-        asignar_hijo(aux_izquierdo, 0);
-        asignar_hijo(aux_derecho, 1);
-    }
-
+        dividir_nodo_raiz();
 
     else
     {
@@ -298,6 +305,34 @@ void Nodo_AB<T, E>::dividir_nodo()
         aux_derecho -> asignar_padre(this -> padre);
         this -> padre -> insertar_clave(clave_aux, dato_aux); 
     }
+}
+
+template <class T, class E>
+void Nodo_AB<T,E>::dividir_nodo_raiz()
+{
+    Nodo_AB<T, E>* aux_izquierdo = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(0), this -> datos -> en(0));
+    aux_izquierdo -> asignar_hijo(this -> hijos -> en(0), 0);
+    aux_izquierdo -> asignar_hijo(this -> hijos -> en(1), 1);
+
+    Nodo_AB<T, E>* aux_derecho = new Nodo_AB<T, E>(this -> vias, this -> claves -> en(2), this -> datos -> en(2));
+    aux_derecho -> asignar_hijo(this -> hijos -> en(2), 0);
+    aux_derecho -> asignar_hijo(this -> hijos -> en(3), 1);
+    
+
+    if(hijos -> en(0) != nullptr && hijos -> en(1) != nullptr)
+    {
+        for(int i = 0; i < this -> vias - 1; i++)
+        {
+            aux_izquierdo-> asignar_padre_a_hijos(aux_izquierdo);                
+            aux_derecho -> asignar_padre_a_hijos(aux_derecho);                
+        }
+    }
+    hijos -> en(2) = nullptr;
+    hijos -> en(3) = nullptr;
+        
+    reordenar(claves -> en(1));
+    asignar_hijo(aux_izquierdo, 0);
+    asignar_hijo(aux_derecho, 1);  
 }
 
 template <class T, class E>

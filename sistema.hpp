@@ -87,10 +87,10 @@ public:
     //pos: busca e imprime las características del animal ingresado por el usuario (busca por nombre)
     void buscar_animal();
     //pre:
-    //pos:
+    //pos: muestra los animales uno por uno y consulta por su mantención. 
     void elegir_individualmente();
     //pre:
-    //pos: 
+    //pos: pide una opción y verifica que el input sea correcto.
     int pedir_opcion(int rango_min, int rango_max);
     //pre:
     //pos: Vuelve el hambre de todos los animales a 0
@@ -99,11 +99,13 @@ public:
     //pos: Vuelve la higiene de todos los animales a 100
     void baniar_todos();
     //pre:
-    //post: Muestra según el tamanio disponible los animales y una vez elegido uno de ellos lo elimina de la lista.
+    //pos: Muestra según el tamanio disponible los animales y una vez elegido uno de ellos lo elimina de la lista.
     void adoptar_animal();
-
+    //pre:
+    //pos: devuelve la cantidad de animales que escaparon
     int cantidad_perdidos();
-
+    //pre:
+    //pos: Wrapper que llama a una función para borrar los punteros a Animal
     void borrar_animales();
     //pre: 
     //pos: Actualiza el archivo "animales.csv" con las modificaciones realizadas por el usuario.

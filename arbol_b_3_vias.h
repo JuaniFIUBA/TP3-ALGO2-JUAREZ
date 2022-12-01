@@ -14,41 +14,59 @@ class AB3
         Nodo_AB<T, E>* raiz;
     public:
         AB3(int vias);
-
+        //PRE:
+        //POS:
         void agregar(T clave, E dato);
-
+        //PRE:
+        //POS:
         Nodo_AB<T, E>* obtener_raiz();
-
+        //PRE:
+        //POS:
         void print_in_order();
-
+        //PRE:
+        //POS:
         E obtener_dato(T clave);
-
+        //PRE:
+        //POS:
         E buscar(T clave);
-
+        //PRE:
+        //POS:
         void aplicar_funcion(void (*foo)(E dato));
-        
+                //PRE:
+        //POS:
         void aplicar_funcion2(void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector);
-
+        //PRE:
+        //POS:
         void aplicar_funcion3(void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
-
+        //PRE:
+        //POS:
         bool clave_existe(T clave);
-
+        //PRE:
+        //POS:
         void borrar(T clave);
 
         ~AB3();
     private:
+        //PRE:
+        //POS:
         void aplicar_funcion(Nodo_AB<T,E>* nodo, void (*foo)(E dato));
-
+        //PRE:
+        //POS:
         void aplicar_funcion2(Nodo_AB<T,E>* nodo, void (*foo)(E dato, int parametro, Vector<E>* vector), int parametro, Vector<E>* vector);
-
+        //PRE:
+        //POS:
         void aplicar_funcion3(Nodo_AB<T,E> *nodo, void (*foo)(E dato, Vector<T>* vector), Vector<T>* vector);
-
+        //PRE:
+        //POS:
         Nodo_AB<T, E>* buscar(Nodo_AB<T,E>*nodo, T clave);
-
+        //PRE:
+        //POS:
         void print_in_order(Nodo_AB<T, E>* nodo);
-
+        //PRE:
+        //POS:
         Nodo_AB<T, E>* buscar_para_insertar(Nodo_AB<T,E>*nodo, T clave);
-
+        //PRE:
+        //POS:
         void borrar_nodo(Nodo_AB<T,E> *nodo);
 };
 
