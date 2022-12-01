@@ -28,10 +28,6 @@ class Mapa
         void unir_casilleros();  
 
         //Pre:-
-        //Post: Modifica el mapa en pantalla
-        void editar_mapa();
-
-        //Pre:-
         //Post: Muestra el mapa en pantalla
         void mostrar_mapa();
 

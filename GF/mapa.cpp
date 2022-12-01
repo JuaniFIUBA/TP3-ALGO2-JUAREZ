@@ -44,12 +44,6 @@ void Mapa::unir_casilleros()
     conexiones.close();
 }
 
-void Mapa::editar_mapa(){
-    grafo.recorrido[0];
-    grafo.tope_recorrido;
-    //terreno_t.cargar_terreno();
-}
-
 
 void Mapa::mostrar_mapa(){
     terreno_t.inicializar_terreno();
@@ -81,7 +75,7 @@ void Mapa::trasladar()
 
     camino_minimo(origen, destino);
     std::cout<<"Combustible actual: "<<vehiculo.obtener_combustible()<<std::endl;  
-    editar_mapa();
+    
 }
 
 
@@ -97,6 +91,7 @@ void Mapa::camino_minimo(int origen,int destino)
     {
         std::cout<<"El vehiculo no tiene el suficiente combustible"<<std::endl;
     }else{
+        mostrar_recorrido();
         vehiculo.cambiar_posicion(destino);
         std::cout<<"La posicion del origen es:"<<origen<<std::endl;
         std::cout<<"La posicion del destino es:"<<destino<<std::endl;
@@ -106,13 +101,36 @@ void Mapa::camino_minimo(int origen,int destino)
 
 void Mapa::mostrar_recorrido()
 {
-    int posicion;
+    coor coordenadas;
+    coor coordenadas_auto;
+    int posicion_auto = vehiculo.obtener_posicion();
+    coordenadas_auto = traducir_posicion(posicion_auto);
+    for(int j = 0; j < grafo.tope_recorrido; j++){
+
+        std::cout<<grafo.recorrido[j]<<"->"<<std::endl;
+    }
+    
+    //for(int i = (grafo.tope_recorrido - 1) ; i <= 0; i--){
+    int i = grafo.tope_recorrido -1; //tope
+    while(i >= 0){    
+        coordenadas = traducir_posicion(grafo.recorrido[i]);
+        
+        terreno_t.actualizar_terreno(coordenadas_auto.fil, coordenadas_auto.col, coordenadas.fil, coordenadas.col);
+        terreno_t.mostrar_terreno();
+        
+        
+        coordenadas_auto = coordenadas;
+        std::cout<<"Auto cambiado: "<<coordenadas_auto.fil<<"-"<<coordenadas_auto.col<<std::endl;
+
+        i--;
+    }
+}
 /*
 
     //Se itera la variable del grafo recorrido, pasanda los vertices al traducir posicion, obteniendo las coordenadas para la matriz.
     traducir_posicion(posicion);
 */
-}
+
 
 
 int Mapa::traducir_coordenadas(int x, int y)
@@ -123,21 +141,25 @@ int Mapa::traducir_coordenadas(int x, int y)
 }
 
 coor Mapa::traducir_posicion(int posicion)
-{
+{ 
+    
     int fil = 1; 
-    int col = INF; 
+    int col; 
     coor coordenadas;
 
-    while(posicion < COLUMNAS*fil && col == INF) //Analiza cual es la fila y columna correspondiente a la posicion
+
+    while(posicion >= COLUMNAS*fil) //Analiza cual es la fila y columna correspondiente a la posicion
     {
-        if(posicion < COLUMNAS*fil)
-        {
-            col = posicion - COLUMNAS*FILAS; 
-        }
+        fil++;
+    }
+    
+    if(posicion < COLUMNAS*fil){
+        col = COLUMNAS*(fil - 1) - posicion; 
+
     }
 
     coordenadas.col = col;
-    coordenadas.fil = fil;
+    coordenadas.fil = fil - 1;
 
     return coordenadas;
     

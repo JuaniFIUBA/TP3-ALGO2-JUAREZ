@@ -21,7 +21,7 @@ int main()
 
     mapa.trasladar();
 
-    mapa.trasladar();
+
 
 
     /*

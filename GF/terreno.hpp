@@ -38,7 +38,7 @@ private:
     void cargar_animales();
     void colocar_animales();
     void colocar_jugador();
-    void colocar_jugador(int fil_orig, int col_orig, int fil_dest, int col_dest);
+    void modificar_jugador(int fil_orig, int col_orig, int fil_dest, int col_dest);
     int distancia_manhattan(int fil_1, int col_1, int fil_2, int col_2);
     int jugador_en_animal(int fil_auto, int col_auto);
     void eliminar_animal(int fil_auto, int col_auto);
