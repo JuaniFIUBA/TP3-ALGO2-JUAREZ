@@ -45,8 +45,11 @@ void Mapa::unir_casilleros()
 }
 
 void Mapa::editar_mapa(){
+    grafo.recorrido[0];
+    grafo.tope_recorrido;
     //terreno_t.cargar_terreno();
 }
+
 
 void Mapa::mostrar_mapa(){
    
@@ -101,15 +104,15 @@ void Mapa::camino_minimo(int origen,int destino)
     
 }
 
-/*
 void Mapa::mostrar_recorrido()
 {
     int posicion;
+/*
 
     //Se itera la variable del grafo recorrido, pasanda los vertices al traducir posicion, obteniendo las coordenadas para la matriz.
     traducir_posicion(posicion);
-}
 */
+}
 
 
 int Mapa::traducir_coordenadas(int x, int y)

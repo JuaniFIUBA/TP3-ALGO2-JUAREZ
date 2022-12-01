@@ -18,6 +18,8 @@ class Grafo
         int recorrido[DIMENSION_ADY]; //Los vertices pasados para llegar al destino
         int tope_recorrido; 
 
+    friend class Mapa;
+
     public:
         //Pre:-
         //Post: Construye un grafo
