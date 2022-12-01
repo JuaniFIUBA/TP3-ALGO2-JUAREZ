@@ -11,7 +11,7 @@ void Auto::recargar_combustible(){
 }
 
 void Auto::restar_combustible(int costo){
-    if(costo < obtener_combustible())
+    if(costo <= obtener_combustible())
     {
         combustible = combustible - costo;
     }
@@ -28,4 +28,8 @@ void Auto::cambiar_posicion(int posicion)
 
 int Auto::obtener_combustible(){
     return combustible;
+}
+
+bool Auto::queda_combustible(){
+    return combustible != 0;
 }

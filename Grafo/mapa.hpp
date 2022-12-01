@@ -50,6 +50,7 @@ class Mapa
         //Pre:-
         //Post: Descompone la posicion del vertice en coordenadasa X e Y.
         coor traducir_posicion(int posicion);
+
 };
 
 #endif

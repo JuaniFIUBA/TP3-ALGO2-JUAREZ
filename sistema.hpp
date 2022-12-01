@@ -17,6 +17,7 @@
 #include "./Animales/Personalidades/jugueton.h"
 #include "./Animales/Personalidades/sociable.h"
 #include "./Animales/Personalidades/travieso.h"
+#include "./Grafo/mapa.hpp"
 #include <iostream>
 #include <string>
 #include <iostream>
@@ -69,6 +70,7 @@ class Sistema{
 private:
     AB3<string, Animal*> *arbol;
     Vector<string>* animales_perdidos;
+    Mapa mapa;
 public:
 
     //pre:

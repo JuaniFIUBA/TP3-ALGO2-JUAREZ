@@ -191,22 +191,23 @@ void Sistema::rescatar_animal()
     bool reiniciar_solicitud = true;
     string input_usuario;
 
-    while(reiniciar_solicitud)
-    {
-        arbol->print_in_order(); 
-        if(!solicitar_datos_y_agregar())
-        {
-            cout << "Desea ingresar nuevamente los datos? S(sí), N(no)." << endl;
-            getline(cin>>ws, input_usuario);
-            a_minuscula(input_usuario);
+    mapa.crear_casilleros();
+    mapa.unir_casilleros();
+    mapa.mostrar_mapa();
 
-            if(input_usuario.find('n') != string::npos)
-                reiniciar_solicitud = false;
-        }
-        else
+    while(reiniciar_solicitud){
+        mapa.trasladar(); 
+        
+        cout << "Desea ingresar nuevamente los datos? S(sí), N(no)." << endl;
+        getline(cin>>ws, input_usuario);
+        a_minuscula(input_usuario);
+
+        if(input_usuario.find('n') != string::npos){
             reiniciar_solicitud = false;
+        }
     }
 }
+/*
 
 // ATENCION: ESTA TAMPOCO VA (ES DE LA RESERVA ANTERIOR)
 bool Sistema::solicitar_datos_y_agregar()
@@ -233,6 +234,7 @@ bool Sistema::solicitar_datos_y_agregar()
     crear_animal(personalidad, nombre, edad, tamanio, especie);
     return true;
 }
+*/
 
 
 

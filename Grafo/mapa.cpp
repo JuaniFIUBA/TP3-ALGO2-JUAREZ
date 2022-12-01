@@ -89,7 +89,8 @@ void Mapa::camino_minimo(int origen,int destino)
 
     if(combustible_previo == vehiculo.obtener_combustible())
     {
-        std::cout<<"El vehiculo no tiene el suficiente combustible"<<std::endl;
+        if(!vehiculo.queda_combustible())
+            std::cout<<"El vehiculo no tiene el suficiente combustible"<<std::endl;
     }else{
         mostrar_recorrido();
         vehiculo.cambiar_posicion(destino);

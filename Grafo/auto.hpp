@@ -34,7 +34,7 @@ public:
 
     //Pre:-
     //Post: Revisa el combustible.
-    bool chequear_combustible();
+    bool queda_combustible();
 
 };
 
