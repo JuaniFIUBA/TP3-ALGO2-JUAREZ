@@ -60,7 +60,7 @@ void Mapa::mostrar_mapa(){
 
 }
 
-void Mapa::trazladar()
+void Mapa::trasladar()
 {
     int origen, destino;
     int fila_destino, columna_destino;

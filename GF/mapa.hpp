@@ -34,8 +34,8 @@ class Mapa
         void mostrar_mapa();
 
         //Pre:-
-        //Post: Pregunta al usuario hacia donde se desea trazladar
-        void trazladar();
+        //Post: Pregunta al usuario hacia donde se desea trasladar
+        void trasladar();
 
         //Pre:-
         //Post: Calcula el camino minimo a recorrer de origen a destino.
