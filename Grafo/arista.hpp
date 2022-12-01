@@ -14,7 +14,7 @@ class Arista
     friend class Grafo;
 
     public:
-        Arista(Vertice* destino, int costo); //Esto se puede mejorar, sobrecargando la funcion, logrando instanciar sin paraemtros, y con parametros creando una arista 
+        Arista(Vertice* dest, int costo); //Esto se puede mejorar, sobrecargando la funcion, logrando instanciar sin paraemtros, y con parametros creando una arista 
 };
 
 #endif

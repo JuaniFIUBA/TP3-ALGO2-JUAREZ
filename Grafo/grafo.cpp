@@ -1,4 +1,8 @@
 #include "grafo.hpp"
+#include <fstream>
+#include "cola.h"
+
+using namespace std;
 
 Grafo::Grafo()
 {
@@ -7,7 +11,7 @@ Grafo::Grafo()
 
 }
 
-bool Grafo::ChequearVacio()
+bool Grafo::chequear_vacio()
 {
     return capacidad == 0;
 }
@@ -20,33 +24,34 @@ int Grafo::obtener_cantidad()
 Vertice* Grafo::obtener_vertice(int posicion)
 {
     Vertice* puntero_soporte = raiz; //Puntero Auxiliar a la raiz.
-    while (puntero_soporte != nullptr)
+    
+    while (puntero_soporte != NULL)
     {
         if (puntero_soporte->posicion == posicion){
             return puntero_soporte;
         }
+        puntero_soporte = puntero_soporte ->sig;
     }
 
-    return nullptr;
+    return NULL;
 }
 
 void Grafo::insertar_vertice(int posicion)
 {
-    if (obtener_vertice(posicion) == nullptr) //Verifica si existe el vertice
+    if (obtener_vertice(posicion) == NULL) //Verifica si existe el vertice
     {
         Vertice* nuevo = new Vertice(posicion);
-
-        if (ChequearVacio())
+        if (chequear_vacio())
         {
             raiz = nuevo;
         }
         else{
             Vertice* i = raiz;
-
-            while (i->sig != nullptr)
+            while (i->sig != NULL)
             {
-                i->sig = nuevo;
+                i = i->sig;
             }
+            i->sig = nuevo;
 
         }
         capacidad++;
@@ -61,33 +66,36 @@ void Grafo::insertar_arista(int posicion_uno, int posicion_dos, int costo)
     Vertice* vertice_uno = obtener_vertice(posicion_uno);
     Vertice* vertice_dos = obtener_vertice(posicion_dos);
 
-    if (vertice_uno == nullptr)
+    if (vertice_uno == NULL)
     {
         std::cout<<"El vertice uno, no existe"<<std::endl;
     }
     
-    if (vertice_dos == nullptr)
+    if (vertice_dos == NULL)
     {
         std::cout<<"El vertice dos, no existe"<<std::endl;
     }
 
-    if(vertice_uno != nullptr && vertice_dos != nullptr)
+    if(vertice_uno != NULL && vertice_dos != NULL)
     {
         Arista* nueva = new Arista(vertice_dos, costo);
 
-        if (vertice_uno == nullptr)
+        if (vertice_uno->ady == NULL)
         {
             vertice_uno->ady = nueva;
         }
         else{
+            
             Arista* puntero_soporte = vertice_uno->ady;
+            
+            //Hay un error de acceso a la clase arista
 
-            while (puntero_soporte->sig != nullptr)
+            while (puntero_soporte->sig != NULL)
             {
                 puntero_soporte = puntero_soporte->sig;
             }
             
-            puntero_soporte->sig = nueva;
+            puntero_soporte->sig = nueva; 
 
         }
     }
@@ -95,8 +103,8 @@ void Grafo::insertar_arista(int posicion_uno, int posicion_dos, int costo)
 }
 
 void Grafo::mostrar_lista_adyacencia()
-{
-    Vertice* i = raiz;
+{ 
+   Vertice* i = raiz;
 
     while (i != nullptr)
     {
@@ -111,7 +119,9 @@ void Grafo::mostrar_lista_adyacencia()
         std::cout<<std::endl;
         i = i->sig;
     }
+
 }
+
 
 void Grafo::eliminar_aristas(Vertice* vertice)
 {
@@ -245,7 +255,7 @@ void Grafo::eliminar_arista(int posicion_uno, int posicion_dos)
                     puntero->sig =siguiente->sig;
                     std::cout<<"Arista"<<posicion_uno<<" -> "<<posicion_dos<<" "<<std::endl;                     
                     delete(siguiente);
-                    encontrado == true;
+                    //encontrado == true;
                 }
 
                 puntero = siguiente;
@@ -273,3 +283,68 @@ void Grafo::eliminar_todo()
     }
 
 }
+
+
+int Grafo::Dijkstra(int inicio, int destino)
+{
+    Cola cola;
+    int distancias[capacidad];
+    bool visitados[capacidad];
+    int padres[capacidad];
+    
+    for(int i = 0; i < capacidad; i++){
+        distancias[i] = INF;
+        visitados[i] = false;
+    }
+
+    Dato dato;
+    dato.vertice_actual = inicio;
+    dato.costo_camino = 0;
+    
+    distancias[inicio] = 0; // Valor inicial del vertice de partida.
+    cola.alta(dato);
+
+    while(!cola.vacia()){
+        Dato aux = cola.consulta();
+        cola.baja();
+        visitados[aux.vertice_actual] = true;
+        
+        
+        if(aux.vertice_actual == destino){
+            while (! cola.vacia()){
+                cola.baja();
+
+            }
+            cola.~Cola();
+            int i = destino;
+            int j = 0;
+            
+            while(i != inicio){
+                recorrido[j] = i;
+                i = padres[i];
+                j++;
+                tope_recorrido = j;
+            }
+            std::cout<<std::endl;
+
+            return aux.costo_camino;
+        }
+        Vertice* vertice = obtener_vertice(aux.vertice_actual);
+        Arista* puntero_arista = vertice->ady;
+
+        while (puntero_arista != nullptr){   
+            int vertice_adyacente = puntero_arista->dest->posicion;
+            int costo_adyacente = puntero_arista->costo;
+
+            if(!visitados[vertice_adyacente] && (distancias[aux.vertice_actual] + costo_adyacente) < distancias[vertice_adyacente]){    
+                distancias[vertice_adyacente] = aux.costo_camino + costo_adyacente;
+                cola.insertar(vertice_adyacente, (distancias[aux.vertice_actual] + costo_adyacente));
+                padres[vertice_adyacente] = aux.vertice_actual;
+            }
+            puntero_arista = puntero_arista->sig;
+        }
+    }
+    return -1;      
+}
+
+

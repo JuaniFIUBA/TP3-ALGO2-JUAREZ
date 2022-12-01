@@ -1,13 +1,30 @@
 #include <iostream>
+#include "mapa.hpp"
 #include "grafo.hpp"
+#include <time.h>
 
 using namespace std;
 
 int main()
 {
-    Grafo *grafo = new Grafo();
-    int opc = 0;
+    srand((unsigned) time(NULL));
 
+    Mapa mapa;
+    
+    mapa.crear_casilleros();
+
+    mapa.unir_casilleros();
+
+    mapa.mostrar_mapa();
+
+    mapa.trasladar();
+
+    mapa.trasladar();
+
+
+
+
+    /*
     while(opc != 8)
     {
         system("cls");
@@ -18,6 +35,12 @@ int main()
         cout <<"5. Eliminar vertice" <<endl;
         cout <<"6. Eliminar arista" <<endl;
         cout <<"7. Eliminar todo" <<endl;
-        cout <<"8.Salir del menu" <<endl;
+        cout <<"8. Salir del menu" <<endl;
     }
+    */
+
+   return 0;
+
 }
+
+//Para probar de manera rapida g++ *.cpp -o Demo -Wall -Werror -Wconversion
