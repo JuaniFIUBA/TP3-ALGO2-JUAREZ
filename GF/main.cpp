@@ -14,11 +14,11 @@ int main()
 
     //mapa.mostrar_mapa();
 
-    mapa.trazladar();
+    mapa.trasladar();
 
-    mapa.trazladar();
+    mapa.trasladar();
 
-    mapa.trazladar();
+    mapa.trasladar();
 
 
     /*
