@@ -14,7 +14,6 @@ class Nodo_AB
         Vector<E> *datos;
         Nodo_AB<T, E> *padre;
         Vector<Nodo_AB<T, E>*> *hijos;
-        bool nodo_eliminado;
 
     public:
         //constructor
@@ -175,14 +174,11 @@ void Nodo_AB<T, E>::insertar_hijo_izquierda(Nodo_AB<T, E>* nodo){
 template <class T, class E>
 void Nodo_AB<T, E>::insertar_hijo_derecha(Nodo_AB<T, E>* nodo){
     int i = vias;
-    if(hijos -> en(i) != nullptr){   
-        this -> hijos-> en(i) = nodo;
-        return;
-    }   
-    while(hijos -> en(i) == nullptr)
+
+    while(hijos -> en(i - 1) == nullptr && i != 0)
         i--;
 
-    this -> hijos -> en(i + 1) = nodo;
+    this -> hijos -> en(i) = nodo;
 }
 
 template <class T, class E>
@@ -337,20 +333,12 @@ void Nodo_AB<T,E>::dividir_nodo_raiz()
 
 template <class T, class E>
 void Nodo_AB<T, E>::insertar_en_orden(T clave, E dato){
-
-    for(int i = 0; i < this -> claves_usadas; i++)
-    {
-        if(clave < claves->en(i))
-        {
-            claves -> insertar(i, clave);
-            datos -> insertar(i, dato);
-            this -> claves_usadas++;
-            return;
-        }
-    }
+    int i = 0;
+    while(i < claves_usadas && clave > claves -> en(i))
+        i++;
     
-    claves -> en(claves_usadas) = clave;
-    datos -> en(claves_usadas) = dato;
+    claves -> insertar(i, clave);
+    datos -> insertar(i, dato);
     this -> claves_usadas++;
 }
 
@@ -386,7 +374,6 @@ void Nodo_AB<T, E>::reordenar(T clave)
 }
 
 
-//devuelve el indice de la clave, -1 si no la encontró
 template <class T, class E>
 int Nodo_AB<T,E>::index_clave(T clave)
 {
