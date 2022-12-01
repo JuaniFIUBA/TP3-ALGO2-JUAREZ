@@ -60,29 +60,41 @@ void Mapa::mostrar_mapa(){
 
 }
 
-
-
-void Mapa::camino_minimo()
-{   
+void Mapa::trazladar()
+{
     int origen, destino;
     int fila_destino, columna_destino;
-    
+
     std::cout<<"Ingrese por favor la fila destino (Coordenada X): ";
     cin>>fila_destino;
     
     std::cout<<"Ingrese por favor la columna destino (Coordenada Y):";
     cin>>columna_destino;
 
-
     origen = vehiculo.obtener_posicion();
     destino = traducir_coordenadas(fila_destino, columna_destino);
 
-    std::cout<<"La posicion de origen es: "<<origen<<std::endl;
-    std::cout<<"La posicion de destino es: "<<destino<<std::endl;
-    std::cout<<grafo.Dijkstra(origen,destino)<<std::endl;
+    camino_minimo(origen, destino);
+    std::cout<<"Combustible actual: "<<vehiculo.obtener_combustible()<<std::endl;  
+}
 
-    
-    
+
+void Mapa::camino_minimo(int origen,int destino)
+{   
+    int costo;
+    costo = grafo.Dijkstra(origen,destino);
+
+    int combustible_previo = vehiculo.obtener_combustible();
+    vehiculo.restar_combustible(costo); 
+
+    if(combustible_previo == vehiculo.obtener_combustible())
+    {
+        std::cout<<"El vehiculo no tiene el suficiente combustible"<<std::endl;
+    }else{
+        vehiculo.cambiar_posicion(destino);
+        std::cout<<"La posicion del origen es:"<<origen<<std::endl;
+        std::cout<<"La posicion del destino es:"<<destino<<std::endl;
+    }
     
 }
 

@@ -14,7 +14,11 @@ int main()
 
     //mapa.mostrar_mapa();
 
-    mapa.camino_minimo();
+    mapa.trazladar();
+
+    mapa.trazladar();
+
+    mapa.trazladar();
 
 
     /*
