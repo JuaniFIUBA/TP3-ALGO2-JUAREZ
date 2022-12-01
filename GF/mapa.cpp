@@ -77,11 +77,16 @@ void Mapa::camino_minimo()
     origen = vehiculo.obtener_posicion();
     destino = traducir_coordenadas(fila_destino, columna_destino);
 
-    grafo.Dijkstra(0,destino);
+    std::cout<<"La posicion de origen es: "<<origen<<std::endl;
+    std::cout<<"La posicion de destino es: "<<destino<<std::endl;
+    std::cout<<grafo.Dijkstra(origen,destino)<<std::endl;
+
+    
     
     
 }
 
+/*
 void Mapa::mostrar_recorrido()
 {
     int posicion;
@@ -89,6 +94,7 @@ void Mapa::mostrar_recorrido()
     //Se itera la variable del grafo recorrido, pasanda los vertices al traducir posicion, obteniendo las coordenadas para la matriz.
     traducir_posicion(posicion);
 }
+*/
 
 
 int Mapa::traducir_coordenadas(int x, int y)
@@ -104,7 +110,7 @@ coor Mapa::traducir_posicion(int posicion)
     int col = INF; 
     coor coordenadas;
 
-    while(posicion < COLUMNAS*fil && col == INF)
+    while(posicion < COLUMNAS*fil && col == INF) //Analiza cual es la fila y columna correspondiente a la posicion
     {
         if(posicion < COLUMNAS*fil)
         {

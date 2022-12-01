@@ -8,13 +8,9 @@ int main()
 {
     Mapa mapa;
     
-    
-    //Hay que borrar el tema de casilleros o filas, dejarlas como cte por ejemplo
     mapa.crear_casilleros();
 
     mapa.unir_casilleros();
-
-    //grafo.llenar_matriz_ady();
 
     //mapa.mostrar_mapa();
 
