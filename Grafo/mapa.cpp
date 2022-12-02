@@ -51,7 +51,10 @@ void Mapa::mostrar_mapa(){
 }
 
 int Mapa::coordenada_valida(int ingreso){
-    while( )
+    while((ingreso < 0)||(ingreso > 7)){
+        std::cout<<"Ingrese por favor un numero entre 0 y 7 ";
+        cin>>ingreso;
+    }return ingreso;
 }
 
 void Mapa::trasladar()
@@ -62,9 +65,13 @@ void Mapa::trasladar()
 
     std::cout<<"Ingrese por favor la fila destino (Coordenada X): ";
     cin>>fila_destino;
-    
+
+    coordenada_valida(fila_destino);
+
     std::cout<<"Ingrese por favor la columna destino (Coordenada Y):";
     cin>>columna_destino;
+
+    coordenada_valida(columna_destino);
 
     origen = vehiculo.obtener_posicion();
     destino = traducir_coordenadas(fila_destino, columna_destino);
