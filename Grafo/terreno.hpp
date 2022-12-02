@@ -42,7 +42,6 @@ private:
     int distancia_manhattan(int fil_1, int col_1, int fil_2, int col_2);
     int jugador_en_animal(int fil_auto, int col_auto);
     void eliminar_animal(int fil_auto, int col_auto);
-    void colocar_indices();
 
 public:
     Terreno();
