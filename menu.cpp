@@ -30,7 +30,8 @@ void Menu::seleccionar_opcion()
                 cin.get();
                 cout << "\e[1;1H\e[2J" << endl; // limpia la consola
                 break;
-            case 2:    
+            case 2:
+                sistema.incializar_mapa();    
                 sistema.rescatar_animal();
                 break;
             case 3:

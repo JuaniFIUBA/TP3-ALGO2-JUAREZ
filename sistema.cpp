@@ -191,8 +191,6 @@ void Sistema::rescatar_animal()
     bool reiniciar_solicitud = true;
     string input_usuario;
 
-    mapa.crear_casilleros();
-    mapa.unir_casilleros();
     mapa.mostrar_mapa();
 
     while(reiniciar_solicitud){
@@ -206,7 +204,6 @@ void Sistema::rescatar_animal()
             reiniciar_solicitud = false;
         }
     }
-    mapa.destruir_mapa();
 }
 /*
 
@@ -411,8 +408,14 @@ void Sistema::cerrar_archivo()
     }
 }
 
+void Sistema::incializar_mapa(){
+    mapa.crear_casilleros();
+    mapa.unir_casilleros();
+}
+
 Sistema::~Sistema(){
     borrar_animales();
     delete arbol;
     delete animales_perdidos;
+    mapa.~Mapa();
 }

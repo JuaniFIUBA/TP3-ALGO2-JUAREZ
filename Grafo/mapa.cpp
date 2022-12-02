@@ -48,15 +48,6 @@ void Mapa::unir_casilleros()
 void Mapa::mostrar_mapa(){
     terreno_t.inicializar_terreno();
     terreno_t.mostrar_terreno();
-   /*
-    for(int i = 0; i < DIMENSION_ADY; i++){
-        std::cout<<std::endl;
-        for(int j = 0; j < DIMENSION_ADY; j++){
-            std::cout<<matriz_de_adyacencia[i][j]<<" ";
-        }
-    }
-    std::cout<<std::endl;
-   */
 }
 
 void Mapa::trasladar()
@@ -170,4 +161,9 @@ coor Mapa::traducir_posicion(int posicion)
 void Mapa::destruir_mapa()
 {
     grafo.eliminar_todo();
+}
+
+Mapa::~Mapa()
+{
+    destruir_mapa();
 }

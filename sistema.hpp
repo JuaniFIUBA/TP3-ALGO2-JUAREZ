@@ -112,6 +112,9 @@ public:
     //pre: 
     //pos: Actualiza el archivo "animales.csv" con las modificaciones realizadas por el usuario.
     void cerrar_archivo();
+    //pre:-
+    //pos: Genera el mapa
+    void incializar_mapa();
     ~Sistema();
 
 
