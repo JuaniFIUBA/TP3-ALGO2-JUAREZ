@@ -50,11 +50,11 @@ void Mapa::mostrar_mapa(){
     terreno_t.mostrar_terreno();
 }
 
-int Mapa::coordenada_valida(int ingreso){
+void Mapa::coordenada_valida(int &ingreso){
     while((ingreso < 0)||(ingreso > 7)){
         std::cout<<"Ingrese por favor un numero entre 0 y 7 ";
         cin>>ingreso;
-    }return ingreso;
+    }
 }
 
 void Mapa::trasladar()

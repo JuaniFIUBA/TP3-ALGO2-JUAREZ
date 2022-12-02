@@ -111,15 +111,6 @@ void Terreno::eliminar_animal(int fil_auto, int col_auto){
     }
 }
 
-void Terreno::colocar_indices(){
-    for(int t = 0; t < dimension; t++){
-        terreno[t][0] = char(48+t);
-    }
-    for(int u = 0; u < dimension; u++){
-        terreno[0][u] = char(48+u);
-    }
-}
-
 void Terreno::inicializar_terreno(){
     cargar_mapa_consumo();
     cargar_colores();
@@ -134,9 +125,8 @@ void Terreno::actualizar_terreno(int fil_orig, int col_orig, int fil_dest, int c
 }
 
 void Terreno::mostrar_terreno(){
-    colocar_indices();
-    for(int i = 1; i < dimension +1; i ++){
-        for(int j = 1; j < dimension +1; j ++){
+    for(int i = 0; i < dimension; i ++){
+        for(int j = 0; j < dimension; j ++){
             cout << colores[i][j] << terreno[i][j] << END_COLOR;
         }cout <<' '<<endl;
     } 
