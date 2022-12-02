@@ -111,10 +111,6 @@ void Terreno::eliminar_animal(int fil_auto, int col_auto){
     }
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ebbec611910a8fd67b4f9f232aa33f9ca0f72387
 void Terreno::inicializar_terreno(){
     cargar_mapa_consumo();
     cargar_colores();
@@ -129,13 +125,8 @@ void Terreno::actualizar_terreno(int fil_orig, int col_orig, int fil_dest, int c
 }
 
 void Terreno::mostrar_terreno(){
-<<<<<<< HEAD
     for(int i = 0; i < dimension; i ++){
         for(int j = 0; j < dimension; j ++){
-=======
-    for(int i = 1; i < dimension +1; i ++){
-        for(int j = 1; j < dimension +1; j ++){
->>>>>>> ebbec611910a8fd67b4f9f232aa33f9ca0f72387
             cout << colores[i][j] << terreno[i][j] << END_COLOR;
         }cout <<' '<<endl;
     } 

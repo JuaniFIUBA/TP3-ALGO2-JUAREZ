@@ -109,10 +109,6 @@ void Mapa::mostrar_recorrido()
     coor coordenadas_auto;
     int posicion_auto = vehiculo.obtener_posicion();
     coordenadas_auto = traducir_posicion(posicion_auto);
-    for(int j = 0; j < grafo.tope_recorrido; j++){
-
-        std::cout<<grafo.recorrido[j]<<"->"<<std::endl;
-    }
     
     //for(int i = (grafo.tope_recorrido - 1) ; i <= 0; i--){
     int i = grafo.tope_recorrido -1; //tope
@@ -146,29 +142,31 @@ int Mapa::traducir_coordenadas(int x, int y)
 
 coor Mapa::traducir_posicion(int posicion)
 { 
-    
-    int fil = 1; 
+    int fil = 0; 
     int col; 
     coor coordenadas;
 
 
-    while(posicion >= COLUMNAS*fil) //Analiza cual es la fila y columna correspondiente a la posicion
+    while(posicion > COLUMNAS*fil) //Analiza cual es la fila y columna correspondiente a la posicion
     {
         fil++;
     }
     
-    if(posicion < COLUMNAS*fil){
-        col = COLUMNAS*(fil - 1) - posicion; 
-
+    if(posicion <= COLUMNAS*fil){
+        if(fil == 0)
+        {
+            col = posicion; 
+        }else{
+            col = posicion - COLUMNAS*(fil); 
+        }
     }
 
     coordenadas.col = col;
-    coordenadas.fil = fil - 1;
+    coordenadas.fil = fil;
 
     return coordenadas;
     
 }
-
 
 void Mapa::destruir_mapa()
 {
