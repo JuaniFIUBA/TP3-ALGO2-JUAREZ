@@ -135,12 +135,6 @@ void Terreno::actualizar_terreno(int fil_orig, int col_orig, int fil_dest, int c
 
 void Terreno::mostrar_terreno(){
     colocar_indices();
-    for(int t = 0; t < dimension; t++){
-        cout<< t;
-    }
-    for(int u = 0; u < dimension; u++){
-        cout<< u<<endl;
-    }
     for(int i = 1; i < dimension +1; i ++){
         for(int j = 1; j < dimension +1; j ++){
             cout << colores[i][j] << terreno[i][j] << END_COLOR;
