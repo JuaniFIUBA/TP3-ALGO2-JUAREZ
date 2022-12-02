@@ -247,15 +247,16 @@ void Grafo::eliminar_arista(int posicion_uno, int posicion_dos)
 
             Arista* puntero = vertice_uno->ady;
             Arista* siguiente = puntero->sig;
-            bool encontrado = false;
+            
 
-            while (siguiente != nullptr && encontrado == false)
+            while (siguiente != nullptr)
             {
                 if (siguiente->dest == vertice_dos){
                     puntero->sig =siguiente->sig;
                     std::cout<<"Arista"<<posicion_uno<<" -> "<<posicion_dos<<" "<<std::endl;                     
                     delete(siguiente);
-                    //encontrado == true;
+                    break;
+                    
                 }
 
                 puntero = siguiente;
