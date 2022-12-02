@@ -299,6 +299,7 @@ void Nodo_AB<T, E>::dividir_nodo()
         intercambiar_hijos(aux_derecho, 2, 0);
         intercambiar_hijos(aux_derecho, 3, 1);
         aux_derecho -> asignar_padre(this -> padre);
+
         this -> padre -> insertar_clave(clave_aux, dato_aux); 
     }
 }
@@ -391,6 +392,8 @@ void Nodo_AB<T,E>::intercambiar_hijos(Nodo_AB<T,E>* intercambio, int pos1, int p
     Nodo_AB<T,E>* aux = this -> hijos -> en(pos1);
     this -> hijos -> en(pos1) = intercambio -> obtener_hijo(pos2);
     intercambio -> asignar_hijo(aux, pos2);
+    if(intercambio -> obtener_hijo(pos2) != nullptr)
+        intercambio -> obtener_hijo(pos2) -> asignar_padre(intercambio);
 }
 
 #endif
