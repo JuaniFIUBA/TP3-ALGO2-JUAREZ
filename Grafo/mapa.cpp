@@ -50,10 +50,15 @@ void Mapa::mostrar_mapa(){
     terreno_t.mostrar_terreno();
 }
 
+int Mapa::coordenada_valida(int ingreso){
+    while( )
+}
+
 void Mapa::trasladar()
 {
     int origen, destino;
     int fila_destino, columna_destino;
+
 
     std::cout<<"Ingrese por favor la fila destino (Coordenada X): ";
     cin>>fila_destino;

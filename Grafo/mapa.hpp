@@ -17,6 +17,7 @@ class Mapa
         Grafo grafo;
         Auto vehiculo;
         Terreno terreno_t;
+        int coordenada_valida();
         
     public:
         //Pre: Recibe la cantidad de filas y columnas
