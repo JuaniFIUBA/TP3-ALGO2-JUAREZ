@@ -113,10 +113,10 @@ void Terreno::eliminar_animal(int fil_auto, int col_auto){
 
 void Terreno::colocar_indices(){
     for(int t = 0; t < dimension; t++){
-        terreno[t][0] = t;
+        terreno[t][0] = char(48+t);
     }
     for(int u = 0; u < dimension; u++){
-        terreno[0][u] = u;
+        terreno[0][u] = char(48+u);
     }
 }
 
