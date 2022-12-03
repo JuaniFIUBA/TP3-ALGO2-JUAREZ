@@ -127,7 +127,7 @@ void Grafo::eliminar_aristas(Vertice* vertice)
 {
     if(vertice != nullptr)
     {
-        Arista* i = vertice->ady;
+        Arista* i;
 
         while (vertice->ady != NULL)
         {
