@@ -115,6 +115,11 @@ public:
     //pre:-
     //pos: Genera el mapa
     void incializar_mapa();
+
+    //pre:-
+    //pos: Genera el terreno
+    void inicializar_terreno();
+
     //pre:-
     //pos: Recarga el combustible del auto
     void cargar_combustible();

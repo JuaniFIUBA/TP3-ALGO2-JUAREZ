@@ -44,9 +44,11 @@ void Mapa::unir_casilleros()
     conexiones.close();
 }
 
+void Mapa::crear_mapa(){
+    terreno_t.inicializar_terreno();
+}
 
 void Mapa::mostrar_mapa(){
-    terreno_t.inicializar_terreno();
     terreno_t.mostrar_terreno();
 }
 

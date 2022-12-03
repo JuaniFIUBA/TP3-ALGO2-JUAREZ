@@ -424,6 +424,10 @@ void Sistema::cargar_combustible()
     mapa->cargar_combustible();
 }
 
+void Sistema::inicializar_terreno(){
+    mapa->crear_mapa();
+}
+
 Sistema::~Sistema(){
     borrar_animales();
     delete arbol;
