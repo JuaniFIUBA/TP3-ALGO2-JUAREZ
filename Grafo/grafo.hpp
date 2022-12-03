@@ -55,7 +55,7 @@ class Grafo
         void eliminar_vertice(int posicion);
 
         //Pre:-
-        //Post Elimina las aristas del vertice.
+        //Post Elimina todas las aristas de un vertice
         void eliminar_aristas(Vertice* vertice);
 
         //Pre:-

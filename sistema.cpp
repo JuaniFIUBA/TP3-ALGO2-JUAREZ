@@ -33,7 +33,7 @@ void baniar(Animal *animal)
 void actualizar(Animal* animal, Vector<Animal*> *vector)
 {
     animal -> pasar_tiempo();
-    if(!animal -> esta_adoptado())
+    if(!animal -> esta_adoptado() && !animal -> esta_eliminado())
     {
         if(animal -> obtener_hambre() == 100 || animal -> obtener_higiene() == 0)
         {
@@ -47,7 +47,10 @@ void actualizar(Animal* animal, Vector<Animal*> *vector)
             cout << animal -> obtener_nombre() << " escapó de la reserva, se encontraba en mal estado." << endl;
             animal -> eliminar_animal();
             cout << "¡ATENCION! "<< endl;
-            cout << "Si se escapan " << 4 - vector -> tamanio() << " animal/es más, se clausurará la reserva." <<endl;
+            if(vector -> tamanio() < 4)
+                cout << "Si se escapan " << 4 - vector -> tamanio() << " animales más, se clausurará la reserva." <<endl;
+            else   
+                cout << "Su reserva será clausurada de forma inminente." << endl;
         }
     }
 }
@@ -99,6 +102,7 @@ Sistema::Sistema(){
     this -> arbol = new AB3<string, Animal*>(3);
     leer_archivo();
     this -> animales_perdidos = new Vector<Animal*>(1);
+    this -> mapa = new Mapa();
 }
 
 void Sistema::leer_archivo(){
@@ -190,13 +194,12 @@ void Sistema::rescatar_animal()
 {
     bool reiniciar_solicitud = true;
     string input_usuario;
+             
 
-    mapa.crear_casilleros();
-    mapa.unir_casilleros();
-    mapa.mostrar_mapa();
+    mapa->mostrar_mapa();
 
     while(reiniciar_solicitud){
-        mapa.trasladar(); 
+        mapa->trasladar(); 
         
         cout << "Desea ingresar nuevamente los datos? S(sí), N(no)." << endl;
         getline(cin>>ws, input_usuario);
@@ -206,7 +209,6 @@ void Sistema::rescatar_animal()
             reiniciar_solicitud = false;
         }
     }
-    mapa.destruir_mapa();
 }
 /*
 
@@ -406,13 +408,19 @@ void Sistema::cerrar_archivo()
         else
         {
             animales_registrados.close();
-            delete animales;
         }
     }
+    delete animales;
+}
+
+void Sistema::incializar_mapa(){
+    mapa->crear_casilleros();
+    mapa->unir_casilleros();
 }
 
 Sistema::~Sistema(){
     borrar_animales();
     delete arbol;
     delete animales_perdidos;
+    delete mapa;
 }

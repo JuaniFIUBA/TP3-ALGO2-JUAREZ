@@ -30,7 +30,8 @@ void Menu::seleccionar_opcion()
                 cin.get();
                 cout << "\e[1;1H\e[2J" << endl; // limpia la consola
                 break;
-            case 2:    
+            case 2:
+                sistema.incializar_mapa();    
                 sistema.rescatar_animal();
                 break;
             case 3:
@@ -52,12 +53,14 @@ void Menu::seleccionar_opcion()
                 sistema.cerrar_archivo();
                 break;
         }       
+        if(opcion_elegida != GUARDAR_Y_SALIR)
+            sistema.actualizar_atributos();
 
-        sistema.actualizar_atributos();
-        if(sistema.cantidad_perdidos() == 3)
+        if(sistema.cantidad_perdidos() >= 3)
         {
             cout << "Su reserva fue clausurada por no mantener a los animales adecuadamente." << endl;
-            break;
+            sistema.cerrar_archivo();
+            opcion_elegida = GUARDAR_Y_SALIR;
         }
     }
     

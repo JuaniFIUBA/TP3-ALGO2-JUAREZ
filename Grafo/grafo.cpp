@@ -125,17 +125,36 @@ void Grafo::mostrar_lista_adyacencia()
 
 void Grafo::eliminar_aristas(Vertice* vertice)
 {
-    if(vertice != nullptr)
-    {
-        Arista* i;
+    Arista *arista_raiz = vertice->ady; // Cola/Inicio de la arista
+    Arista *arista_siguiente = arista_raiz->sig; //Siguiente arista
 
-        while (vertice->ady != NULL)
+    while(arista_siguiente != NULL)
+    {
+        delete(arista_raiz);
+        arista_raiz = arista_siguiente; //La siguiente pasa a ser raiz
+        arista_siguiente = arista_siguiente->sig; //La siguiente avanza hacia la siguiente arista si existe o es NULL.
+    }
+    if(arista_raiz != NULL)
+        delete(arista_raiz);
+
+}
+
+void Grafo::eliminar_todo()
+{
+    if(raiz != nullptr)
+    {
+        Vertice* siguiente = raiz->sig;
+        while (siguiente != nullptr)
         {
-            i = vertice->ady;
-            vertice->ady = vertice->ady->sig;
-            std::cout<<"La arista ["<<vertice->posicion<<"] ha sido borrada"<<std::endl;
-            delete(i);
+            eliminar_aristas(this -> raiz);
+            delete(raiz);
+            raiz = siguiente; //El siguiente pasa a ser la raiz
+            siguiente = siguiente->sig; //Avanzo hacia el siguiente vertice si es que existe
+            capacidad--;
         }
+        eliminar_aristas(raiz);
+        delete(raiz);
+        capacidad--;
     }
 }
 
@@ -247,15 +266,16 @@ void Grafo::eliminar_arista(int posicion_uno, int posicion_dos)
 
             Arista* puntero = vertice_uno->ady;
             Arista* siguiente = puntero->sig;
-            bool encontrado = false;
+            
 
-            while (siguiente != nullptr && encontrado == false)
+            while (siguiente != nullptr)
             {
                 if (siguiente->dest == vertice_dos){
                     puntero->sig =siguiente->sig;
                     std::cout<<"Arista"<<posicion_uno<<" -> "<<posicion_dos<<" "<<std::endl;                     
                     delete(siguiente);
-                    //encontrado == true;
+                    break;
+                    
                 }
 
                 puntero = siguiente;
@@ -266,23 +286,6 @@ void Grafo::eliminar_arista(int posicion_uno, int posicion_dos)
     }    
 }
 
-void Grafo::eliminar_todo()
-{
-    Vertice* puntero = raiz;
-
-    while (puntero != nullptr)
-    {
-
-        puntero = raiz;
-        raiz = raiz->sig;
-        eliminar_aristas(puntero);
-        std::cout<<"Vertice"<<puntero->posicion<<" eliminado"<<std::endl;
-        delete(puntero);
-        capacidad--;
-
-    }
-
-}
 
 
 int Grafo::Dijkstra(int inicio, int destino)

@@ -48,15 +48,13 @@ void Mapa::unir_casilleros()
 void Mapa::mostrar_mapa(){
     terreno_t.inicializar_terreno();
     terreno_t.mostrar_terreno();
-   /*
-    for(int i = 0; i < DIMENSION_ADY; i++){
-        std::cout<<std::endl;
-        for(int j = 0; j < DIMENSION_ADY; j++){
-            std::cout<<matriz_de_adyacencia[i][j]<<" ";
-        }
+}
+
+void Mapa::coordenada_valida(int &ingreso){
+    while((ingreso < 0)||(ingreso > 7)){
+        std::cout<<"Ingrese por favor un numero entre 0 y 7 ";
+        cin>>ingreso;
     }
-    std::cout<<std::endl;
-   */
 }
 
 void Mapa::trasladar()
@@ -64,11 +62,16 @@ void Mapa::trasladar()
     int origen, destino;
     int fila_destino, columna_destino;
 
+
     std::cout<<"Ingrese por favor la fila destino (Coordenada X): ";
     cin>>fila_destino;
-    
+
+    coordenada_valida(fila_destino);
+
     std::cout<<"Ingrese por favor la columna destino (Coordenada Y):";
     cin>>columna_destino;
+
+    coordenada_valida(columna_destino);
 
     origen = vehiculo.obtener_posicion();
     destino = traducir_coordenadas(fila_destino, columna_destino);
@@ -106,10 +109,6 @@ void Mapa::mostrar_recorrido()
     coor coordenadas_auto;
     int posicion_auto = vehiculo.obtener_posicion();
     coordenadas_auto = traducir_posicion(posicion_auto);
-    for(int j = 0; j < grafo.tope_recorrido; j++){
-
-        std::cout<<grafo.recorrido[j]<<"->"<<std::endl;
-    }
     
     //for(int i = (grafo.tope_recorrido - 1) ; i <= 0; i--){
     int i = grafo.tope_recorrido -1; //tope
@@ -143,31 +142,34 @@ int Mapa::traducir_coordenadas(int x, int y)
 
 coor Mapa::traducir_posicion(int posicion)
 { 
-    
-    int fil = 1; 
+    int fil = 0; 
     int col; 
     coor coordenadas;
 
 
-    while(posicion >= COLUMNAS*fil) //Analiza cual es la fila y columna correspondiente a la posicion
+    while(posicion > COLUMNAS*fil) //Analiza cual es la fila y columna correspondiente a la posicion
     {
         fil++;
     }
     
-    if(posicion < COLUMNAS*fil){
-        col = COLUMNAS*(fil - 1) - posicion; 
-
+    if(posicion <= COLUMNAS*fil){
+        if(fil == 0)
+        {
+            col = posicion; 
+        }else{
+            col = posicion - COLUMNAS*(fil); 
+        }
     }
 
     coordenadas.col = col;
-    coordenadas.fil = fil - 1;
+    coordenadas.fil = fil;
 
     return coordenadas;
     
 }
 
 
-void Mapa::destruir_mapa()
+Mapa::~Mapa()
 {
     grafo.eliminar_todo();
 }

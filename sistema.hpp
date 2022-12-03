@@ -70,7 +70,7 @@ class Sistema{
 private:
     AB3<string, Animal*> *arbol;
     Vector<Animal*>* animales_perdidos;
-    Mapa mapa;
+    Mapa *mapa;
 public:
 
     //pre:
@@ -112,6 +112,9 @@ public:
     //pre: 
     //pos: Actualiza el archivo "animales.csv" con las modificaciones realizadas por el usuario.
     void cerrar_archivo();
+    //pre:-
+    //pos: Genera el mapa
+    void incializar_mapa();
     ~Sistema();
 
 

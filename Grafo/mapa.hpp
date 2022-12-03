@@ -17,6 +17,7 @@ class Mapa
         Grafo grafo;
         Auto vehiculo;
         Terreno terreno_t;
+        void coordenada_valida(int &ingreso);
         
     public:
         //Pre: Recibe la cantidad de filas y columnas
@@ -51,7 +52,7 @@ class Mapa
         //Post: Descompone la posicion del vertice en coordenadasa X e Y.
         coor traducir_posicion(int posicion);
 
-        void destruir_mapa();
+        ~Mapa();
 };
 
 #endif
