@@ -125,13 +125,6 @@ void Mapa::mostrar_recorrido()
         i--;
     }
 }
-/*
-
-    //Se itera la variable del grafo recorrido, pasanda los vertices al traducir posicion, obteniendo las coordenadas para la matriz.
-    traducir_posicion(posicion);
-*/
-
-
 
 int Mapa::traducir_coordenadas(int x, int y)
 {
@@ -143,31 +136,32 @@ int Mapa::traducir_coordenadas(int x, int y)
 coor Mapa::traducir_posicion(int posicion)
 { 
     int fil = 0; 
-    int col; 
     coor coordenadas;
 
 
-    while(posicion > COLUMNAS*fil) //Analiza cual es la fila y columna correspondiente a la posicion
+    while(posicion >= COLUMNAS*fil) //Analiza cual es la fila y columna correspondiente a la posicion
     {
         fil++;
     }
-    
-    if(posicion <= COLUMNAS*fil){
-        if(fil == 0)
-        {
-            col = posicion; 
-        }else{
-            col = posicion - COLUMNAS*(fil); 
-        }
+        
+    if(COLUMNAS*fil == 0)
+    {
+        coordenadas.col = posicion;
+        coordenadas.fil = fil;
+    } else{
+        coordenadas.col = posicion - COLUMNAS * (fil - 1);
+        coordenadas.fil = (fil-1);
     }
-
-    coordenadas.col = col;
-    coordenadas.fil = fil;
 
     return coordenadas;
     
 }
 
+void Mapa::cargar_combustible()
+{
+    vehiculo.recargar_combustible();
+    std::cout<<"El combustible es... "<<vehiculo.obtener_combustible()<<std::endl;;
+}
 
 Mapa::~Mapa()
 {

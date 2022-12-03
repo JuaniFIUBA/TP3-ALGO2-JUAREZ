@@ -30,8 +30,7 @@ void Menu::seleccionar_opcion()
                 cin.get();
                 cout << "\e[1;1H\e[2J" << endl; // limpia la consola
                 break;
-            case 2:
-                sistema.incializar_mapa();    
+            case 2: 
                 sistema.rescatar_animal();
                 break;
             case 3:
@@ -54,7 +53,10 @@ void Menu::seleccionar_opcion()
                 break;
         }       
         if(opcion_elegida != GUARDAR_Y_SALIR)
-            sistema.actualizar_atributos();
+            {
+                sistema.actualizar_atributos();
+                sistema.cargar_combustible();
+            }
 
         if(sistema.cantidad_perdidos() >= 3)
         {

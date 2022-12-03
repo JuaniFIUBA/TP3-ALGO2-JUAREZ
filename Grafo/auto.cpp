@@ -7,7 +7,10 @@ Auto::Auto(){
 }
 
 void Auto::recargar_combustible(){
-    combustible += 5;
+    if ( (combustible + 5) <= 100)
+    {
+        combustible += 5;
+    }
 }
 
 void Auto::restar_combustible(int costo){

@@ -103,6 +103,7 @@ Sistema::Sistema(){
     leer_archivo();
     this -> animales_perdidos = new Vector<Animal*>(1);
     this -> mapa = new Mapa();
+    incializar_mapa();
 }
 
 void Sistema::leer_archivo(){
@@ -416,6 +417,11 @@ void Sistema::cerrar_archivo()
 void Sistema::incializar_mapa(){
     mapa->crear_casilleros();
     mapa->unir_casilleros();
+}
+
+void Sistema::cargar_combustible()
+{
+    mapa->cargar_combustible();
 }
 
 Sistema::~Sistema(){

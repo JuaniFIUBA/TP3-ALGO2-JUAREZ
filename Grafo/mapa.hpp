@@ -17,7 +17,6 @@ class Mapa
         Grafo grafo;
         Auto vehiculo;
         Terreno terreno_t;
-        void coordenada_valida(int &ingreso);
         
     public:
         //Pre: Recibe la cantidad de filas y columnas
@@ -35,6 +34,10 @@ class Mapa
         //Pre:-
         //Post: Pregunta al usuario hacia donde se desea trasladar
         void trasladar();
+        
+        //Pre:-
+        //Post: Verifica si el ingreso numerico es correcto
+        void coordenada_valida(int &ingreso);
 
         //Pre:-
         //Post: Calcula el camino minimo a recorrer de origen a destino.
@@ -51,6 +54,10 @@ class Mapa
         //Pre:-
         //Post: Descompone la posicion del vertice en coordenadasa X e Y.
         coor traducir_posicion(int posicion);
+
+        //Pre:-
+        //Post: Recarga el combustible del vehiculo.
+        void cargar_combustible();
 
         ~Mapa();
 };
