@@ -119,6 +119,7 @@ void Terreno::inicializar_terreno(){
 }
 
 void Terreno::actualizar_terreno(int fil_orig, int col_orig, int fil_dest, int col_dest){
+    eliminar_animal(fil_orig,col_orig);
     modificar_jugador(fil_orig,col_orig, fil_dest, col_dest);
     colocar_animales();
 }
