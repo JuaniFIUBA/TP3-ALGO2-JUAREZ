@@ -60,7 +60,7 @@ void Mapa::coordenada_valida(int &ingreso){
     }
 }
 
-Animal* Mapa::trasladar()
+char Mapa::trasladar()
 {
     int origen, destino;
     int fila_destino, columna_destino;

@@ -1,29 +1,5 @@
 #include "terreno.hpp"
-Animal* crear_animal_random(char especie)
-{
-    string tamanios[] = {"diminuto", "pequeño", "mediano", "grande", "gigante"};
-    int edad = (int)(1 + (random() % 100));
-    string tamanio = tamanios[(int)(1 + (random() % 4))];
-    int personalidad_numero = (int)(1 + (random() % 4));
-    Personalidad *personalidad;
-    switch(personalidad_numero){
-        case 1:
-            personalidad = new Dormilon();
-            break;
-        case 2:
-            personalidad = new Jugueton();
-            break;
-        case 3:
-            personalidad = new Sociable();
-            break;
-        case 4:
-            personalidad = new Travieso();
-            break;
-    }
-    Animal *animal = new Animal("", edad, tamanio, especie, personalidad);
-    delete personalidad;
-    return animal;
-}
+
 
 Terreno::Terreno(){
     for(int i = 0; i < dimension; i ++){
@@ -97,7 +73,6 @@ void Terreno::cargar_animales(){
             animales[i].fil = fil;
             animales[i].col = col;
             animales[i].especie = especie;
-            animales[i].animal = crear_animal_random(especie);
             i++;
         }
     }
@@ -120,24 +95,24 @@ void Terreno::colocar_animales(){
 int Terreno::jugador_en_animal(int fil_auto, int col_auto){
     bool hay_animal = false;
     int i = 0;
-    while((!hay_animal)||(i < tope_animales)){
+    while((!hay_animal) && (i < tope_animales)){
         if(distancia_manhattan(animales[i].fil,animales[i].col, fil_auto, col_auto) == SUPERPUESTOS){
             return i;
         }i++;
     }return -1;
 }
 
-Animal* Terreno::eliminar_animal(int fil_auto, int col_auto){
+char Terreno::eliminar_animal(int fil_auto, int col_auto){
     int i = jugador_en_animal(fil_auto,col_auto);
     if(i != -1){
-        Animal* aux = animales[i].animal;
-        terreno[animales[i].fil][animales[i].col] = ' ';
-        for(int j = i; j < tope_animales; j++){
-            animales[j] = animales[j+1];
+        char aux = animales[i].especie;
+        terreno[animales[i].fil][animales[i].col] = auto_jugador.identificador;
+        for(int j = i; j < tope_animales - 1; j++){
+                animales[j] = animales[j+1];
         }tope_animales --;
         return aux;
     }
-    return nullptr;
+    return (char)-1;
 }
 
 void Terreno::inicializar_terreno(){
@@ -150,6 +125,7 @@ void Terreno::inicializar_terreno(){
 
 void Terreno::actualizar_terreno(int fil_orig, int col_orig, int fil_dest, int col_dest){
     modificar_jugador(fil_orig,col_orig, fil_dest, col_dest);
+    colocar_animales();
 }
 
 void Terreno::mostrar_terreno(){
@@ -160,8 +136,4 @@ void Terreno::mostrar_terreno(){
     } 
 }
 
-Terreno::~Terreno()
-{
-    for(int i = 0; i < tope_animales; i++)
-        delete animales[i].animal;
-}
+Terreno::~Terreno(){}

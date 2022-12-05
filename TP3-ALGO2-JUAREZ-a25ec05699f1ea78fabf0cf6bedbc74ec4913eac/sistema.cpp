@@ -5,6 +5,7 @@ using namespace std;
 
 // FUNCIONES AUXILIARES //
 
+
 void mostrar_info_animal(Animal *animal)
 {
     if(animal -> esta_eliminado() || animal -> esta_adoptado())
@@ -117,7 +118,7 @@ void Sistema::leer_archivo(){
         getline(lista_animales, tamanio,',');
         getline(lista_animales, especie,',');
         getline(lista_animales, personalidad);
-        crear_animal(personalidad, nombre, stoi(edad), tamanio, especie[0]);
+        agregar_animal(crear_animal(personalidad, nombre, stoi(edad), tamanio, especie[0]));
     }
     lista_animales.close();
 }
@@ -132,61 +133,52 @@ void Sistema::imprimir_lista()
 
 
 Animal* Sistema::crear_animal_base(std::string n_nombre, int n_edad, std::string n_tamanio, char n_especie, Personalidad* personalidad){
+    Animal* n_animal;
     if(n_especie == PERRO){
-        Animal* n_animal = new Perro(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        return n_animal;
+        n_animal = new Perro(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
     }
     if(n_especie == GATO){
-        Animal* n_animal = new Gato(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        return n_animal;
+        n_animal = new Gato(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
     }
     if(n_especie == CABALLO){
-        Animal* n_animal = new Caballo(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        return n_animal;
+        n_animal = new Caballo(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
     }
     if(n_especie == ROEDOR){
-        Animal* n_animal = new Roedor(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        return n_animal;
+        n_animal = new Roedor(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
     }
     if(n_especie == CONEJO){
-        Animal* n_animal = new Conejo(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        return n_animal;
+        n_animal = new Conejo(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
     }
     if(n_especie == ERIZO){
-        Animal* n_animal = new Erizo(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        return n_animal;
-    }else{
-        Animal* n_animal = new Lagartija(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        return n_animal;
+        n_animal = new Erizo(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
+    }else if(n_especie == LAGARTIJA){
+        n_animal = new Lagartija(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
     }
+    return n_animal;
 }
 
-void Sistema::crear_animal(std::string n_personalidad, std::string n_nombre, int n_edad, std::string n_tamanio, char n_especie){
-    if(n_personalidad == "Dormilon"){
-        Personalidad* personalidad = new Dormilon();
-        Animal* animal = crear_animal_base(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        this->arbol->agregar(animal -> obtener_nombre(), animal);
-        return;
-    }
-    else if(n_personalidad == "Jugueton"){
-        Personalidad* personalidad = new Jugueton();
-        Animal* animal = crear_animal_base(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        this->arbol->agregar(animal -> obtener_nombre(), animal);
-        return;
-    }
-    else if(n_personalidad == "Sociable"){
-        Personalidad* personalidad = new Sociable();
-        Animal* animal = crear_animal_base(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        this->arbol->agregar(animal -> obtener_nombre(), animal);
-        return;
-    }
+Animal *Sistema::crear_animal(std::string n_personalidad, std::string n_nombre, int n_edad, std::string n_tamanio, char n_especie){
+    Personalidad* personalidad; 
+    
+    if(n_personalidad == "Dormilon")
+        personalidad = new Dormilon();
+
+    else if(n_personalidad == "Jugueton")
+        personalidad = new Jugueton();
+
+    else if(n_personalidad == "Sociable")
+        personalidad = new Sociable();
+
     else if(n_personalidad == "Travieso")
-    {
-        Personalidad* personalidad = new Travieso();
-        Animal* animal = crear_animal_base(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
-        this->arbol->agregar(animal -> obtener_nombre(), animal);
-        return;
-    }
+        personalidad = new Travieso();
+    
+    Animal* animal = crear_animal_base(n_nombre, n_edad, n_tamanio, n_especie, personalidad);
+    return animal;
+}
+
+void Sistema::agregar_animal(Animal *animal)
+{
+    this -> arbol -> agregar(animal -> obtener_nombre(), animal);
 }
 
 
@@ -196,11 +188,12 @@ void Sistema::rescatar_animal()
     bool reiniciar_solicitud = true;
     string input_usuario;
     string nombre_animal;
-    mapa->mostrar_mapa();
 
     while(reiniciar_solicitud){    
-        Animal* rescatado = mapa->trasladar(); 
-        if(rescatado)
+        mapa->mostrar_mapa();
+        char especie_rescatada = mapa->trasladar(); 
+
+        if(especie_rescatada != (char)-1)
         {
             cout << "Ingrese como desea llamar al animal encontrado: " << endl;
             getline(cin >> ws, nombre_animal);
@@ -209,8 +202,9 @@ void Sistema::rescatar_animal()
                 cout << "El nombre ingresado se encuentra registrado, por favor, ingrese otro nombre." << endl;
                 getline(cin >> ws, nombre_animal);
             }    
-            rescatado->cambiar_nombre(nombre_animal);
-            arbol -> agregar(rescatado->obtener_nombre(), rescatado);
+            Animal* animal_rescatado = crear_animal_random((char)especie_rescatada);
+            animal_rescatado -> cambiar_nombre(nombre_animal);
+            arbol -> agregar(animal_rescatado -> obtener_nombre(), animal_rescatado);
         }
         
         cout << "Desea ingresar nuevamente los datos? S(sí), N(no)." << endl;
@@ -368,6 +362,16 @@ void Sistema::borrar_animales()
 int Sistema::cantidad_perdidos()
 {
     return this -> animales_perdidos -> tamanio() - 1;
+}
+
+Animal* Sistema::crear_animal_random(char especie)
+{
+    int edad = (int)(rand() % 100);
+    string tamanio = TAMANIOS[(int)(rand() % 5)];
+    int personalidad_numero = (int)(rand() % 4);
+    string personalidad = PERSONALIDADES[personalidad_numero];
+    Animal* animal_random = crear_animal(personalidad, "", edad, tamanio, especie);
+    return animal_random;   
 }
 
 void Sistema::cerrar_archivo()

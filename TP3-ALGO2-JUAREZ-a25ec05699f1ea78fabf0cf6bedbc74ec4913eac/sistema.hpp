@@ -29,6 +29,7 @@ const char CABALLO = 'C';
 const char ROEDOR = 'R';
 const char CONEJO = 'O';
 const char ERIZO = 'E';
+const char LAGARTIJA = 'L';
 const int DIMINUTO = 2;
 const int PEQUENIO = 10;
 const int MEDIANO = 10;
@@ -42,7 +43,7 @@ const int CANTIDAD_PERSONALIDADES = 4;
 const int CANTIDAD_TAMANIOS =  5;
 const int CANTIDAD_ESPECIES = 7;
 const string TAMANIOS[] = {"diminuto", "pequeño", "mediano", "grande", "gigante"};
-const string PERSONALIDADES[] = {"jugueton", "travieso", "sociable", "dormilon"};
+const string PERSONALIDADES[] = {"Jugueton", "Travieso", "Sociable", "Dormilon"};
 const char ESPECIES[] = {'P', 'G', 'C', 'R', 'O', 'E', 'L'};
 
 enum opciones_menu{
@@ -134,8 +135,10 @@ private:
     
     //pre: 
     //pos: crea el animal y lo agrega a la lista en la ultima posicion
-    void crear_animal(std::string n_personalidad, std::string n_nombre, int n_edad, std::string n_tamanio, char n_especie);
+    Animal* crear_animal(std::string n_personalidad, std::string n_nombre, int n_edad, std::string n_tamanio, char n_especie);
     
+    void agregar_animal(Animal* animal);
+
     //pre: pos < cantidad_elementos (lista)
     //pos: muestra todas las características del animal en la posición <<pos>>
     // void mostrar_info_animal(Animal*);
@@ -157,6 +160,10 @@ private:
     //pre:
     //pos: true en caso de que el animal sea seleccionado con exito, false en caso de que no se encuentre el animal
     bool seleccionar_animal();
+
+    Animal* crear_animal_random(char especie);
+
+
 
 };
 

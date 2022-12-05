@@ -35,7 +35,7 @@ class Mapa
 
         //Pre:-
         //Post: Pregunta al usuario hacia donde se desea trasladar
-        Animal* trasladar();
+        char trasladar();
         
         //Pre:-
         //Post: Verifica si el ingreso numerico es correcto

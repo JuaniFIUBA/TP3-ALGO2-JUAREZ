@@ -21,7 +21,7 @@ void merge(Vector<Animal*>&arreglo, int inicio, int mitad, int final){
     k = inicio;
 
     while(i < elementos_izquierda && j < elementos_derecha){
-        if(izquierda.en(i)->obtener_edad() <= derecha.en(j)->obtener_edad())
+        if(izquierda.en(i)->obtener_edad() >= derecha.en(j)->obtener_edad())
         {
             arreglo.en(k) = izquierda.en(i);
             i++;

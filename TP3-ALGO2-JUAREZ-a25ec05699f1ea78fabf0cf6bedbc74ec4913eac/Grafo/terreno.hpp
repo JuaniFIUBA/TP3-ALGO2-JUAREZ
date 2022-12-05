@@ -7,18 +7,7 @@
 #include <fstream>
 #include "colors.h"
 #include "auto.hpp"
-#include "../Animales/animales.h"
-#include "../Animales/perro.h"
-#include "../Animales/gato.h"
-#include "../Animales/caballo.h"
-#include "../Animales/roedor.h"
-#include "../Animales/conejo.h"
-#include "../Animales/erizo.h"
-#include "../Animales/lagartija.h"
-#include "../Animales/Personalidades/dormilon.h"
-#include "../Animales/Personalidades/jugueton.h"
-#include "../Animales/Personalidades/sociable.h"
-#include "../Animales/Personalidades/travieso.h"
+
 const int ANIMALES_A_SER_RESCATADOS = 5;
 const int SUPERPUESTOS = 0;
 
@@ -29,7 +18,6 @@ struct animal_rescate{
     int fil;
     int col;
     char especie;
-    Animal* animal;
 };
 
 class Terreno{
@@ -74,7 +62,8 @@ private:
     int jugador_en_animal(int fil_auto, int col_auto);
     //Pre:
     //Post: Se elimina el animal del vector en caso de que el jugador se encuentre en esa posicion.
-    Animal* eliminar_animal(int fil_auto, int col_auto);
+    char eliminar_animal(int fil_auto, int col_auto);
+    
     void colocar_indices();
 
 public:
