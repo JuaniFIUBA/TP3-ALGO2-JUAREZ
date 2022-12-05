@@ -1,0 +1,1 @@
+ g++ -Wall -Werror -Wconversion -I ./Animales -I ./Animales/Personalidades -I ./Merge -I./Grafo Animales/*.cpp Animales/Personalidades/*.cpp  Merge/*.cpp  Grafo/*.cpp *.cpp -o tp
