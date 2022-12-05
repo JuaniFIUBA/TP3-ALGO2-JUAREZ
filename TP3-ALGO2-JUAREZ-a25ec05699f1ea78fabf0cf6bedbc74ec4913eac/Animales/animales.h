@@ -28,7 +28,7 @@ class Animal
         //Pre: Recibe el nombre y edad del animal, además de una clase Personalidad que modifica el comportamiento.
         //Post: Crea un objeto Animal.
         Animal(string nombre, int edad, string tamanio, char especie, Personalidad *);
-       
+
         //Pre: -
         //Post: Devuelve el nombre del animal.
         string obtener_nombre();
@@ -73,10 +73,6 @@ class Animal
         //Post: "elimina" al animal
         void adoptar_animal();
 
-        //Pre:
-        //Post: Asigna el nombre pasado como parámtro como nombre del animal
-        void asignar_nombre(string nombre);
-
         //Pre:- 
         //Post: Devuelve la especie del animal completa
         virtual string devolver_especie(){return "especie";} 
@@ -92,6 +88,8 @@ class Animal
         //Pre:-
         //Post: Se baña al animal.
         virtual void lavarse(){}
+        
+        void cambiar_nombre(string nuevo_nombre);
 
         //Pre:
         //Post: Destruye al objeto animal, liberando el espacio del puntero a personalidad.

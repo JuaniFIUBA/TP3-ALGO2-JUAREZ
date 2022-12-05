@@ -14,13 +14,6 @@ Animal::Animal(string nombre , int edad, string tamanio, char especie, Personali
     this -> adoptado = false;
 }
 
-// Animal::Animal(){
-//     this->hambre = 0;
-//     this->higiene = 100;
-//     this -> eliminado = false;
-//     this -> adoptado = false;
-// }
-
 string Animal::obtener_nombre(){
     return nombre;
 }
@@ -64,5 +57,9 @@ void Animal::adoptar_animal(){
     this -> adoptado = true;
 }
 
+void Animal::cambiar_nombre(string nuevo_nombre)
+{
+    this -> nombre = nuevo_nombre;
+}
 
 Animal::~Animal(){}
