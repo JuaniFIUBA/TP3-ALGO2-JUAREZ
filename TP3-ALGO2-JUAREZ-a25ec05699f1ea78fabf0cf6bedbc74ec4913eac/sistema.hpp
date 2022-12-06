@@ -20,7 +20,6 @@
 #include "./Grafo/mapa.hpp"
 #include <iostream>
 #include <string>
-#include <iostream>
 #include <fstream>
 
 const char PERRO = 'P';
@@ -52,6 +51,7 @@ enum opciones_menu{
     BUSCAR_ANIMAL,
     CUIDAR_ANIMAL,
     ADOPTAR_ANIMAL,
+    CARGAR_COMBUSTIBLE,
     GUARDAR_Y_SALIR
 };
 
@@ -111,7 +111,10 @@ public:
     //pos: Genera el mapa
     void incializar_mapa();
     //pre:-
-    //pos: Recarga el combustible del auto
+    //pos: Incrementa el combustible del auto en 5.
+    void recarga_automatica();
+    //pre:-
+    //pos: Incrementa el combustible del auto.
     void cargar_combustible();
 
     ~Sistema();

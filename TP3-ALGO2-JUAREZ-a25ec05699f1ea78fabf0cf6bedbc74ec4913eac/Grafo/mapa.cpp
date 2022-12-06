@@ -55,7 +55,7 @@ void Mapa::mostrar_mapa(){
 
 void Mapa::coordenada_valida(int &ingreso){
     while((ingreso < 0)||(ingreso > 7)){
-        std::cout<<"Ingrese por favor un numero entre 0 y 7 ";
+        std::cout<<"Ingrese por favor un numero entre 0 y 7: ";
         cin>>ingreso;
     }
 }
@@ -160,10 +160,14 @@ coor Mapa::traducir_posicion(int posicion)
     
 }
 
-void Mapa::cargar_combustible()
+void Mapa::recarga_automatica()
 {
-    vehiculo.recargar_combustible();
+    vehiculo.recarga_automatica();
     std::cout<<"El combustible es... "<<vehiculo.obtener_combustible()<<std::endl;;
+}
+
+void Mapa::cargar_combustible(){
+    vehiculo.cargar_combustible();
 }
 
 Mapa::~Mapa()

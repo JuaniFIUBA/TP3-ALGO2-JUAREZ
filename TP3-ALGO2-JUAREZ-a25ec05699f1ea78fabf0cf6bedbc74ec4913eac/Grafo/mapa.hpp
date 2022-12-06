@@ -58,7 +58,10 @@ class Mapa
         coor traducir_posicion(int posicion);
 
         //Pre:-
-        //Post: Recarga el combustible del vehiculo.
+        //Post: Incrementa el combustible del vehiculo en 5.
+        void recarga_automatica();
+        //Pre:-
+        //Post: Incrementa el combustible del vehiculo.
         void cargar_combustible();
 
         ~Mapa();

@@ -11,7 +11,8 @@ void Menu::mostrar_menu()
     cout << "3. Buscar animal" << endl;
     cout << "4. Cuidar animales" << endl;
     cout << "5. Adoptar animal" << endl;
-    cout << "6. Guardar y salir" << endl;
+    cout << "6. Cargar combustible" << endl;
+    cout << "7. Guardar y salir" << endl;
     cout << "Seleccione una opcion de las indicadas anteriormente para continuar: ";
 }
 
@@ -49,13 +50,16 @@ void Menu::seleccionar_opcion()
                 cout << "\e[1;1H\e[2J" << endl; // limpia la consola
                 break;
             case 6:
+                sistema.cargar_combustible();
+                break;
+            case 7:
                 sistema.cerrar_archivo();
                 break;
         }       
         if(opcion_elegida != GUARDAR_Y_SALIR)
             {
                 sistema.actualizar_atributos();
-                sistema.cargar_combustible();
+                sistema.recarga_automatica();
             }
 
         if(sistema.cantidad_perdidos() >= 3)

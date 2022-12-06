@@ -396,8 +396,12 @@ void Sistema::incializar_mapa(){
     mapa -> iniciar_terreno();
 }
 
-void Sistema::cargar_combustible()
+void Sistema::recarga_automatica()
 {
+    mapa->recarga_automatica();
+}
+
+void Sistema::cargar_combustible(){
     mapa->cargar_combustible();
 }
 
