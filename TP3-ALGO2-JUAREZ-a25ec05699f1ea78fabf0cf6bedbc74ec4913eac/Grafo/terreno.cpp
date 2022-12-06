@@ -129,9 +129,18 @@ void Terreno::actualizar_terreno(int fil_orig, int col_orig, int fil_dest, int c
 }
 
 void Terreno::mostrar_terreno(){
+    cout<<"  01234567"<<endl;
+    int k = 0;
     for(int i = 0; i < dimension; i ++){
-        for(int j = 0; j < dimension; j ++){
-            cout << colores[i][j] << terreno[i][j] << END_COLOR;
+        for(int j = 0; j < dimension + 2; j ++){
+            if (j == 0){
+                cout<<k;
+                k++;
+            }else if(j == 1){
+                cout<<"|";
+            }else{
+                cout << colores[i][j-2] << terreno[i][j-2] << END_COLOR;
+            }
         }cout <<' '<<endl;
     } 
 }

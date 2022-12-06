@@ -66,12 +66,12 @@ char Mapa::trasladar()
     int fila_destino, columna_destino;
 
 
-    std::cout<<"Ingrese por favor la fila destino (Coordenada X): ";
+    std::cout<<"Ingrese por favor la fila destino: ";
     cin>>fila_destino;
 
     coordenada_valida(fila_destino);
 
-    std::cout<<"Ingrese por favor la columna destino (Coordenada Y):";
+    std::cout<<"Ingrese por favor la columna destino:";
     cin>>columna_destino;
 
     coordenada_valida(columna_destino);
